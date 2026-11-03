@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>华容道立体车库 · 整机装配 / 爆炸视图</title>
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --panel: rgba(16, 19, 28, 0.94);
+      --line: #2a3142;
+      --text: #e8eaed;
+      --muted: #9aa3b2;
+      --accent: #5b9dff;
+      --ok: #69f0ae;
+      --warn: #f4c20d;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; overflow: hidden; }
+    #c { display: block; width: 100%; height: 100%; }
+    #panel {
+      position: absolute; left: 10px; top: 10px; bottom: 10px; width: min(340px, 92vw);
+      z-index: 5; background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
+      padding: 12px 12px 10px; display: flex; flex-direction: column; gap: 8px;
+      box-shadow: 0 12px 40px rgba(0,0,0,.45); backdrop-filter: blur(8px);
+    }
+    #panel h1 { margin: 0; font-size: 15px; font-weight: 700; letter-spacing: .02em; }
+    #panel .sub { font-size: 12px; color: var(--muted); line-height: 1.4; }
+    #panel .sub code { color: var(--accent); font-size: 11px; }
+    .row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+    button, .chip {
+      appearance: none; border: 1px solid var(--line); background: #171b26; color: var(--text);
+      border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }
+    button:hover, .chip:hover { border-color: var(--accent); }
+    button.primary { background: #1a3a6b; border-color: #2f6fdb; }
+    label.ctrl { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); width: 100%; }
+    input[type=range] { flex: 1; accent-color: var(--accent); }
+    #parts {
+      flex: 1; overflow: auto; border: 1px solid var(--line); border-radius: 10px;
+      padding: 6px 8px; background: rgba(0,0,0,.25); min-height: 120px;
+    }
+    #parts details { margin: 4px 0 8px; }
+    #parts summary { cursor: pointer; font-size: 12px; color: var(--accent); font-weight: 600; user-select: none; }
+    #parts label.part {
+      display: flex; align-items: center; gap: 8px; padding: 3px 2px; font-size: 12px; color: var(--text);
+    }
+    #parts label.part input { accent-color: var(--ok); }
+    #parts .swatch { width: 10px; height: 10px; border-radius: 2px; border: 1px solid #0006; flex: none; }
+    #hud {
+      position: absolute; right: 12px; bottom: 12px; z-index: 4; font-size: 12px; color: var(--muted);
+      background: rgba(12,14,20,.75); padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line);
+      max-width: 360px; line-height: 1.45;
+    }
+    #dims {
+      position: absolute; right: 12px; top: 12px; z-index: 4; font-size: 12px;
+      background: rgba(12,14,20,.82); padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line);
+      line-height: 1.5; min-width: 200px;
+    }
+    #dims b { color: var(--warn); font-weight: 600; }
+    #dims code { color: var(--ok); }
+    @media (max-width: 720px) {
+      #panel { width: calc(100% - 20px); bottom: auto; max-height: 46vh; }
+      #dims { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="panel">
+    <h1>华容道式紧凑立体车库</h1>
+    <div class="sub">整机精确 mm 装配 · 可拆解互动<br>
+      外框 <code>300×180×260</code> · 单格 <code>140×80</code> · 层距 <code>100</code><br>
+      CAD 原点：左前角 · 电机 <code>(150,40)</code> · 光轴 ±55
+    </div>
+    <div class="row">
+      <button class="primary" id="btnAllOn" type="button">全部显示</button>
+      <button id="btnAllOff" type="button">全部隐藏</button>
+      <button id="btnReset" type="button">复位装配</button>
+    </div>
+    <div class="row">
+      <button id="btnLayerAll" type="button">按层：全部</button>
+      <button id="btnLayer0" type="button">仅结构/底</button>
+      <button id="btnLayer1" type="button">一层</button>
+      <button id="btnLayer2" type="button">二层</button>
+    </div>
+    <label class="ctrl">爆炸视图
+      <input id="explode" type="range" min="0" max="100" value="0" />
+      <span id="explodeVal">0%</span>
+    </label>
+    <div id="parts"></div>
+  </div>
+  <div id="dims">
+    <div><b>关键尺寸</b>（mm）</div>
+    <div>外包络 <code>300 × 180 × 260</code></div>
+    <div>底板 P01 <code>300 × 180 × 5</code></div>
+    <div>托盘/升降台 <code>140 × 80 × 7</code></div>
+    <div>对接 Z <code>55 / 155</code> · 硬限 <code>28 / 175</code></div>
+    <div>底仓电子区 <code>200 × 100 × 40</code></div>
+    <div>模型车 <code>105 × 43 × 30</code></div>
+    <div>屏可视 <code>95 × 54</code> · 星火 <code>120 × 84</code></div>
+  </div>
+  <div id="hud">拖拽旋转 · 滚轮缩放 · 右键平移<br>单位 mm · Three.js Y-up（CAD Y→场景 Z）</div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+    // ========== Frozen dims (mm) ==========
+    const W = 300, D = 180, T = 5;
+    const FRAME_H = 260;
+    const PROFILE = 20;
+    const CELL_W = 140, CELL_D = 80, TRAY_H = 7;
+    const LAYER_PITCH = 100;
+    const Z1 = 55, Z2 = 155;
+    const Z_HARD_LO = 28, Z_HARD_HI = 175;
+    const MX = 150, MY = 40;
+    const SHAFT_SPAN = 110;
+    const SX_L = MX - 55, SX_R = MX + 55;
+    const ELEC = { x0: 50, x1: 250, y0: 75, y1: 175, h: 40 };
+
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x0b0d12);
+    scene.fog = new THREE.Fog(0x0b0d12, 900, 2200);
+
+    const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.5, 5000);
+    camera.position.set(420, 340, 480);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+    renderer.setSize(innerWidth, innerHeight);
+    renderer.domElement.id = 'c';
+    document.body.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.target.set(W / 2, FRAME_H * 0.42, D / 2);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.06;
+    controls.maxDistance = 1600;
+    controls.update();
+
+    scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+    const key = new THREE.DirectionalLight(0xffffff, 0.95);
+    key.position.set(200, 520, 160);
+    scene.add(key);
+    const fill = new THREE.DirectionalLight(0x88aaff, 0.35);
+    fill.position.set(-180, 120, -80);
+    scene.add(fill);
+
+    const grid = new THREE.GridHelper(500, 50, 0x3a4258, 0x1c2230);
+    grid.position.set(W / 2, -0.2, D / 2);
+    scene.add(grid);
+    scene.add(new THREE.AxesHelper(50));
+
+    // CAD (x,y,z) → Three (x, z, y)
+    function cad(x, y, z) { return new THREE.Vector3(x, z, y); }
+
+    function mat(color, opts = {}) {
+      return new THREE.MeshStandardMaterial({
+        color, metalness: opts.metalness ?? 0.25, roughness: opts.roughness ?? 0.55,
+        transparent: !!opts.opacity && opts.opacity < 1, opacity: opts.opacity ?? 1,
+        ...opts
+      });
+    }
+
+    function boxMesh(sx, sy, sz, color, opts) {
+      const m = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), mat(color, opts));
+      return m;
+    }
+
+    function edged(mesh, edgeColor = 0xffffff, opacity = 0.35) {
+      const e = new THREE.LineSegments(
+        new THREE.EdgesGeometry(mesh.geometry),
+        new THREE.LineBasicMaterial({ color: edgeColor, transparent: true, opacity })
+      );
+      mesh.add(e);
+      return mesh;
+    }
+
+    function makeLabel(text, pos, scale = [48, 12]) {
+      const c = document.createElement('canvas');
+      c.width = 512; c.height = 128;
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0, 0, 512, 128);
+      ctx.font = 'bold 44px system-ui,sans-serif';
+      ctx.strokeStyle = '#000'; ctx.lineWidth = 6;
+      ctx.strokeText(text, 12, 78);
+      ctx.fillStyle = '#fff';
+      ctx.fillText(text, 12, 78);
+      const spr = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthTest: false }));
+      spr.scale.set(scale[0], scale[1], 1);
+      spr.position.copy(pos);
+      return spr;
+    }
+
+    /** Registry of interactive parts */
+    const parts = [];
+    const root = new THREE.Group();
+    root.name = '整机';
+    scene.add(root);
+
+    function register(obj, meta) {
+      obj.name = meta.name;
+      obj.userData.partId = meta.id;
+      obj.userData.group = meta.group;
+      obj.userData.layer = meta.layer ?? 'all'; // all | struct | L1 | L2 | lift | elec
+      obj.userData.home = obj.position.clone();
+      // explode direction from assembly center
+      const center = new THREE.Vector3(W / 2, FRAME_H / 2, D / 2);
+      const world = obj.getWorldPosition(new THREE.Vector3());
+      let dir = world.clone().sub(center);
+      if (dir.lengthSq() < 1e-3) dir.set(0, 1, 0);
+      dir.normalize();
+      if (meta.explodeDir) dir.copy(meta.explodeDir).normalize();
+      obj.userData.explodeDir = dir;
+      obj.userData.explodeDist = meta.explodeDist ?? 80;
+      obj.userData.color = meta.color;
+      root.add(obj);
+      parts.push({ obj, ...meta });
+      return obj;
+    }
+
+    function profileBar(len, axis, color = 0x8a93a6) {
+      // 2020 extrusion: 20×20 cross section, length along axis ('x'|'y'|'z' in CAD)
+      let sx, sy, sz;
+      if (axis === 'x') { sx = len; sy = PROFILE; sz = PROFILE; }
+      else if (axis === 'y') { sx = PROFILE; sy = PROFILE; sz = len; }
+      else { sx = PROFILE; sy = len; sz = PROFILE; }
+      return edged(boxMesh(sx, sy, sz, color, { metalness: 0.55, roughness: 0.35 }), 0xd0d6e2, 0.45);
+    }
+
+    // ----- P01 Baseplate -----
+    {
+      const g = new THREE.Group();
+      const plate = edged(boxMesh(W, T, D, 0x3a7bd5, { metalness: 0.2, roughness: 0.5 }), 0xffffff, 0.5);
+      plate.position.set(W / 2, T / 2, D / 2);
+      g.add(plate);
+      // keep-out volume visualization (thin)
+      const kh = ELEC.h;
+      const keep = edged(boxMesh(ELEC.x1 - ELEC.x0, kh, ELEC.y1 - ELEC.y0, 0xf4c20d, { opacity: 0.12, transparent: true, depthWrite: false }), 0xf4c20d, 0.7);
+      keep.position.set((ELEC.x0 + ELEC.x1) / 2, T + kh / 2, (ELEC.y0 + ELEC.y1) / 2);
+      g.add(keep);
+      g.add(makeLabel('P01 300×180×5', cad(150, -14, T + 8)));
+      register(g, { id: 'P01', name: 'P01 底板', group: '结构', layer: 'struct', color: '#3a7bd5', explodeDist: 40, explodeDir: new THREE.Vector3(0, -1, 0) });
+    }
+
+    // ----- Frame posts & beams -----
+    const postXY = [[10, 10], [290, 10], [10, 170], [290, 170]];
+    {
+      const g = new THREE.Group();
+      postXY.forEach(([x, y], i) => {
+        const p = profileBar(FRAME_H, 'z', 0x9aa3b5);
+        p.position.set(x, FRAME_H / 2, y);
+        g.add(p);
+      });
+      register(g, { id: 'P02', name: 'P02 立柱×4 (2020×260)', group: '结构', layer: 'struct', color: '#9aa3b5', explodeDist: 110 });
+    }
+
+    function addRectFrame(zMid, id, name, layer, explodeY = 0) {
+      const g = new THREE.Group();
+      // X beams front/back
+      [[10, W - 20], [170, W - 20]].forEach(([y, len]) => {
+        const b = profileBar(len, 'x');
+        b.position.set(W / 2, zMid, y);
+        g.add(b);
+      });
+      // Y beams left/right
+      [[10, D - 20], [290, D - 20]].forEach(([x, len]) => {
+        const b = profileBar(len, 'y');
+        b.position.set(x, zMid, D / 2);
+        g.add(b);
+      });
+      register(g, { id, name, group: '结构', layer, color: '#8a93a6', explodeDist: 70, explodeDir: new THREE.Vector3(0, explodeY || (zMid > 100 ? 1 : -0.2), 0) });
+    }
+    addRectFrame(PROFILE / 2 + T, 'P03B', 'P03 底框横梁', 'struct', -0.3);
+    addRectFrame(FRAME_H - PROFILE / 2, 'P03T', 'P03 顶框横梁', 'struct', 1);
+
+    // Layer beams (simplified 2×2 grid rails around cells)
+    function layerBeams(zRail, id, name, layer) {
+      const g = new THREE.Group();
+      // perimeter at layer
+      [[30, W - 60, 'x', 30], [30, W - 60, 'x', 150], [30, D - 60, 'y', 30], [30, D - 60, 'y', 270]].forEach((cfg, i) => {
+        // skip weird; build explicitly
+      });
+      // Front / mid / back X beams
+      [30, 100, 160].forEach((y) => {
+        const b = profileBar(260, 'x', 0x6e7a90);
+        b.position.set(150, zRail, y);
+        g.add(b);
+      });
+      // Left / center / right Y beams — leave center well roughly open
+      [30, 270].forEach((x) => {
+        const b = profileBar(140, 'y', 0x6e7a90);
+        b.position.set(x, zRail, 100);
+        g.add(b);
+      });
+      // mid divider behind well
+      const mid = profileBar(100, 'y', 0x6e7a90);
+      mid.position.set(150, zRail, 120);
+      g.add(mid);
+      // well outline markers
+      const well = edged(boxMesh(CELL_W, 2, CELL_D, 0xff6b6b, { opacity: 0.15, transparent: true, depthWrite: false }), 0xff6b6b, 0.8);
+      well.position.set(MX, zRail + 2, MY);
+      g.add(well);
+      g.add(makeLabel(name.split(' ')[0], cad(40, 100, zRail + 12), [36, 9]));
+      register(g, { id, name, group: '层框架', layer, color: '#6e7a90', explodeDist: 90, explodeDir: new THREE.Vector3(layer === 'L1' ? -0.3 : 0.3, layer === 'L1' ? 0.2 : 0.8, 0) });
+    }
+    layerBeams(Z1, 'P04', 'P04 一层梁/导轨框 (Z≈55)', 'L1');
+    layerBeams(Z2, 'P05', 'P05 二层梁/导轨框 (Z≈155)', 'L2');
+
+    // ----- Lift subsystem -----
+    {
+      const g = new THREE.Group();
+      // NEMA17 body 42×42×40 under plate top, shaft up — motor sits on plate around (150,40)
+      const nema = edged(boxMesh(42, 40, 42, 0x22262e, { metalness: 0.4, roughness: 0.4 }), 0x88aaff, 0.5);
+      nema.position.set(MX, T + 20, MY);
+      g.add(nema);
+      const hub = new THREE.Mesh(new THREE.CylinderGeometry(11, 11, 6, 24), mat(0xcccccc, { metalness: 0.7 }));
+      hub.position.set(MX, T + 43, MY);
+      g.add(hub);
+      g.add(makeLabel('NEMA17', cad(MX, MY - 28, T + 48), [40, 10]));
+      register(g, { id: 'P10', name: 'P10 NEMA17 步进电机', group: '升降', layer: 'lift', color: '#22262e', explodeDist: 50, explodeDir: new THREE.Vector3(0, -1, 0.2) });
+    }
+
+    {
+      const g = new THREE.Group();
+      // T8 leadscrew ~300
+      const rod = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 300, 16), mat(0xc0c6d0, { metalness: 0.85, roughness: 0.25 }));
+      rod.position.set(MX, T + 20 + 150, MY);
+      g.add(rod);
+      register(g, { id: 'P11', name: 'P11 T8 丝杆 L≈300', group: '升降', layer: 'lift', color: '#c0c6d0', explodeDist: 60, explodeDir: new THREE.Vector3(0.2, 1, 0) });
+    }
+
+    {
+      const g = new THREE.Group();
+      [SX_L, SX_R].forEach((x, i) => {
+        const shaft = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 300, 16), mat(0x69f0ae, { metalness: 0.8, roughness: 0.2 }));
+        shaft.position.set(x, T + 15 + 150, MY);
+        g.add(shaft);
+      });
+      g.add(makeLabel('光轴跨距 110', cad(MX, MY + 18, 120), [50, 12]));
+      register(g, { id: 'P12', name: 'P12 Φ8 光轴×2', group: '升降', layer: 'lift', color: '#69f0ae', explodeDist: 70, explodeDir: new THREE.Vector3(-0.4, 0.6, 0) });
+    }
+
+    {
+      const g = new THREE.Group();
+      const zs = [15, 245];
+      zs.forEach((z) => {
+        [SX_L, SX_R].forEach((x) => {
+          const seat = edged(boxMesh(28, 12, 20, 0x546e7a), 0xffffff, 0.4);
+          seat.position.set(x, z, MY);
+          g.add(seat);
+        });
+      });
+      register(g, { id: 'P13', name: 'P13 光轴支座×4 (Z≈15/245)', group: '升降', layer: 'lift', color: '#546e7a', explodeDist: 55 });
+    }
+
+    {
+      const g = new THREE.Group();
+      const plat = edged(boxMesh(CELL_W, TRAY_H, CELL_D, 0xff8a65, { metalness: 0.2, roughness: 0.5 }), 0xffffff, 0.55);
+      // platform at layer-1 dock height for assembly view
+      plat.position.set(MX, Z1 + TRAY_H / 2, MY);
+      g.add(plat);
+      // linear bearings
+      [[-55, -8], [55, -8]].forEach(([dx, dy]) => {
+        const br = new THREE.Mesh(new THREE.CylinderGeometry(7, 7, 18, 16), mat(0xb0bec5, { metalness: 0.6 }));
+        br.rotation.z = Math.PI / 2;
+        br.position.set(MX + dx, Z1 + TRAY_H / 2, MY + dy);
+        g.add(br);
+      });
+      g.add(makeLabel('P14 升降台 Z=55', cad(MX, MY - 50, Z1 + 18), [55, 12]));
+      register(g, { id: 'P14', name: 'P14 升降台 140×80', group: '升降', layer: 'lift', color: '#ff8a65', explodeDist: 100, explodeDir: new THREE.Vector3(0, 1, -0.3) });
+    }
+
+    // Limit markers
+    {
+      const g = new THREE.Group();
+      [[Z_HARD_LO, 0xff5252, '下硬限 28'], [Z1, 0x69f0ae, '一层 55'], [Z2, 0x69f0ae, '二层 155'], [Z_HARD_HI, 0xff5252, '上硬限 175']].forEach(([z, col, lab]) => {
+        const m = new THREE.Mesh(new THREE.BoxGeometry(12, 4, 8), mat(col));
+        m.position.set(MX + 78, z, MY);
+        g.add(m);
+        g.add(makeLabel(lab, cad(MX + 95, MY, z), [40, 10]));
+      });
+      register(g, { id: 'P16', name: 'P16 限位/霍尔示意', group: '升降', layer: 'lift', color: '#ff5252', explodeDist: 45 });
+    }
+
+    // ----- Trays (6) on 2×2 with one empty per layer -----
+    // Cell centers from sketch
+    const cells = {
+      LF: { x: 80, y: 100, label: '左前' },   // adjusted slightly for frame
+      RF: { x: 220, y: 100, label: '右前' },
+      LB: { x: 80, y: 150, label: '左后' },
+      RB: { x: 220, y: 150, label: '右后' },
+    };
+    // Layer1 occupied: LF, RF, LB (empty RB); Layer2: RF, LB, RB (empty LF)
+    const trayPlan = [
+      { id: 'P20-L1-LF', cell: 'LF', z: Z1, layer: 'L1' },
+      { id: 'P20-L1-RF', cell: 'RF', z: Z1, layer: 'L1' },
+      { id: 'P20-L1-LB', cell: 'LB', z: Z1, layer: 'L1' },
+      { id: 'P20-L2-RF', cell: 'RF', z: Z2, layer: 'L2' },
+      { id: 'P20-L2-LB', cell: 'LB', z: Z2, layer: 'L2' },
+      { id: 'P20-L2-RB', cell: 'RB', z: Z2, layer: 'L2' },
+    ];
+
+    function makeTray(cx, cy, z, withCar, color) {
+      const g = new THREE.Group();
+      const board = edged(boxMesh(CELL_W, TRAY_H, CELL_D, color, { metalness: 0.15, roughness: 0.55 }), 0xffffff, 0.4);
+      board.position.set(cx, z + TRAY_H / 2, cy);
+      g.add(board);
+      // N20 motor block on right edge
+      const n20 = edged(boxMesh(12, 10, 10, 0x37474f), 0x90caf9, 0.5);
+      n20.position.set(cx + CELL_W / 2 - 8, z + TRAY_H + 5, cy);
+      g.add(n20);
+      // rail hints
+      [-CELL_D / 2 + 6, CELL_D / 2 - 6].forEach((dz) => {
+        const rail = boxMesh(CELL_W - 10, 2, 3, 0xb0bec5, { metalness: 0.7, roughness: 0.3 });
+        rail.position.set(cx, z - 1, cy + dz);
+        g.add(rail);
+      });
+      if (withCar) {
+        const car = edged(boxMesh(105, 30, 43, 0xe53935, { metalness: 0.35, roughness: 0.4 }), 0xffcdd2, 0.5);
+        car.position.set(cx, z + TRAY_H + 15, cy);
+        g.add(car);
+      }
+      return g;
+    }
+
+    trayPlan.forEach((t, i) => {
+      const c = cells[t.cell];
+      const g = makeTray(c.x, c.y, t.z, i === 0 || i === 3, t.layer === 'L1' ? 0x26a69a : 0x7e57c2);
+      g.add(makeLabel(`${t.id}`, cad(c.x, c.y - 48, t.z + 22), [52, 11]));
+      register(g, {
+        id: t.id,
+        name: `${t.id} 托盘(${cells[t.cell].label})+N20`,
+        group: '托盘',
+        layer: t.layer,
+        color: t.layer === 'L1' ? '#26a69a' : '#7e57c2',
+        explodeDist: 95 + (i % 3) * 8,
+        explodeDir: new THREE.Vector3((c.x - 150) / 150, t.layer === 'L2' ? 0.9 : 0.15, (c.y - 90) / 100)
+      });
+    });
+
+    // Empty slot markers
+    {
+      const g = new THREE.Group();
+      const mk = (cx, cy, z, lab) => {
+        const ring = edged(boxMesh(CELL_W, 1.5, CELL_D, 0xffffff, { opacity: 0.08, transparent: true, depthWrite: false }), 0xffffff, 0.55);
+        ring.position.set(cx, z + 1, cy);
+        g.add(ring);
+        g.add(makeLabel(lab, cad(cx, cy, z + 10), [40, 10]));
+      };
+      mk(cells.RB.x, cells.RB.y, Z1, '一层空位');
+      mk(cells.LF.x, cells.LF.y, Z2, '二层空位');
+      register(g, { id: 'EMPTY', name: '空位示意 (每层1空)', group: '托盘', layer: 'all', color: '#ffffff', explodeDist: 30 });
+    }
+
+    // ----- DOCK guide -----
+    {
+      const g = new THREE.Group();
+      const guide = edged(boxMesh(150, 8, 40, 0xffd54f, { metalness: 0.2, roughness: 0.6 }), 0xffffff, 0.4);
+      guide.position.set(MX, Z1 - 6, 8);
+      g.add(guide);
+      // side fences
+      [-45, 45].forEach((dx) => {
+        const f = boxMesh(4, 10, 36, 0xffb300);
+        f.position.set(MX + dx, Z1 - 2, 10);
+        g.add(f);
+      });
+      g.add(makeLabel('DOCK 入口', cad(MX, -8, Z1 + 10), [44, 11]));
+      register(g, { id: 'P31', name: 'P31 DOCK 下层导板', group: '面板', layer: 'L1', color: '#ffd54f', explodeDist: 80, explodeDir: new THREE.Vector3(0, 0, -1) });
+    }
+
+    // ----- Front panel + TJC screen -----
+    {
+      const g = new THREE.Group();
+      const panel = edged(boxMesh(220, 120, 3, 0x263238, { metalness: 0.3, roughness: 0.5 }), 0x90a4ae, 0.5);
+      panel.position.set(MX, 200, 2);
+      g.add(panel);
+      // screen bezel + glass
+      const bezel = edged(boxMesh(105, 65, 4, 0x111418), 0x546e7a, 0.5);
+      bezel.position.set(MX, 210, 5);
+      g.add(bezel);
+      const glass = boxMesh(95, 54, 1.5, 0x4fc3f7, { metalness: 0.1, roughness: 0.2, opacity: 0.85, transparent: true });
+      glass.position.set(MX, 210, 7);
+      g.add(glass);
+      g.add(makeLabel('TJC4827T143 95×54', cad(MX, -6, 245), [70, 12]));
+      register(g, { id: 'P30', name: 'P30 正面面板 + TJC 4.3寸屏', group: '面板', layer: 'struct', color: '#4fc3f7', explodeDist: 120, explodeDir: new THREE.Vector3(0, 0.2, -1) });
+    }
+
+    // ----- Electronics bay (no 220V) -----
+    {
+      const g = new THREE.Group();
+      const bayW = 200, bayD = 100, bayH = 40;
+      const bay = edged(boxMesh(bayW, bayH, bayD, 0x37474f, { opacity: 0.35, transparent: true, depthWrite: false }), 0xf4c20d, 0.85);
+      bay.position.set(150, T + bayH / 2, 125);
+      g.add(bay);
+
+      // Spark-1 board 120×84
+      const spark = edged(boxMesh(120, 3, 84, 0x1b5e20), 0x69f0ae, 0.6);
+      spark.position.set(115, T + 8, 120);
+      g.add(spark);
+      g.add(makeLabel('星火一号 120×84', cad(115, 120 - 50, T + 18), [60, 12]));
+
+      // Driver tray boards as colored blocks
+      const boards = [
+        { name: 'A4988', w: 20, d: 16, x: 190, y: 100, c: 0xe53935 },
+        { name: 'TB6612×3', w: 50, d: 22, x: 220, y: 130, c: 0xfb8c00 },
+        { name: 'PCA9685', w: 60, d: 26, x: 200, y: 95, c: 0x8e24aa },
+        { name: 'MCP23017', w: 50, d: 22, x: 175, y: 145, c: 0x3949ab },
+      ];
+      // place with slight offsets to avoid overlap visually
+      const placed = [
+        { name: 'A4988', w: 22, d: 16, x: 195, y: 95, c: 0xe53935 },
+        { name: 'TB6612-A', w: 28, d: 18, x: 230, y: 110, c: 0xfb8c00 },
+        { name: 'TB6612-B', w: 28, d: 18, x: 230, y: 132, c: 0xfb8c00 },
+        { name: 'TB6612-C', w: 28, d: 18, x: 230, y: 154, c: 0xfb8c00 },
+        { name: 'PCA9685', w: 55, d: 25, x: 175, y: 110, c: 0x8e24aa },
+        { name: 'MCP23017', w: 45, d: 20, x: 170, y: 145, c: 0x3949ab },
+      ];
+      placed.forEach((b) => {
+        const m = edged(boxMesh(b.w, 4, b.d, b.c), 0xffffff, 0.35);
+        m.position.set(b.x, T + 10, b.y);
+        g.add(m);
+        g.add(makeLabel(b.name, cad(b.x, b.y - b.d / 2 - 2, T + 16), [36, 9]));
+      });
+
+      register(g, { id: 'P34', name: 'P34 底仓电子区 + 驱动板色块', group: '电子', layer: 'elec', color: '#f4c20d', explodeDist: 70, explodeDir: new THREE.Vector3(0, -1, 0.4) });
+    }
+
+    // Overall dimension labels
+    {
+      const g = new THREE.Group();
+      g.add(makeLabel('300', cad(150, -22, 8), [40, 10]));
+      g.add(makeLabel('180', cad(-22, 90, 8), [36, 10]));
+      g.add(makeLabel('260', cad(-18, -8, 130), [36, 10]));
+      register(g, { id: 'DIM', name: '外形尺寸标注', group: '标注', layer: 'all', color: '#ffffff', explodeDist: 20 });
+    }
+
+    // ----- UI wiring -----
+    const partsEl = document.getElementById('parts');
+    const groups = {};
+    parts.forEach((p) => {
+      if (!groups[p.group]) groups[p.group] = [];
+      groups[p.group].push(p);
+    });
+
+    function rebuildList() {
+      partsEl.innerHTML = '';
+      Object.keys(groups).forEach((gname) => {
+        const det = document.createElement('details');
+        det.open = true;
+        const sum = document.createElement('summary');
+        sum.textContent = gname;
+        det.appendChild(sum);
+        groups[gname].forEach((p) => {
+          const lab = document.createElement('label');
+          lab.className = 'part';
+          const cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.checked = p.obj.visible;
+          cb.dataset.id = p.id;
+          cb.addEventListener('change', () => {
+            p.obj.visible = cb.checked;
+          });
+          const sw = document.createElement('span');
+          sw.className = 'swatch';
+          sw.style.background = p.color || '#888';
+          lab.appendChild(cb);
+          lab.appendChild(sw);
+          lab.appendChild(document.createTextNode(p.name));
+          det.appendChild(lab);
+        });
+        partsEl.appendChild(det);
+      });
+    }
+    rebuildList();
+
+    function setAllVisible(v) {
+      parts.forEach((p) => { p.obj.visible = v; });
+      rebuildList();
+    }
+    document.getElementById('btnAllOn').onclick = () => setAllVisible(true);
+    document.getElementById('btnAllOff').onclick = () => setAllVisible(false);
+
+    function applyLayerFilter(mode) {
+      // mode: all | struct | L1 | L2
+      parts.forEach((p) => {
+        const L = p.layer;
+        let show = true;
+        if (mode === 'struct') show = (L === 'struct' || L === 'elec' || L === 'all' || L === 'lift');
+        else if (mode === 'L1') show = (L === 'L1' || L === 'struct' || L === 'lift' || L === 'all');
+        else if (mode === 'L2') show = (L === 'L2' || L === 'struct' || L === 'lift' || L === 'all');
+        else show = true;
+        // For L1/L2 emphasize: hide other layer trays/beams
+        if (mode === 'L1' && L === 'L2') show = false;
+        if (mode === 'L2' && L === 'L1') show = false;
+        if (mode === 'struct' && (L === 'L1' || L === 'L2')) show = false;
+        p.obj.visible = show;
+      });
+      rebuildList();
+    }
+    document.getElementById('btnLayerAll').onclick = () => applyLayerFilter('all');
+    document.getElementById('btnLayer0').onclick = () => applyLayerFilter('struct');
+    document.getElementById('btnLayer1').onclick = () => applyLayerFilter('L1');
+    document.getElementById('btnLayer2').onclick = () => applyLayerFilter('L2');
+
+    let explodeAmt = 0;
+    function applyExplode(t) {
+      explodeAmt = t;
+      parts.forEach((p) => {
+        const home = p.obj.userData.home;
+        const dir = p.obj.userData.explodeDir;
+        const dist = p.obj.userData.explodeDist * (t / 100);
+        p.obj.position.set(
+          home.x + dir.x * dist,
+          home.y + dir.y * dist,
+          home.z + dir.z * dist
+        );
+      });
+    }
+    const explodeInput = document.getElementById('explode');
+    const explodeVal = document.getElementById('explodeVal');
+    explodeInput.addEventListener('input', () => {
+      explodeVal.textContent = explodeInput.value + '%';
+      applyExplode(+explodeInput.value);
+    });
+
+    document.getElementById('btnReset').onclick = () => {
+      explodeInput.value = 0;
+      explodeVal.textContent = '0%';
+      applyExplode(0);
+      applyLayerFilter('all');
+      setAllVisible(true);
+    };
+
+    addEventListener('resize', () => {
+      camera.aspect = innerWidth / innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(innerWidth, innerHeight);
+    });
+
+    (function loop() {
+      requestAnimationFrame(loop);
+      controls.update();
+      renderer.render(scene, camera);
+    })();
+  </script>
+</body>
+</html>
