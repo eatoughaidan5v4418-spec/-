@@ -14,5 +14,11 @@
 | [docs/接口冻结.md](docs/接口冻结.md) | 电气/接口冻结说明 |
 | [docs/cad/自制件尺寸与草图.md](docs/cad/自制件尺寸与草图.md) | 自制件尺寸表+草图顺序（A） |
 | [docs/cad/p01-baseplate.html](docs/cad/p01-baseplate.html) | P01 底板 · Three.js 精确尺寸查看器 |
+| [docs/cad/assembly-exploded.html](docs/cad/assembly-exploded.html) | **整机装配 / 爆炸拆解互动**（Three.js 单页） |
+
+## CAD 互动页
+
+- 打开 [`docs/cad/assembly-exploded.html`](docs/cad/assembly-exploded.html)：整机 300×180×260 mm 装配，左侧勾选显隐零件，爆炸滑条，按层显示，复位装配。
+- 打开 [`docs/cad/p01-baseplate.html`](docs/cad/p01-baseplate.html)：底板单件孔位与电子净空。
 
 仓库名 `-` 为创建时占位；后续可在 GitHub 设置里 Rename。
