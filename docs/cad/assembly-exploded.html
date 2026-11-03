@@ -73,7 +73,7 @@
 <body>
   <div id="panel">
     <h1>华容道式紧凑立体车库</h1>
-    <div class="sub">整机精确 mm 装配 · 可拆解互动（已校穿模）<br>
+    <div class="sub">整机精确 mm 装配 · 井口贯通 · 升降演示<br>
       外框 <code>300×180×260</code> · 单格 <code>140×80</code> · 层距 <code>100</code><br>
       CAD 原点：左前角 · 电机 <code>(150,40)</code> · 光轴 ±55
     </div>
@@ -92,6 +92,11 @@
       <input id="explode" type="range" min="0" max="100" value="0" />
       <span id="explodeVal">0%</span>
     </label>
+    <label class="ctrl">升降演示 Z
+      <input id="liftZ" type="range" min="55" max="155" value="55" step="1" />
+      <span id="liftZVal">55</span>
+    </label>
+    <div class="sub" style="margin-top:-4px">P14+台上车：一层轨面 <code>55</code> ↔ 二层 <code>155</code> · 井口贯通</div>
     <div id="parts"></div>
   </div>
   <div id="dims">
@@ -100,12 +105,13 @@
     <div>底板 P01 <code>300 × 180 × 5</code></div>
     <div>托盘/升降台 <code>140 × 80 × 7</code></div>
     <div>轨面 Z <code>55 / 155</code> · 硬限 <code>28 / 175</code></div>
+    <div>井口对接列 <code>(150,40)</code> 前排空 · 顶梁前口断开</div>
     <div>底仓电子区 <code>200 × 100 × 40</code></div>
     <div>模型车 <code>105 × 43 × 30</code></div>
     <div>屏可视 <code>95 × 54</code> · 星火 <code>120 × 84</code></div>
   </div>
   <div id="aabbLog"></div>
-  <div id="hud">拖拽旋转 · 滚轮缩放 · 右键平移<br>单位 mm · Three Y-up（CAD Y→场景 Z）· 梁顶=轨面</div>
+  <div id="hud">拖拽旋转 · 滚轮缩放 · 右键平移<br>单位 mm · 梁顶=轨面 · <b style="color:#ff8a65">升降演示</b>滑条贯通井口</div>
 
   <script type="importmap">
   {
@@ -147,29 +153,33 @@
     const BEAM_LEN_X = INNER_X1 - INNER_X0; // 260
     const BEAM_LEN_Y = INNER_Y1 - INNER_Y0; // 140
 
-    // 2×2 parking: centers X 80/220, Y 70/150 (格心距 80; back = 70+80).
-    // Lift well (150,40) 140×80 → Y[0,80] shares the front-row band; rest pose
-    // leaves the near-dock cell empty and parks 3 trays per layer.
+    // 2×2 parking centers (格心距 80). Well/dock = front-center column at (MX,MY).
+    // Front cells LF/RF overlap the well envelope — BOTH front cells stay EMPTY on
+    // every layer so the vertical shaft is clear (no floor/tray above the well).
+    // Parked trays: rear row LB+RB only. Third "occupied" per layer is shown as the
+    // transferable tray sitting ON P14 (lift demo), not as a floor plate in the shaft.
     const CELLS = {
       LF: { x: 80, y: 70, label: '左前' },
       RF: { x: 220, y: 70, label: '右前' },
       LB: { x: 80, y: 150, label: '左后' },
       RB: { x: 220, y: 150, label: '右后' },
+      DOCK: { x: MX, y: MY, label: '对接井口' },
     };
-    // L1 empty LF (near well); L2 empty RF
+    // Side/rear parking only — never park a solid tray on DOCK/LF/RF (well column)
     const TRAY_PLAN = [
-      // L1: leave LF empty (overlaps dock/well most); park LB/RB/RF
-      { id: 'P20-L1-RF', cell: 'RF', zRail: Z_RAIL1, layer: 'L1' },
-      { id: 'P20-L1-LB', cell: 'LB', zRail: Z_RAIL1, layer: 'L1' },
-      { id: 'P20-L1-RB', cell: 'RB', zRail: Z_RAIL1, layer: 'L1' },
-      // L2: leave RF empty; park LF/LB/RB
-      { id: 'P20-L2-LF', cell: 'LF', zRail: Z_RAIL2, layer: 'L2' },
-      { id: 'P20-L2-LB', cell: 'LB', zRail: Z_RAIL2, layer: 'L2' },
-      { id: 'P20-L2-RB', cell: 'RB', zRail: Z_RAIL2, layer: 'L2' },
+      { id: 'P20-L1-LB', cell: 'LB', zRail: Z_RAIL1, layer: 'L1', car: true },
+      { id: 'P20-L1-RB', cell: 'RB', zRail: Z_RAIL1, layer: 'L1', car: false },
+      { id: 'P20-L2-LB', cell: 'LB', zRail: Z_RAIL2, layer: 'L2', car: false },
+      { id: 'P20-L2-RB', cell: 'RB', zRail: Z_RAIL2, layer: 'L2', car: true },
     ];
+    // Front row + dock: empty on BOTH layers (shaft through L1 and L2)
     const EMPTY_PLAN = [
-      { cell: 'LF', zRail: Z_RAIL1, lab: '一层空位(左前/近井)' },
-      { cell: 'RF', zRail: Z_RAIL2, lab: '二层空位(右前)' },
+      { cell: 'DOCK', zRail: Z_RAIL1, lab: '一层对接井口(空)' },
+      { cell: 'LF', zRail: Z_RAIL1, lab: '一层空位·左前' },
+      { cell: 'RF', zRail: Z_RAIL1, lab: '一层空位·右前' },
+      { cell: 'DOCK', zRail: Z_RAIL2, lab: '二层对接井口(空)' },
+      { cell: 'LF', zRail: Z_RAIL2, lab: '二层空位·左前' },
+      { cell: 'RF', zRail: Z_RAIL2, lab: '二层空位·右前' },
     ];
 
     const scene = new THREE.Scene();
@@ -330,18 +340,34 @@
     // Horizontal rectangle frame at a given beam CENTER Z.
     // X-beams sit on front/rear post centers but length only between inner faces.
     // Y-beams sit on left/right post centers, length between inner faces.
-    function addRectFrame(zCenter, id, name, layer, explodeY) {
+    function addRectFrame(zCenter, id, name, layer, explodeY, splitFrontWell) {
       const g = new THREE.Group();
-      // Front & rear X beams
-      [INNER_Y0 - PROFILE / 2 + PROFILE / 2, INNER_Y1].forEach((y) => {
-        // use post Y centers: PROFILE/2 and D-PROFILE/2
-      });
-      [PROFILE / 2, D - PROFILE / 2].forEach((y) => {
+      const yFront = PROFILE / 2;
+      const yRear = D - PROFILE / 2;
+      // Rear X beam always full
+      {
         const b = profileBar(BEAM_LEN_X, 'x');
-        b.position.set(W / 2, zCenter, y);
+        b.position.set(W / 2, zCenter, yRear);
         g.add(b);
-        addAABB(`${id}-X@${y}`, W / 2, y, zCenter, BEAM_LEN_X, PROFILE, PROFILE);
-      });
+        addAABB(`${id}-X@${yRear}`, W / 2, yRear, zCenter, BEAM_LEN_X, PROFILE, PROFILE);
+      }
+      // Front X beam: full, or split at well (X80..220) so shaft is not capped
+      if (splitFrontWell) {
+        const leftLen = 60, rightLen = 60;
+        const left = profileBar(leftLen, 'x');
+        left.position.set(20 + leftLen / 2, zCenter, yFront);
+        g.add(left);
+        const right = profileBar(rightLen, 'x');
+        right.position.set(280 - rightLen / 2, zCenter, yFront);
+        g.add(right);
+        addAABB(`${id}-XFL`, 20 + leftLen / 2, yFront, zCenter, leftLen, PROFILE, PROFILE);
+        addAABB(`${id}-XFR`, 280 - rightLen / 2, yFront, zCenter, rightLen, PROFILE, PROFILE);
+      } else {
+        const b = profileBar(BEAM_LEN_X, 'x');
+        b.position.set(W / 2, zCenter, yFront);
+        g.add(b);
+        addAABB(`${id}-X@${yFront}`, W / 2, yFront, zCenter, BEAM_LEN_X, PROFILE, PROFILE);
+      }
       // Left & right Y beams
       [PROFILE / 2, W - PROFILE / 2].forEach((x) => {
         const b = profileBar(BEAM_LEN_Y, 'y');
@@ -354,9 +380,9 @@
         explodeDist: 70, explodeDir: new THREE.Vector3(0, explodeY, 0),
       });
     }
-    // Bottom frame just above plate; top frame near top
-    addRectFrame(T + PROFILE / 2, 'P03B', 'P03 底框横梁', 'struct', -0.25);
-    addRectFrame(FRAME_H - PROFILE / 2, 'P03T', 'P03 顶框横梁', 'struct', 1);
+    // Bottom frame full; TOP front beam split at well so lift shaft is not capped
+    addRectFrame(T + PROFILE / 2, 'P03B', 'P03 底框横梁', 'struct', -0.25, false);
+    addRectFrame(FRAME_H - PROFILE / 2, 'P03T', 'P03 顶框横梁(前梁井口断开)', 'struct', 1, true);
 
     // Layer rail frames: beam TOP = zRail, so center Z = zRail - PROFILE/2
     function layerBeams(zRail, id, name, layer) {
@@ -493,53 +519,111 @@
       });
     }
 
-    // Lift platform: deck with cutouts at shafts (3 slabs) so shafts don't "穿模" visually
+    // Lift platform P14 + onboard car — LOCAL coords, group moves in Z for 升降演示
+    // Children are relative to group origin at deck center (MX, zRail+TRAY_H/2, MY)
+    const CAR_H = 30, CAR_L = 105, CAR_W = 43;
+    let liftGroup = null;
+    let liftLabel = null;
+    let liftRailZ = Z_RAIL1;
     {
       const g = new THREE.Group();
-      const zBot = Z_RAIL1;             // sits on rail plane
-      const zC = zBot + TRAY_H / 2;
-      // Main deck: full 140×80 but we split around shafts at x=±55 relative to center
-      // Left wing, center strip (no shaft — screw at y-8), right wing
       const deckMat = 0xff8a65;
-      // Use one deck + two bearing tubes; make deck shorter in Y near shafts by using a plate
-      // with center hole representation: outer frame only
       const rim = 12;
-      // Front bar
+      // Local: X right, Y up (=CAD Z offset from deck center), Z = CAD Y offset
       const front = edged(boxMesh(CELL_W, TRAY_H, rim, deckMat), 0xffffff, 0.5);
-      front.position.set(MX, zC, MY - CELL_D / 2 + rim / 2);
+      front.position.set(0, 0, -CELL_D / 2 + rim / 2);
       g.add(front);
-      // Back bar
       const back = edged(boxMesh(CELL_W, TRAY_H, rim, deckMat), 0xffffff, 0.5);
-      back.position.set(MX, zC, MY + CELL_D / 2 - rim / 2);
+      back.position.set(0, 0, CELL_D / 2 - rim / 2);
       g.add(back);
-      // Left & right bars (leave gaps at shaft X)
       const sideLen = CELL_D - 2 * rim;
       [-1, 1].forEach((s) => {
         const side = edged(boxMesh(rim, TRAY_H, sideLen, deckMat), 0xffffff, 0.5);
-        side.position.set(MX + s * (CELL_W / 2 - rim / 2), zC, MY);
+        side.position.set(s * (CELL_W / 2 - rim / 2), 0, 0);
         g.add(side);
       });
-      // Center deck strip (between shafts), avoid shaft X=±55
       const centerDeck = edged(boxMesh(70, TRAY_H, CELL_D - 2 * rim, deckMat), 0xffffff, 0.45);
-      centerDeck.position.set(MX, zC, MY);
+      centerDeck.position.set(0, 0, 0);
       g.add(centerDeck);
-
-      // Linear bearings at shaft locations (shafts pass through their bores)
       [[-55, -8], [55, -8]].forEach(([dx, dy]) => {
         const br = new THREE.Mesh(
           new THREE.CylinderGeometry(7, 7, TRAY_H + 6, 16),
           mat(0xb0bec5, { metalness: 0.6 })
         );
-        br.position.set(MX + dx, zC, MY + dy);
+        br.position.set(dx, 0, dy);
         g.add(br);
       });
+      // Transfer tray plate sitting on deck (示意可从邻格滑入对接)
+      const transfer = edged(
+        boxMesh(CELL_W - 8, 2, CELL_D - 8, 0xffcc80, { metalness: 0.2, roughness: 0.5 }),
+        0xffffff, 0.35
+      );
+      transfer.position.set(0, TRAY_H / 2 + 1, 0);
+      g.add(transfer);
+      // Car on lift for 升程示意
+      const car = edged(boxMesh(CAR_L, CAR_H, CAR_W, 0xe53935, { metalness: 0.35, roughness: 0.4 }), 0xffcdd2, 0.5);
+      car.position.set(0, TRAY_H / 2 + 2 + CAR_H / 2, 0);
+      g.add(car);
 
-      g.add(makeLabel('P14 升降台 轨面Z=55', cad(MX, MY - 52, zBot + 16), [58, 12]));
+      liftRailZ = Z_RAIL1;
+      const zC = liftRailZ + TRAY_H / 2;
+      g.position.set(MX, zC, MY);
+      liftLabel = makeLabel('P14 升降台+车 Z=55', cad(MX, MY - 52, liftRailZ + 16), [64, 12]);
+      g.add(liftLabel);
+      // label was in world cad(); re-home as local offset
+      liftLabel.position.set(0, 16, -52);
+
       register(g, {
-        id: 'P14', name: 'P14 升降台 140×80', group: '升降', layer: 'lift', color: '#ff8a65',
+        id: 'P14', name: 'P14 升降台+对接托盘+车模', group: '升降', layer: 'lift', color: '#ff8a65',
         explodeDist: 95, explodeDir: new THREE.Vector3(0, 1, -0.25),
       });
+      liftGroup = g;
+      // Initial AABB at L1; updated by lift demo
       addAABB('P14', MX, MY, zC, CELL_W, CELL_D, TRAY_H);
+      addAABB('P14-CAR', MX, MY, liftRailZ + TRAY_H + 2 + CAR_H / 2, CAR_L, CAR_W, CAR_H);
+    }
+
+    function setLiftRailZ(zRail) {
+      liftRailZ = Math.max(Z_RAIL1, Math.min(Z_RAIL2, zRail));
+      const zC = liftRailZ + TRAY_H / 2;
+      if (liftGroup) {
+        // preserve explode offset in XZ; set absolute CAD Z via home + explode
+        const home = liftGroup.userData.home;
+        const dir = liftGroup.userData.explodeDir;
+        const dist = liftGroup.userData.explodeDist * ((+document.getElementById('explode').value) / 100);
+        // Update home Y (Three Y = CAD Z) so explode still works
+        home.y = zC;
+        liftGroup.position.set(home.x + dir.x * dist, home.y + dir.y * dist, home.z + dir.z * dist);
+        if (liftLabel) {
+          // rebuild text
+          const c = liftLabel.material.map.image;
+          const ctx = c.getContext('2d');
+          ctx.clearRect(0, 0, 512, 128);
+          const text = 'P14 升降台+车 Z=' + Math.round(liftRailZ);
+          ctx.font = 'bold 44px system-ui,sans-serif';
+          ctx.strokeStyle = '#000'; ctx.lineWidth = 6;
+          ctx.strokeText(text, 12, 78);
+          ctx.fillStyle = '#fff';
+          ctx.fillText(text, 12, 78);
+          liftLabel.material.map.needsUpdate = true;
+        }
+      }
+      // refresh dynamic AABBs
+      const i14 = aabbCad.findIndex((a) => a.id === 'P14');
+      const iCar = aabbCad.findIndex((a) => a.id === 'P14-CAR');
+      const deck = {
+        id: 'P14',
+        min: [MX - CELL_W / 2, MY - CELL_D / 2, liftRailZ],
+        max: [MX + CELL_W / 2, MY + CELL_D / 2, liftRailZ + TRAY_H],
+      };
+      const carA = {
+        id: 'P14-CAR',
+        min: [MX - CAR_L / 2, MY - CAR_W / 2, liftRailZ + TRAY_H + 2],
+        max: [MX + CAR_L / 2, MY + CAR_W / 2, liftRailZ + TRAY_H + 2 + CAR_H],
+      };
+      if (i14 >= 0) aabbCad[i14] = deck; else aabbCad.push(deck);
+      if (iCar >= 0) aabbCad[iCar] = carA; else aabbCad.push(carA);
+      return { deck, car: carA };
     }
 
     // Limit markers — offset outside well (+X) so they don't sit in trays
@@ -590,11 +674,11 @@
     TRAY_PLAN.forEach((t, i) => {
       const c = CELLS[t.cell];
       const col = t.layer === 'L1' ? 0x26a69a : 0x7e57c2;
-      const g = makeTray(c.x, c.y, t.zRail, i === 0 || i === 3, col);
+      const g = makeTray(c.x, c.y, t.zRail, !!t.car, col);
       g.add(makeLabel(t.id, cad(c.x, c.y - 46, t.zRail + 18), [50, 11]));
       register(g, {
         id: t.id,
-        name: `${t.id} 托盘(${c.label})+N20`,
+        name: `${t.id} 托盘(${c.label})+N20` + (t.car ? '+车' : ''),
         group: '托盘',
         layer: t.layer,
         color: t.layer === 'L1' ? '#26a69a' : '#7e57c2',
@@ -608,16 +692,27 @@
       const g = new THREE.Group();
       EMPTY_PLAN.forEach(({ cell, zRail, lab }) => {
         const c = CELLS[cell];
+        const isDock = cell === 'DOCK';
         const ring = edged(
-          boxMesh(CELL_W, 1.2, CELL_D, 0xffffff, { opacity: 0.07, transparent: true, depthWrite: false }),
-          0xffffff, 0.5
+          boxMesh(CELL_W, 1.2, CELL_D,
+            isDock ? 0xff6b6b : 0xffffff,
+            { opacity: isDock ? 0.14 : 0.06, transparent: true, depthWrite: false }),
+          isDock ? 0xff6b6b : 0xffffff, isDock ? 0.85 : 0.45
         );
         ring.position.set(c.x, zRail + 0.8, c.y);
         g.add(ring);
-        g.add(makeLabel(lab, cad(c.x, c.y, zRail + 8), [48, 11]));
+        g.add(makeLabel(lab, cad(c.x, c.y, zRail + (isDock ? 14 : 8)), [isDock ? 56 : 44, 11]));
       });
+      // Vertical shaft ghost (well column through both decks)
+      const shaftGhost = edged(
+        boxMesh(CELL_W - 4, Z_RAIL2 - Z_RAIL1 + 20, CELL_D - 4, 0xff6b6b,
+          { opacity: 0.04, transparent: true, depthWrite: false }),
+        0xff6b6b, 0.35
+      );
+      shaftGhost.position.set(MX, (Z_RAIL1 + Z_RAIL2) / 2 + TRAY_H / 2, MY);
+      g.add(shaftGhost);
       register(g, {
-        id: 'EMPTY', name: '空位示意 (每层1空)', group: '托盘', layer: 'all', color: '#ffffff',
+        id: 'EMPTY', name: '井口/空位示意 (前排贯通)', group: '托盘', layer: 'all', color: '#ff6b6b',
         explodeDist: 25,
       });
     }
@@ -727,10 +822,12 @@
         a.min[2] < b.max[2] - eps && a.max[2] > b.min[2] + eps
       );
     }
-    // Pairs that MAY intentionally share volume / touch (not reported as errors)
     const allow = new Set([
       'P12@95|P14', 'P12@205|P14', 'P14|P12@95', 'P14|P12@205',
       'P11|P14', 'P14|P11',
+      'P12@95|P14-CAR', 'P12@205|P14-CAR', 'P14-CAR|P12@95', 'P14-CAR|P12@205',
+      'P11|P14-CAR', 'P14-CAR|P11',
+      'P14|P14-CAR', 'P14-CAR|P14',
     ]);
     function allowed(a, b) {
       const k1 = a + '|' + b, k2 = b + '|' + a;
@@ -738,42 +835,108 @@
       const struct = (id) => /^(P02|P03|P04|P05)/.test(id);
       if (struct(a) && struct(b)) return true;
       if ((a === 'P11' && b === 'P10') || (a === 'P10' && b === 'P11')) return true;
-      // posts sit on / through baseplate mounting envelope
       if ((a === 'P01' && b.startsWith('P02')) || (b === 'P01' && a.startsWith('P02'))) return true;
-      // rear trays may kiss rear posts at frame skin (clearance in real rails)
       if ((a.startsWith('P02') && a.includes('170') && b.startsWith('P20')) ||
           (b.startsWith('P02') && b.includes('170') && a.startsWith('P20'))) return true;
-      // front-row tray vs lift dock: 华容道对接邻接，静态装配允许平面投影重叠
-      if ((a === 'P14' && b.startsWith('P20')) || (b === 'P14' && a.startsWith('P20'))) return true;
-      // trays sit on / within rail-frame envelope (beam top = tray bottom)
+      // trays sit on rail-frame envelope
       if ((struct(a) && b.startsWith('P20')) || (struct(b) && a.startsWith('P20'))) return true;
+      // shafts/screw through lift deck & car path (bearings)
+      if ((a.startsWith('P12') || a === 'P11') && (b === 'P14' || b === 'P14-CAR')) return true;
+      if ((b.startsWith('P12') || b === 'P11') && (a === 'P14' || a === 'P14-CAR')) return true;
       return false;
     }
 
-    const clashes = [];
-    for (let i = 0; i < aabbCad.length; i++) {
-      for (let j = i + 1; j < aabbCad.length; j++) {
-        const A = aabbCad[i], B = aabbCad[j];
-        if (allowed(A.id, B.id)) continue;
-        if (overlaps(A, B)) clashes.push([A.id, B.id]);
-      }
+    function liftBodyAt(zRail) {
+      return {
+        deck: {
+          id: 'P14',
+          min: [MX - CELL_W / 2, MY - CELL_D / 2, zRail],
+          max: [MX + CELL_W / 2, MY + CELL_D / 2, zRail + TRAY_H],
+        },
+        car: {
+          id: 'P14-CAR',
+          min: [MX - CAR_L / 2, MY - CAR_W / 2, zRail + TRAY_H + 2],
+          max: [MX + CAR_L / 2, MY + CAR_W / 2, zRail + TRAY_H + 2 + CAR_H],
+        },
+      };
     }
 
-    // Log AABB summary to console + optional HUD
-    const summary = aabbCad.map((a) => {
-      const fmt = (v) => v.map((n) => n.toFixed(1)).join(',');
-      return `${a.id}: [${fmt(a.min)}] → [${fmt(a.max)}]`;
-    });
-    console.log('[AABB]', summary.join('\n'));
-    console.log('[CLASHES]', clashes.length ? clashes.map((c) => c.join(' ∩ ')).join('\n') : 'none');
-    const logEl = document.getElementById('aabbLog');
-    if (logEl) {
-      logEl.style.display = 'block';
-      logEl.innerHTML = '<b style="color:#f4c20d">AABB自检</b><br>' +
-        (clashes.length
-          ? ('穿模嫌疑 ' + clashes.length + ':<br>' + clashes.map((c) => c.join(' ∩ ')).join('<br>'))
-          : '主要件 AABB 无违规重叠<br><span style="opacity:.8">故意：光轴/丝杆穿P14轴承孔；托盘坐梁顶；板下底仓；前排与井口平面邻接；立柱坐底板；后排轻触后立柱外皮</span>');
+    // Obstacles that must NOT intersect the moving lift/car (well must stay clear)
+    function isLiftObstacle(id) {
+      if (id === 'P14' || id === 'P14-CAR') return false;
+      if (id.startsWith('P12') || id === 'P11' || id === 'P10' || id === 'P13') return false;
+      if (id === 'P01' || id === 'P34' || id === 'P30' || id === 'P31') return false;
+      // layer / frame beams that cross the well would be obstacles; split front beams OK
+      if (id.startsWith('P20')) return true; // side/rear trays
+      if (/^(P03|P04|P05)/.test(id)) return true; // any remaining beam through shaft
+      if (id.startsWith('P02')) return true;
+      return false;
     }
+
+    function collectClashes(list) {
+      const out = [];
+      for (let i = 0; i < list.length; i++) {
+        for (let j = i + 1; j < list.length; j++) {
+          const A = list[i], B = list[j];
+          if (allowed(A.id, B.id)) continue;
+          if (overlaps(A, B)) out.push([A.id, B.id]);
+        }
+      }
+      return out;
+    }
+
+    function sweepLiftPath(step = 5) {
+      const hits = [];
+      const staticObs = aabbCad.filter((a) => isLiftObstacle(a.id));
+      for (let z = Z_RAIL1; z <= Z_RAIL2 + 0.01; z += step) {
+        const { deck, car } = liftBodyAt(z);
+        for (const body of [deck, car]) {
+          for (const obs of staticObs) {
+            if (allowed(body.id, obs.id)) continue;
+            if (overlaps(body, obs, 0.5)) {
+              hits.push({ z: Math.round(z), a: body.id, b: obs.id });
+            }
+          }
+        }
+      }
+      // unique by a|b|z
+      const seen = new Set();
+      return hits.filter((h) => {
+        const k = h.a + '|' + h.b + '|' + h.z;
+        if (seen.has(k)) return false;
+        seen.add(k);
+        return true;
+      });
+    }
+
+    const clashes = collectClashes(aabbCad);
+    const liftHits = sweepLiftPath(5);
+    console.log('[AABB] count', aabbCad.length);
+    console.log('[CLASHES]', clashes.length ? clashes.map((c) => c.join(' ∩ ')).join('\n') : 'none');
+    console.log('[LIFT-PATH]', liftHits.length ? liftHits : 'clear 55→155');
+
+    function renderAabbHud() {
+      const logEl = document.getElementById('aabbLog');
+      if (!logEl) return;
+      logEl.style.display = 'block';
+      const zNow = Math.round(liftRailZ);
+      let htmlHud = '<b style="color:#f4c20d">AABB自检</b> · 升降Z=<code style="color:#69f0ae">' + zNow + '</code><br>';
+      if (clashes.length) {
+        htmlHud += '静态穿模 ' + clashes.length + ':<br>' + clashes.map((c) => c.join(' ∩ ')).join('<br>') + '<br>';
+      } else {
+        htmlHud += '静态主要件无违规重叠<br>';
+      }
+      if (liftHits.length) {
+        htmlHud += '<span style="color:#ff8a80">升降路径命中 ' + liftHits.length + ':</span><br>' +
+          liftHits.slice(0, 12).map((h) => 'Z' + h.z + ' ' + h.a + '∩' + h.b).join('<br>');
+        if (liftHits.length > 12) htmlHud += '<br>…';
+      } else {
+        htmlHud += '<span style="color:#69f0ae">升降路径 55↔155 通过</span><br>' +
+          '<span style="opacity:.8">井口前排空；前梁/顶梁断开；板下底仓；光轴穿轴承故意</span>';
+      }
+      logEl.innerHTML = htmlHud;
+    }
+    renderAabbHud();
 
     // ----- UI -----
     const partsEl = document.getElementById('parts');
@@ -851,12 +1014,29 @@
       explodeVal.textContent = explodeInput.value + '%';
       applyExplode(+explodeInput.value);
     });
+
+    const liftInput = document.getElementById('liftZ');
+    const liftVal = document.getElementById('liftZVal');
+    function onLiftInput() {
+      const z = +liftInput.value;
+      liftVal.textContent = String(z);
+      setLiftRailZ(z);
+      renderAabbHud();
+    }
+    liftInput.addEventListener('input', onLiftInput);
+    // ensure initial sync
+    setLiftRailZ(+liftInput.value);
+
     document.getElementById('btnReset').onclick = () => {
       explodeInput.value = 0;
       explodeVal.textContent = '0%';
       applyExplode(0);
+      liftInput.value = Z_RAIL1;
+      liftVal.textContent = String(Z_RAIL1);
+      setLiftRailZ(Z_RAIL1);
       applyLayerFilter('all');
       setAllVisible(true);
+      renderAabbHud();
     };
 
     addEventListener('resize', () => {
