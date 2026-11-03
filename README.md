@@ -13,5 +13,6 @@
 | [docs/采购清单.md](docs/采购清单.md) | 冻结实价与淘宝链接 |
 | [docs/接口冻结.md](docs/接口冻结.md) | 电气/接口冻结说明 |
 | [docs/cad/自制件尺寸与草图.md](docs/cad/自制件尺寸与草图.md) | 自制件尺寸表+草图顺序（A） |
+| [docs/cad/p01-baseplate.html](docs/cad/p01-baseplate.html) | P01 底板 · Three.js 精确尺寸查看器 |
 
 仓库名 `-` 为创建时占位；后续可在 GitHub 设置里 Rename。
