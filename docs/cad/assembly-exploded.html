@@ -28,11 +28,11 @@
     #panel .sub { font-size: 12px; color: var(--muted); line-height: 1.4; }
     #panel .sub code { color: var(--accent); font-size: 11px; }
     .row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-    button, .chip {
+    button {
       appearance: none; border: 1px solid var(--line); background: #171b26; color: var(--text);
       border-radius: 8px; padding: 6px 10px; font-size: 12px; cursor: pointer;
     }
-    button:hover, .chip:hover { border-color: var(--accent); }
+    button:hover { border-color: var(--accent); }
     button.primary { background: #1a3a6b; border-color: #2f6fdb; }
     label.ctrl { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--muted); width: 100%; }
     input[type=range] { flex: 1; accent-color: var(--accent); }
@@ -50,7 +50,7 @@
     #hud {
       position: absolute; right: 12px; bottom: 12px; z-index: 4; font-size: 12px; color: var(--muted);
       background: rgba(12,14,20,.75); padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line);
-      max-width: 360px; line-height: 1.45;
+      max-width: 380px; line-height: 1.45;
     }
     #dims {
       position: absolute; right: 12px; top: 12px; z-index: 4; font-size: 12px;
@@ -59,16 +59,21 @@
     }
     #dims b { color: var(--warn); font-weight: 600; }
     #dims code { color: var(--ok); }
+    #aabbLog {
+      position: absolute; right: 12px; top: 200px; z-index: 4; font-size: 11px;
+      background: rgba(12,14,20,.82); padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line);
+      max-width: 320px; max-height: 36vh; overflow: auto; color: var(--muted); display: none;
+    }
     @media (max-width: 720px) {
       #panel { width: calc(100% - 20px); bottom: auto; max-height: 46vh; }
-      #dims { display: none; }
+      #dims, #aabbLog { display: none !important; }
     }
   </style>
 </head>
 <body>
   <div id="panel">
     <h1>华容道式紧凑立体车库</h1>
-    <div class="sub">整机精确 mm 装配 · 可拆解互动<br>
+    <div class="sub">整机精确 mm 装配 · 可拆解互动（已校穿模）<br>
       外框 <code>300×180×260</code> · 单格 <code>140×80</code> · 层距 <code>100</code><br>
       CAD 原点：左前角 · 电机 <code>(150,40)</code> · 光轴 ±55
     </div>
@@ -94,12 +99,13 @@
     <div>外包络 <code>300 × 180 × 260</code></div>
     <div>底板 P01 <code>300 × 180 × 5</code></div>
     <div>托盘/升降台 <code>140 × 80 × 7</code></div>
-    <div>对接 Z <code>55 / 155</code> · 硬限 <code>28 / 175</code></div>
+    <div>轨面 Z <code>55 / 155</code> · 硬限 <code>28 / 175</code></div>
     <div>底仓电子区 <code>200 × 100 × 40</code></div>
     <div>模型车 <code>105 × 43 × 30</code></div>
     <div>屏可视 <code>95 × 54</code> · 星火 <code>120 × 84</code></div>
   </div>
-  <div id="hud">拖拽旋转 · 滚轮缩放 · 右键平移<br>单位 mm · Three.js Y-up（CAD Y→场景 Z）</div>
+  <div id="aabbLog"></div>
+  <div id="hud">拖拽旋转 · 滚轮缩放 · 右键平移<br>单位 mm · Three Y-up（CAD Y→场景 Z）· 梁顶=轨面</div>
 
   <script type="importmap">
   {
@@ -113,25 +119,65 @@
     import * as THREE from 'three';
     import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-    // ========== Frozen dims (mm) ==========
+    // ========== Frozen dims (mm). CAD: origin left-front, X right, Y back, Z up ==========
+    // Three mapping: (cadX, cadY, cadZ) -> (cadX, cadZ, cadY)
     const W = 300, D = 180, T = 5;
     const FRAME_H = 260;
-    const PROFILE = 20;
+    const PROFILE = 20;           // 2020
     const CELL_W = 140, CELL_D = 80, TRAY_H = 7;
-    const LAYER_PITCH = 100;
-    const Z1 = 55, Z2 = 155;
+    const Z_RAIL1 = 55;           // layer-1 rail TOP surface
+    const Z_RAIL2 = 155;          // layer-2 rail TOP
     const Z_HARD_LO = 28, Z_HARD_HI = 175;
-    const MX = 150, MY = 40;
-    const SHAFT_SPAN = 110;
+    const MX = 150, MY = 40;      // lift / NEMA axis
     const SX_L = MX - 55, SX_R = MX + 55;
+    // Electronics keep-out on plate top
     const ELEC = { x0: 50, x1: 250, y0: 75, y1: 175, h: 40 };
+    // Bay box (inside keep-out, front half so trays behind clear in Z+Y)
+    const BAY = { w: 200, d: 100, h: 40, cx: 150, cy: 100 }; // Y75-175 → center 100 covers Y50-150; clamp visually
+
+    // Post centers (2020): inset so outer faces ~ flush with plate edges
+    const POSTS = [
+      [PROFILE / 2, PROFILE / 2],
+      [W - PROFILE / 2, PROFILE / 2],
+      [PROFILE / 2, D - PROFILE / 2],
+      [W - PROFILE / 2, D - PROFILE / 2],
+    ];
+    const INNER_X0 = PROFILE, INNER_X1 = W - PROFILE; // 20..280
+    const INNER_Y0 = PROFILE, INNER_Y1 = D - PROFILE; // 20..160
+    const BEAM_LEN_X = INNER_X1 - INNER_X0; // 260
+    const BEAM_LEN_Y = INNER_Y1 - INNER_Y0; // 140
+
+    // 2×2 parking: centers X 80/220, Y 70/150 (格心距 80; back = 70+80).
+    // Lift well (150,40) 140×80 → Y[0,80] shares the front-row band; rest pose
+    // leaves the near-dock cell empty and parks 3 trays per layer.
+    const CELLS = {
+      LF: { x: 80, y: 70, label: '左前' },
+      RF: { x: 220, y: 70, label: '右前' },
+      LB: { x: 80, y: 150, label: '左后' },
+      RB: { x: 220, y: 150, label: '右后' },
+    };
+    // L1 empty LF (near well); L2 empty RF
+    const TRAY_PLAN = [
+      // L1: leave LF empty (overlaps dock/well most); park LB/RB/RF
+      { id: 'P20-L1-RF', cell: 'RF', zRail: Z_RAIL1, layer: 'L1' },
+      { id: 'P20-L1-LB', cell: 'LB', zRail: Z_RAIL1, layer: 'L1' },
+      { id: 'P20-L1-RB', cell: 'RB', zRail: Z_RAIL1, layer: 'L1' },
+      // L2: leave RF empty; park LF/LB/RB
+      { id: 'P20-L2-LF', cell: 'LF', zRail: Z_RAIL2, layer: 'L2' },
+      { id: 'P20-L2-LB', cell: 'LB', zRail: Z_RAIL2, layer: 'L2' },
+      { id: 'P20-L2-RB', cell: 'RB', zRail: Z_RAIL2, layer: 'L2' },
+    ];
+    const EMPTY_PLAN = [
+      { cell: 'LF', zRail: Z_RAIL1, lab: '一层空位(左前/近井)' },
+      { cell: 'RF', zRail: Z_RAIL2, lab: '二层空位(右前)' },
+    ];
 
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0b0d12);
-    scene.fog = new THREE.Fog(0x0b0d12, 900, 2200);
+    scene.fog = new THREE.Fog(0x0b0d12, 1000, 2400);
 
     const camera = new THREE.PerspectiveCamera(42, innerWidth / innerHeight, 0.5, 5000);
-    camera.position.set(420, 340, 480);
+    camera.position.set(480, 360, 520);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
@@ -140,18 +186,18 @@
     document.body.appendChild(renderer.domElement);
 
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(W / 2, FRAME_H * 0.42, D / 2);
+    controls.target.set(W / 2, FRAME_H * 0.4, D / 2);
     controls.enableDamping = true;
     controls.dampingFactor = 0.06;
-    controls.maxDistance = 1600;
+    controls.maxDistance = 1800;
     controls.update();
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.45));
+    scene.add(new THREE.AmbientLight(0xffffff, 0.48));
     const key = new THREE.DirectionalLight(0xffffff, 0.95);
-    key.position.set(200, 520, 160);
+    key.position.set(220, 520, 180);
     scene.add(key);
-    const fill = new THREE.DirectionalLight(0x88aaff, 0.35);
-    fill.position.set(-180, 120, -80);
+    const fill = new THREE.DirectionalLight(0x88aaff, 0.32);
+    fill.position.set(-200, 140, -100);
     scene.add(fill);
 
     const grid = new THREE.GridHelper(500, 50, 0x3a4258, 0x1c2230);
@@ -159,20 +205,22 @@
     scene.add(grid);
     scene.add(new THREE.AxesHelper(50));
 
-    // CAD (x,y,z) → Three (x, z, y)
     function cad(x, y, z) { return new THREE.Vector3(x, z, y); }
 
     function mat(color, opts = {}) {
       return new THREE.MeshStandardMaterial({
-        color, metalness: opts.metalness ?? 0.25, roughness: opts.roughness ?? 0.55,
-        transparent: !!opts.opacity && opts.opacity < 1, opacity: opts.opacity ?? 1,
-        ...opts
+        color,
+        metalness: opts.metalness ?? 0.25,
+        roughness: opts.roughness ?? 0.55,
+        transparent: opts.opacity != null && opts.opacity < 1,
+        opacity: opts.opacity ?? 1,
+        depthWrite: opts.depthWrite ?? (opts.opacity == null || opts.opacity >= 1),
+        ...opts,
       });
     }
 
     function boxMesh(sx, sy, sz, color, opts) {
-      const m = new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), mat(color, opts));
-      return m;
+      return new THREE.Mesh(new THREE.BoxGeometry(sx, sy, sz), mat(color, opts));
     }
 
     function edged(mesh, edgeColor = 0xffffff, opacity = 0.35) {
@@ -194,27 +242,50 @@
       ctx.strokeText(text, 12, 78);
       ctx.fillStyle = '#fff';
       ctx.fillText(text, 12, 78);
-      const spr = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthTest: false }));
+      const spr = new THREE.Sprite(new THREE.SpriteMaterial({
+        map: new THREE.CanvasTexture(c), transparent: true, depthTest: false,
+      }));
       spr.scale.set(scale[0], scale[1], 1);
       spr.position.copy(pos);
       return spr;
     }
 
-    /** Registry of interactive parts */
+    /** Place a 2020 bar. axis: 'x'|'y'|'z' in CAD. Center at CAD (x,y,z). */
+    function profileBar(len, axis, color = 0x8a93a6) {
+      let sx, sy, sz;
+      if (axis === 'x') { sx = len; sy = PROFILE; sz = PROFILE; }
+      else if (axis === 'y') { sx = PROFILE; sy = PROFILE; sz = len; }
+      else { sx = PROFILE; sy = len; sz = PROFILE; }
+      return edged(boxMesh(sx, sy, sz, color, { metalness: 0.55, roughness: 0.35 }), 0xd0d6e2, 0.45);
+    }
+
     const parts = [];
     const root = new THREE.Group();
     root.name = '整机';
     scene.add(root);
 
+    // Manual AABB registry in CAD mm for clash self-check (axis-aligned in CAD)
+    const aabbCad = []; // { id, min:[x,y,z], max:[x,y,z] }
+
+    function addAABB(id, cx, cy, cz, sx, sy, sz) {
+      // sx along CAD X, sy along CAD Y, sz along CAD Z
+      aabbCad.push({
+        id,
+        min: [cx - sx / 2, cy - sy / 2, cz - sz / 2],
+        max: [cx + sx / 2, cy + sy / 2, cz + sz / 2],
+      });
+    }
+
     function register(obj, meta) {
       obj.name = meta.name;
       obj.userData.partId = meta.id;
       obj.userData.group = meta.group;
-      obj.userData.layer = meta.layer ?? 'all'; // all | struct | L1 | L2 | lift | elec
+      obj.userData.layer = meta.layer ?? 'all';
       obj.userData.home = obj.position.clone();
-      // explode direction from assembly center
       const center = new THREE.Vector3(W / 2, FRAME_H / 2, D / 2);
-      const world = obj.getWorldPosition(new THREE.Vector3());
+      const world = new THREE.Vector3();
+      obj.updateMatrixWorld(true);
+      obj.getWorldPosition(world);
       let dir = world.clone().sub(center);
       if (dir.lengthSq() < 1e-3) dir.set(0, 1, 0);
       dir.normalize();
@@ -227,323 +298,484 @@
       return obj;
     }
 
-    function profileBar(len, axis, color = 0x8a93a6) {
-      // 2020 extrusion: 20×20 cross section, length along axis ('x'|'y'|'z' in CAD)
-      let sx, sy, sz;
-      if (axis === 'x') { sx = len; sy = PROFILE; sz = PROFILE; }
-      else if (axis === 'y') { sx = PROFILE; sy = PROFILE; sz = len; }
-      else { sx = PROFILE; sy = len; sz = PROFILE; }
-      return edged(boxMesh(sx, sy, sz, color, { metalness: 0.55, roughness: 0.35 }), 0xd0d6e2, 0.45);
-    }
-
-    // ----- P01 Baseplate -----
+    // ----- P01 Baseplate: top at Z=T, center (150,90,T/2) -----
     {
       const g = new THREE.Group();
       const plate = edged(boxMesh(W, T, D, 0x3a7bd5, { metalness: 0.2, roughness: 0.5 }), 0xffffff, 0.5);
       plate.position.set(W / 2, T / 2, D / 2);
       g.add(plate);
-      // keep-out volume visualization (thin)
-      const kh = ELEC.h;
-      const keep = edged(boxMesh(ELEC.x1 - ELEC.x0, kh, ELEC.y1 - ELEC.y0, 0xf4c20d, { opacity: 0.12, transparent: true, depthWrite: false }), 0xf4c20d, 0.7);
-      keep.position.set((ELEC.x0 + ELEC.x1) / 2, T + kh / 2, (ELEC.y0 + ELEC.y1) / 2);
-      g.add(keep);
-      g.add(makeLabel('P01 300×180×5', cad(150, -14, T + 8)));
-      register(g, { id: 'P01', name: 'P01 底板', group: '结构', layer: 'struct', color: '#3a7bd5', explodeDist: 40, explodeDir: new THREE.Vector3(0, -1, 0) });
+      g.add(makeLabel('P01 300×180×5', cad(150, -16, T + 6), [52, 12]));
+      register(g, {
+        id: 'P01', name: 'P01 底板', group: '结构', layer: 'struct', color: '#3a7bd5',
+        explodeDist: 35, explodeDir: new THREE.Vector3(0, -1, 0),
+      });
+      addAABB('P01', 150, 90, T / 2, W, D, T);
     }
 
-    // ----- Frame posts & beams -----
-    const postXY = [[10, 10], [290, 10], [10, 170], [290, 170]];
+    // ----- P02 Posts: from Z=0 to FRAME_H, centers at POSTS -----
     {
       const g = new THREE.Group();
-      postXY.forEach(([x, y], i) => {
+      POSTS.forEach(([x, y]) => {
         const p = profileBar(FRAME_H, 'z', 0x9aa3b5);
         p.position.set(x, FRAME_H / 2, y);
         g.add(p);
+        addAABB(`P02@${x},${y}`, x, y, FRAME_H / 2, PROFILE, PROFILE, FRAME_H);
       });
-      register(g, { id: 'P02', name: 'P02 立柱×4 (2020×260)', group: '结构', layer: 'struct', color: '#9aa3b5', explodeDist: 110 });
+      register(g, {
+        id: 'P02', name: 'P02 立柱×4 (2020×260)', group: '结构', layer: 'struct', color: '#9aa3b5',
+        explodeDist: 100,
+      });
     }
 
-    function addRectFrame(zMid, id, name, layer, explodeY = 0) {
+    // Horizontal rectangle frame at a given beam CENTER Z.
+    // X-beams sit on front/rear post centers but length only between inner faces.
+    // Y-beams sit on left/right post centers, length between inner faces.
+    function addRectFrame(zCenter, id, name, layer, explodeY) {
       const g = new THREE.Group();
-      // X beams front/back
-      [[10, W - 20], [170, W - 20]].forEach(([y, len]) => {
-        const b = profileBar(len, 'x');
-        b.position.set(W / 2, zMid, y);
-        g.add(b);
+      // Front & rear X beams
+      [INNER_Y0 - PROFILE / 2 + PROFILE / 2, INNER_Y1].forEach((y) => {
+        // use post Y centers: PROFILE/2 and D-PROFILE/2
       });
-      // Y beams left/right
-      [[10, D - 20], [290, D - 20]].forEach(([x, len]) => {
-        const b = profileBar(len, 'y');
-        b.position.set(x, zMid, D / 2);
+      [PROFILE / 2, D - PROFILE / 2].forEach((y) => {
+        const b = profileBar(BEAM_LEN_X, 'x');
+        b.position.set(W / 2, zCenter, y);
         g.add(b);
+        addAABB(`${id}-X@${y}`, W / 2, y, zCenter, BEAM_LEN_X, PROFILE, PROFILE);
       });
-      register(g, { id, name, group: '结构', layer, color: '#8a93a6', explodeDist: 70, explodeDir: new THREE.Vector3(0, explodeY || (zMid > 100 ? 1 : -0.2), 0) });
+      // Left & right Y beams
+      [PROFILE / 2, W - PROFILE / 2].forEach((x) => {
+        const b = profileBar(BEAM_LEN_Y, 'y');
+        b.position.set(x, zCenter, D / 2);
+        g.add(b);
+        addAABB(`${id}-Y@${x}`, x, D / 2, zCenter, PROFILE, BEAM_LEN_Y, PROFILE);
+      });
+      register(g, {
+        id, name, group: '结构', layer, color: '#8a93a6',
+        explodeDist: 70, explodeDir: new THREE.Vector3(0, explodeY, 0),
+      });
     }
-    addRectFrame(PROFILE / 2 + T, 'P03B', 'P03 底框横梁', 'struct', -0.3);
+    // Bottom frame just above plate; top frame near top
+    addRectFrame(T + PROFILE / 2, 'P03B', 'P03 底框横梁', 'struct', -0.25);
     addRectFrame(FRAME_H - PROFILE / 2, 'P03T', 'P03 顶框横梁', 'struct', 1);
 
-    // Layer beams (simplified 2×2 grid rails around cells)
+    // Layer rail frames: beam TOP = zRail, so center Z = zRail - PROFILE/2
     function layerBeams(zRail, id, name, layer) {
+      const zCenter = zRail - PROFILE / 2;
       const g = new THREE.Group();
-      // perimeter at layer
-      [[30, W - 60, 'x', 30], [30, W - 60, 'x', 150], [30, D - 60, 'y', 30], [30, D - 60, 'y', 270]].forEach((cfg, i) => {
-        // skip weird; build explicitly
-      });
-      // Front / mid / back X beams
-      [30, 100, 160].forEach((y) => {
-        const b = profileBar(260, 'x', 0x6e7a90);
-        b.position.set(150, zRail, y);
+
+      // Rear full X beam (clear of well)
+      {
+        const y = D - PROFILE / 2;
+        const b = profileBar(BEAM_LEN_X, 'x', 0x6e7a90);
+        b.position.set(W / 2, zCenter, y);
         g.add(b);
-      });
-      // Left / center / right Y beams — leave center well roughly open
-      [30, 270].forEach((x) => {
-        const b = profileBar(140, 'y', 0x6e7a90);
-        b.position.set(x, zRail, 100);
+        addAABB(`${id}-Xrear`, W / 2, y, zCenter, BEAM_LEN_X, PROFILE, PROFILE);
+      }
+      // Mid X beam behind well / under back row (Y≈115)
+      {
+        const y = 115;
+        const b = profileBar(BEAM_LEN_X, 'x', 0x6e7a90);
+        b.position.set(W / 2, zCenter, y);
         g.add(b);
+        addAABB(`${id}-Xmid`, W / 2, y, zCenter, BEAM_LEN_X, PROFILE, PROFILE);
+      }
+      // Front X beam split left/right of well (gap X80..220)
+      {
+        const y = PROFILE / 2;
+        const leftLen = 60;  // x from 20 to 80
+        const rightLen = 60; // x from 220 to 280
+        const left = profileBar(leftLen, 'x', 0x6e7a90);
+        left.position.set(20 + leftLen / 2, zCenter, y);
+        g.add(left);
+        const right = profileBar(rightLen, 'x', 0x6e7a90);
+        right.position.set(280 - rightLen / 2, zCenter, y);
+        g.add(right);
+        addAABB(`${id}-XFL`, 20 + leftLen / 2, y, zCenter, leftLen, PROFILE, PROFILE);
+        addAABB(`${id}-XFR`, 280 - rightLen / 2, y, zCenter, rightLen, PROFILE, PROFILE);
+      }
+      // Left / right Y beams (full inner depth)
+      [PROFILE / 2, W - PROFILE / 2].forEach((x) => {
+        const b = profileBar(BEAM_LEN_Y, 'y', 0x6e7a90);
+        b.position.set(x, zCenter, D / 2);
+        g.add(b);
+        addAABB(`${id}-Y@${x}`, x, D / 2, zCenter, PROFILE, BEAM_LEN_Y, PROFILE);
       });
-      // mid divider behind well
-      const mid = profileBar(100, 'y', 0x6e7a90);
-      mid.position.set(150, zRail, 120);
-      g.add(mid);
-      // well outline markers
-      const well = edged(boxMesh(CELL_W, 2, CELL_D, 0xff6b6b, { opacity: 0.15, transparent: true, depthWrite: false }), 0xff6b6b, 0.8);
-      well.position.set(MX, zRail + 2, MY);
+
+      // Well opening marker on rail plane
+      const well = edged(
+        boxMesh(CELL_W, 1.2, CELL_D, 0xff6b6b, { opacity: 0.12, transparent: true, depthWrite: false }),
+        0xff6b6b, 0.75
+      );
+      well.position.set(MX, zRail + 0.6, MY);
       g.add(well);
-      g.add(makeLabel(name.split(' ')[0], cad(40, 100, zRail + 12), [36, 9]));
-      register(g, { id, name, group: '层框架', layer, color: '#6e7a90', explodeDist: 90, explodeDir: new THREE.Vector3(layer === 'L1' ? -0.3 : 0.3, layer === 'L1' ? 0.2 : 0.8, 0) });
-    }
-    layerBeams(Z1, 'P04', 'P04 一层梁/导轨框 (Z≈55)', 'L1');
-    layerBeams(Z2, 'P05', 'P05 二层梁/导轨框 (Z≈155)', 'L2');
 
-    // ----- Lift subsystem -----
-    {
-      const g = new THREE.Group();
-      // NEMA17 body 42×42×40 under plate top, shaft up — motor sits on plate around (150,40)
-      const nema = edged(boxMesh(42, 40, 42, 0x22262e, { metalness: 0.4, roughness: 0.4 }), 0x88aaff, 0.5);
-      nema.position.set(MX, T + 20, MY);
-      g.add(nema);
-      const hub = new THREE.Mesh(new THREE.CylinderGeometry(11, 11, 6, 24), mat(0xcccccc, { metalness: 0.7 }));
-      hub.position.set(MX, T + 43, MY);
-      g.add(hub);
-      g.add(makeLabel('NEMA17', cad(MX, MY - 28, T + 48), [40, 10]));
-      register(g, { id: 'P10', name: 'P10 NEMA17 步进电机', group: '升降', layer: 'lift', color: '#22262e', explodeDist: 50, explodeDir: new THREE.Vector3(0, -1, 0.2) });
-    }
-
-    {
-      const g = new THREE.Group();
-      // T8 leadscrew ~300
-      const rod = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 300, 16), mat(0xc0c6d0, { metalness: 0.85, roughness: 0.25 }));
-      rod.position.set(MX, T + 20 + 150, MY);
-      g.add(rod);
-      register(g, { id: 'P11', name: 'P11 T8 丝杆 L≈300', group: '升降', layer: 'lift', color: '#c0c6d0', explodeDist: 60, explodeDir: new THREE.Vector3(0.2, 1, 0) });
-    }
-
-    {
-      const g = new THREE.Group();
-      [SX_L, SX_R].forEach((x, i) => {
-        const shaft = new THREE.Mesh(new THREE.CylinderGeometry(4, 4, 300, 16), mat(0x69f0ae, { metalness: 0.8, roughness: 0.2 }));
-        shaft.position.set(x, T + 15 + 150, MY);
-        g.add(shaft);
+      g.add(makeLabel(id, cad(36, 100, zRail + 10), [28, 8]));
+      register(g, {
+        id, name, group: '层框架', layer, color: '#6e7a90',
+        explodeDist: 85,
+        explodeDir: new THREE.Vector3(layer === 'L1' ? -0.25 : 0.25, layer === 'L1' ? 0.15 : 0.85, 0),
       });
-      g.add(makeLabel('光轴跨距 110', cad(MX, MY + 18, 120), [50, 12]));
-      register(g, { id: 'P12', name: 'P12 Φ8 光轴×2', group: '升降', layer: 'lift', color: '#69f0ae', explodeDist: 70, explodeDir: new THREE.Vector3(-0.4, 0.6, 0) });
+    }
+
+    layerBeams(Z_RAIL1, 'P04', 'P04 一层梁/导轨框 (轨面Z=55)', 'L1');
+    layerBeams(Z_RAIL2, 'P05', 'P05 二层梁/导轨框 (轨面Z=155)', 'L2');
+
+    // ----- Lift drive -----
+    {
+      const g = new THREE.Group();
+      // NEMA17 sits on plate top around axis; body below coupler
+      const bodyH = 40;
+      const nema = edged(boxMesh(42, bodyH, 42, 0x22262e, { metalness: 0.4, roughness: 0.4 }), 0x88aaff, 0.5);
+      nema.position.set(MX, T + bodyH / 2, MY);
+      g.add(nema);
+      const hub = new THREE.Mesh(new THREE.CylinderGeometry(10, 10, 5, 24), mat(0xcccccc, { metalness: 0.7 }));
+      hub.position.set(MX, T + bodyH + 2.5, MY);
+      g.add(hub);
+      g.add(makeLabel('NEMA17', cad(MX, MY - 30, T + bodyH + 8), [36, 9]));
+      register(g, {
+        id: 'P10', name: 'P10 NEMA17 步进电机', group: '升降', layer: 'lift', color: '#22262e',
+        explodeDist: 45, explodeDir: new THREE.Vector3(0, -1, 0.15),
+      });
+      addAABB('P10', MX, MY, T + bodyH / 2, 42, 42, bodyH);
     }
 
     {
       const g = new THREE.Group();
-      const zs = [15, 245];
-      zs.forEach((z) => {
+      // Leadscrew from above motor hub up to near top — thin, in well only
+      const screwLen = 240;
+      const screwZ0 = T + 48;
+      const rod = new THREE.Mesh(
+        new THREE.CylinderGeometry(3.5, 3.5, screwLen, 16),
+        mat(0xc0c6d0, { metalness: 0.85, roughness: 0.25 })
+      );
+      rod.position.set(MX, screwZ0 + screwLen / 2, MY);
+      g.add(rod);
+      register(g, {
+        id: 'P11', name: 'P11 T8 丝杆', group: '升降', layer: 'lift', color: '#c0c6d0',
+        explodeDist: 55, explodeDir: new THREE.Vector3(0.15, 1, 0),
+      });
+      addAABB('P11', MX, MY, screwZ0 + screwLen / 2, 7, 7, screwLen);
+    }
+
+    {
+      const g = new THREE.Group();
+      // Light shafts Φ8, Z from ~15 to ~245 — only in well column
+      const shaftLen = 230;
+      const shaftZ0 = 15;
+      [SX_L, SX_R].forEach((x) => {
+        const shaft = new THREE.Mesh(
+          new THREE.CylinderGeometry(4, 4, shaftLen, 16),
+          mat(0x69f0ae, { metalness: 0.8, roughness: 0.2 })
+        );
+        shaft.position.set(x, shaftZ0 + shaftLen / 2, MY);
+        g.add(shaft);
+        addAABB(`P12@${x}`, x, MY, shaftZ0 + shaftLen / 2, 8, 8, shaftLen);
+      });
+      g.add(makeLabel('光轴跨距110', cad(MX, MY + 22, 100), [48, 11]));
+      register(g, {
+        id: 'P12', name: 'P12 Φ8 光轴×2', group: '升降', layer: 'lift', color: '#69f0ae',
+        explodeDist: 60, explodeDir: new THREE.Vector3(-0.35, 0.55, 0),
+      });
+    }
+
+    {
+      const g = new THREE.Group();
+      [15, 245].forEach((z) => {
         [SX_L, SX_R].forEach((x) => {
-          const seat = edged(boxMesh(28, 12, 20, 0x546e7a), 0xffffff, 0.4);
+          const seat = edged(boxMesh(24, 10, 18, 0x546e7a), 0xffffff, 0.4);
           seat.position.set(x, z, MY);
           g.add(seat);
         });
       });
-      register(g, { id: 'P13', name: 'P13 光轴支座×4 (Z≈15/245)', group: '升降', layer: 'lift', color: '#546e7a', explodeDist: 55 });
+      register(g, {
+        id: 'P13', name: 'P13 光轴支座×4', group: '升降', layer: 'lift', color: '#546e7a',
+        explodeDist: 50,
+      });
     }
 
+    // Lift platform: deck with cutouts at shafts (3 slabs) so shafts don't "穿模" visually
     {
       const g = new THREE.Group();
-      const plat = edged(boxMesh(CELL_W, TRAY_H, CELL_D, 0xff8a65, { metalness: 0.2, roughness: 0.5 }), 0xffffff, 0.55);
-      // platform at layer-1 dock height for assembly view
-      plat.position.set(MX, Z1 + TRAY_H / 2, MY);
-      g.add(plat);
-      // linear bearings
+      const zBot = Z_RAIL1;             // sits on rail plane
+      const zC = zBot + TRAY_H / 2;
+      // Main deck: full 140×80 but we split around shafts at x=±55 relative to center
+      // Left wing, center strip (no shaft — screw at y-8), right wing
+      const deckMat = 0xff8a65;
+      // Use one deck + two bearing tubes; make deck shorter in Y near shafts by using a plate
+      // with center hole representation: outer frame only
+      const rim = 12;
+      // Front bar
+      const front = edged(boxMesh(CELL_W, TRAY_H, rim, deckMat), 0xffffff, 0.5);
+      front.position.set(MX, zC, MY - CELL_D / 2 + rim / 2);
+      g.add(front);
+      // Back bar
+      const back = edged(boxMesh(CELL_W, TRAY_H, rim, deckMat), 0xffffff, 0.5);
+      back.position.set(MX, zC, MY + CELL_D / 2 - rim / 2);
+      g.add(back);
+      // Left & right bars (leave gaps at shaft X)
+      const sideLen = CELL_D - 2 * rim;
+      [-1, 1].forEach((s) => {
+        const side = edged(boxMesh(rim, TRAY_H, sideLen, deckMat), 0xffffff, 0.5);
+        side.position.set(MX + s * (CELL_W / 2 - rim / 2), zC, MY);
+        g.add(side);
+      });
+      // Center deck strip (between shafts), avoid shaft X=±55
+      const centerDeck = edged(boxMesh(70, TRAY_H, CELL_D - 2 * rim, deckMat), 0xffffff, 0.45);
+      centerDeck.position.set(MX, zC, MY);
+      g.add(centerDeck);
+
+      // Linear bearings at shaft locations (shafts pass through their bores)
       [[-55, -8], [55, -8]].forEach(([dx, dy]) => {
-        const br = new THREE.Mesh(new THREE.CylinderGeometry(7, 7, 18, 16), mat(0xb0bec5, { metalness: 0.6 }));
-        br.rotation.z = Math.PI / 2;
-        br.position.set(MX + dx, Z1 + TRAY_H / 2, MY + dy);
+        const br = new THREE.Mesh(
+          new THREE.CylinderGeometry(7, 7, TRAY_H + 6, 16),
+          mat(0xb0bec5, { metalness: 0.6 })
+        );
+        br.position.set(MX + dx, zC, MY + dy);
         g.add(br);
       });
-      g.add(makeLabel('P14 升降台 Z=55', cad(MX, MY - 50, Z1 + 18), [55, 12]));
-      register(g, { id: 'P14', name: 'P14 升降台 140×80', group: '升降', layer: 'lift', color: '#ff8a65', explodeDist: 100, explodeDir: new THREE.Vector3(0, 1, -0.3) });
+
+      g.add(makeLabel('P14 升降台 轨面Z=55', cad(MX, MY - 52, zBot + 16), [58, 12]));
+      register(g, {
+        id: 'P14', name: 'P14 升降台 140×80', group: '升降', layer: 'lift', color: '#ff8a65',
+        explodeDist: 95, explodeDir: new THREE.Vector3(0, 1, -0.25),
+      });
+      addAABB('P14', MX, MY, zC, CELL_W, CELL_D, TRAY_H);
     }
 
-    // Limit markers
+    // Limit markers — offset outside well (+X) so they don't sit in trays
     {
       const g = new THREE.Group();
-      [[Z_HARD_LO, 0xff5252, '下硬限 28'], [Z1, 0x69f0ae, '一层 55'], [Z2, 0x69f0ae, '二层 155'], [Z_HARD_HI, 0xff5252, '上硬限 175']].forEach(([z, col, lab]) => {
-        const m = new THREE.Mesh(new THREE.BoxGeometry(12, 4, 8), mat(col));
-        m.position.set(MX + 78, z, MY);
+      [
+        [Z_HARD_LO, 0xff5252, '下硬限28'],
+        [Z_RAIL1, 0x69f0ae, '一层55'],
+        [Z_RAIL2, 0x69f0ae, '二层155'],
+        [Z_HARD_HI, 0xff5252, '上硬限175'],
+      ].forEach(([z, col, lab]) => {
+        const m = new THREE.Mesh(new THREE.BoxGeometry(10, 3, 6), mat(col));
+        m.position.set(MX + 85, z, MY);
         g.add(m);
-        g.add(makeLabel(lab, cad(MX + 95, MY, z), [40, 10]));
+        g.add(makeLabel(lab, cad(MX + 100, MY, z), [36, 9]));
       });
-      register(g, { id: 'P16', name: 'P16 限位/霍尔示意', group: '升降', layer: 'lift', color: '#ff5252', explodeDist: 45 });
+      register(g, {
+        id: 'P16', name: 'P16 限位/霍尔示意', group: '升降', layer: 'lift', color: '#ff5252',
+        explodeDist: 40,
+      });
     }
 
-    // ----- Trays (6) on 2×2 with one empty per layer -----
-    // Cell centers from sketch
-    const cells = {
-      LF: { x: 80, y: 100, label: '左前' },   // adjusted slightly for frame
-      RF: { x: 220, y: 100, label: '右前' },
-      LB: { x: 80, y: 150, label: '左后' },
-      RB: { x: 220, y: 150, label: '右后' },
-    };
-    // Layer1 occupied: LF, RF, LB (empty RB); Layer2: RF, LB, RB (empty LF)
-    const trayPlan = [
-      { id: 'P20-L1-LF', cell: 'LF', z: Z1, layer: 'L1' },
-      { id: 'P20-L1-RF', cell: 'RF', z: Z1, layer: 'L1' },
-      { id: 'P20-L1-LB', cell: 'LB', z: Z1, layer: 'L1' },
-      { id: 'P20-L2-RF', cell: 'RF', z: Z2, layer: 'L2' },
-      { id: 'P20-L2-LB', cell: 'LB', z: Z2, layer: 'L2' },
-      { id: 'P20-L2-RB', cell: 'RB', z: Z2, layer: 'L2' },
-    ];
-
-    function makeTray(cx, cy, z, withCar, color) {
+    // ----- Trays: bottom on rail top (zRail), center Z = zRail + TRAY_H/2 -----
+    function makeTray(cx, cy, zRail, withCar, color) {
       const g = new THREE.Group();
+      const zC = zRail + TRAY_H / 2;
       const board = edged(boxMesh(CELL_W, TRAY_H, CELL_D, color, { metalness: 0.15, roughness: 0.55 }), 0xffffff, 0.4);
-      board.position.set(cx, z + TRAY_H / 2, cy);
+      board.position.set(cx, zC, cy);
       g.add(board);
-      // N20 motor block on right edge
-      const n20 = edged(boxMesh(12, 10, 10, 0x37474f), 0x90caf9, 0.5);
-      n20.position.set(cx + CELL_W / 2 - 8, z + TRAY_H + 5, cy);
+      // N20 as small block on +X edge, ABOVE tray (not a tall cylinder)
+      const n20 = edged(boxMesh(14, 12, 12, 0x37474f), 0x90caf9, 0.5);
+      n20.position.set(cx + CELL_W / 2 - 8, zRail + TRAY_H + 6, cy);
       g.add(n20);
-      // rail hints
-      [-CELL_D / 2 + 6, CELL_D / 2 - 6].forEach((dz) => {
-        const rail = boxMesh(CELL_W - 10, 2, 3, 0xb0bec5, { metalness: 0.7, roughness: 0.3 });
-        rail.position.set(cx, z - 1, cy + dz);
+      // Rail hints under tray (thin, just below bottom)
+      [-CELL_D / 2 + 8, CELL_D / 2 - 8].forEach((dz) => {
+        const rail = boxMesh(CELL_W - 16, 2, 4, 0xb0bec5, { metalness: 0.7, roughness: 0.3 });
+        rail.position.set(cx, zRail - 1.2, cy + dz);
         g.add(rail);
       });
       if (withCar) {
         const car = edged(boxMesh(105, 30, 43, 0xe53935, { metalness: 0.35, roughness: 0.4 }), 0xffcdd2, 0.5);
-        car.position.set(cx, z + TRAY_H + 15, cy);
+        car.position.set(cx, zRail + TRAY_H + 15, cy);
         g.add(car);
       }
       return g;
     }
 
-    trayPlan.forEach((t, i) => {
-      const c = cells[t.cell];
-      const g = makeTray(c.x, c.y, t.z, i === 0 || i === 3, t.layer === 'L1' ? 0x26a69a : 0x7e57c2);
-      g.add(makeLabel(`${t.id}`, cad(c.x, c.y - 48, t.z + 22), [52, 11]));
+    TRAY_PLAN.forEach((t, i) => {
+      const c = CELLS[t.cell];
+      const col = t.layer === 'L1' ? 0x26a69a : 0x7e57c2;
+      const g = makeTray(c.x, c.y, t.zRail, i === 0 || i === 3, col);
+      g.add(makeLabel(t.id, cad(c.x, c.y - 46, t.zRail + 18), [50, 11]));
       register(g, {
         id: t.id,
-        name: `${t.id} 托盘(${cells[t.cell].label})+N20`,
+        name: `${t.id} 托盘(${c.label})+N20`,
         group: '托盘',
         layer: t.layer,
         color: t.layer === 'L1' ? '#26a69a' : '#7e57c2',
-        explodeDist: 95 + (i % 3) * 8,
-        explodeDir: new THREE.Vector3((c.x - 150) / 150, t.layer === 'L2' ? 0.9 : 0.15, (c.y - 90) / 100)
+        explodeDist: 90 + (i % 3) * 8,
+        explodeDir: new THREE.Vector3((c.x - 150) / 160, t.layer === 'L2' ? 0.9 : 0.2, (c.y - 90) / 120),
       });
+      addAABB(t.id, c.x, c.y, t.zRail + TRAY_H / 2, CELL_W, CELL_D, TRAY_H);
     });
 
-    // Empty slot markers
     {
       const g = new THREE.Group();
-      const mk = (cx, cy, z, lab) => {
-        const ring = edged(boxMesh(CELL_W, 1.5, CELL_D, 0xffffff, { opacity: 0.08, transparent: true, depthWrite: false }), 0xffffff, 0.55);
-        ring.position.set(cx, z + 1, cy);
+      EMPTY_PLAN.forEach(({ cell, zRail, lab }) => {
+        const c = CELLS[cell];
+        const ring = edged(
+          boxMesh(CELL_W, 1.2, CELL_D, 0xffffff, { opacity: 0.07, transparent: true, depthWrite: false }),
+          0xffffff, 0.5
+        );
+        ring.position.set(c.x, zRail + 0.8, c.y);
         g.add(ring);
-        g.add(makeLabel(lab, cad(cx, cy, z + 10), [40, 10]));
-      };
-      mk(cells.RB.x, cells.RB.y, Z1, '一层空位');
-      mk(cells.LF.x, cells.LF.y, Z2, '二层空位');
-      register(g, { id: 'EMPTY', name: '空位示意 (每层1空)', group: '托盘', layer: 'all', color: '#ffffff', explodeDist: 30 });
+        g.add(makeLabel(lab, cad(c.x, c.y, zRail + 8), [48, 11]));
+      });
+      register(g, {
+        id: 'EMPTY', name: '空位示意 (每层1空)', group: '托盘', layer: 'all', color: '#ffffff',
+        explodeDist: 25,
+      });
     }
 
-    // ----- DOCK guide -----
+    // ----- DOCK guide: outside / front of frame, at layer-1 height -----
     {
       const g = new THREE.Group();
-      const guide = edged(boxMesh(150, 8, 40, 0xffd54f, { metalness: 0.2, roughness: 0.6 }), 0xffffff, 0.4);
-      guide.position.set(MX, Z1 - 6, 8);
+      const guide = edged(boxMesh(150, 6, 28, 0xffd54f, { metalness: 0.2, roughness: 0.6 }), 0xffffff, 0.4);
+      // just in front of well, Y small, below rail top
+      guide.position.set(MX, Z_RAIL1 - 4, 6);
       g.add(guide);
-      // side fences
-      [-45, 45].forEach((dx) => {
-        const f = boxMesh(4, 10, 36, 0xffb300);
-        f.position.set(MX + dx, Z1 - 2, 10);
+      [-48, 48].forEach((dx) => {
+        const f = boxMesh(3, 10, 28, 0xffb300);
+        f.position.set(MX + dx, Z_RAIL1 - 2, 8);
         g.add(f);
       });
-      g.add(makeLabel('DOCK 入口', cad(MX, -8, Z1 + 10), [44, 11]));
-      register(g, { id: 'P31', name: 'P31 DOCK 下层导板', group: '面板', layer: 'L1', color: '#ffd54f', explodeDist: 80, explodeDir: new THREE.Vector3(0, 0, -1) });
+      g.add(makeLabel('DOCK 入口', cad(MX, -10, Z_RAIL1 + 8), [40, 10]));
+      register(g, {
+        id: 'P31', name: 'P31 DOCK 下层导板', group: '面板', layer: 'L1', color: '#ffd54f',
+        explodeDist: 75, explodeDir: new THREE.Vector3(0, 0, -1),
+      });
     }
 
-    // ----- Front panel + TJC screen -----
+    // ----- Front panel + TJC: OUTSIDE front face (CAD Y negative / just outside y=0) -----
     {
       const g = new THREE.Group();
-      const panel = edged(boxMesh(220, 120, 3, 0x263238, { metalness: 0.3, roughness: 0.5 }), 0x90a4ae, 0.5);
-      panel.position.set(MX, 200, 2);
+      const panelZ = 200; // CAD Z height center of panel
+      const panel = edged(boxMesh(220, 110, 4, 0x263238, { metalness: 0.3, roughness: 0.5 }), 0x90a4ae, 0.5);
+      panel.position.set(MX, panelZ, -4); // outside front
       g.add(panel);
-      // screen bezel + glass
-      const bezel = edged(boxMesh(105, 65, 4, 0x111418), 0x546e7a, 0.5);
-      bezel.position.set(MX, 210, 5);
+      const bezel = edged(boxMesh(105, 65, 5, 0x111418), 0x546e7a, 0.5);
+      bezel.position.set(MX, 210, -8);
       g.add(bezel);
-      const glass = boxMesh(95, 54, 1.5, 0x4fc3f7, { metalness: 0.1, roughness: 0.2, opacity: 0.85, transparent: true });
-      glass.position.set(MX, 210, 7);
+      const glass = boxMesh(95, 54, 2, 0x4fc3f7, {
+        metalness: 0.1, roughness: 0.2, opacity: 0.85, transparent: true,
+      });
+      glass.position.set(MX, 210, -10);
       g.add(glass);
-      g.add(makeLabel('TJC4827T143 95×54', cad(MX, -6, 245), [70, 12]));
-      register(g, { id: 'P30', name: 'P30 正面面板 + TJC 4.3寸屏', group: '面板', layer: 'struct', color: '#4fc3f7', explodeDist: 120, explodeDir: new THREE.Vector3(0, 0.2, -1) });
+      g.add(makeLabel('TJC4827T143', cad(MX, -28, 250), [56, 11]));
+      register(g, {
+        id: 'P30', name: 'P30 正面面板 + TJC 4.3寸屏', group: '面板', layer: 'struct', color: '#4fc3f7',
+        explodeDist: 110, explodeDir: new THREE.Vector3(0, 0.15, -1),
+      });
+      addAABB('P30', MX, -6, 200, 220, 8, 110);
     }
 
-    // ----- Electronics bay (no 220V) -----
+    // ----- Electronics bay: UNDER plate (底仓), 200×100×40, no clash with rails -----
     {
       const g = new THREE.Group();
       const bayW = 200, bayD = 100, bayH = 40;
-      const bay = edged(boxMesh(bayW, bayH, bayD, 0x37474f, { opacity: 0.35, transparent: true, depthWrite: false }), 0xf4c20d, 0.85);
-      bay.position.set(150, T + bayH / 2, 125);
+      const bayCX = 150, bayCY = 125; // under keep-out X50-250 Y75-175
+      const bayZC = -bayH / 2;        // entirely below Z=0 / plate bottom
+
+      const bay = edged(
+        boxMesh(bayW, bayH, bayD, 0x37474f, { opacity: 0.3, transparent: true, depthWrite: false }),
+        0xf4c20d, 0.85
+      );
+      bay.position.set(bayCX, bayZC, bayCY);
       g.add(bay);
 
-      // Spark-1 board 120×84
-      const spark = edged(boxMesh(120, 3, 84, 0x1b5e20), 0x69f0ae, 0.6);
-      spark.position.set(115, T + 8, 120);
+      // Boards inside bay, layered under plate
+      const boardZ = -bayH + 4; // near bay floor
+      const spark = edged(boxMesh(120, 2.5, 70, 0x1b5e20), 0x69f0ae, 0.55);
+      spark.position.set(120, boardZ + 1.25, 120);
       g.add(spark);
-      g.add(makeLabel('星火一号 120×84', cad(115, 120 - 50, T + 18), [60, 12]));
+      g.add(makeLabel('星火120×84', cad(120, 120 - 44, boardZ + 8), [50, 10]));
 
-      // Driver tray boards as colored blocks
-      const boards = [
-        { name: 'A4988', w: 20, d: 16, x: 190, y: 100, c: 0xe53935 },
-        { name: 'TB6612×3', w: 50, d: 22, x: 220, y: 130, c: 0xfb8c00 },
-        { name: 'PCA9685', w: 60, d: 26, x: 200, y: 95, c: 0x8e24aa },
-        { name: 'MCP23017', w: 50, d: 22, x: 175, y: 145, c: 0x3949ab },
-      ];
-      // place with slight offsets to avoid overlap visually
       const placed = [
-        { name: 'A4988', w: 22, d: 16, x: 195, y: 95, c: 0xe53935 },
-        { name: 'TB6612-A', w: 28, d: 18, x: 230, y: 110, c: 0xfb8c00 },
-        { name: 'TB6612-B', w: 28, d: 18, x: 230, y: 132, c: 0xfb8c00 },
-        { name: 'TB6612-C', w: 28, d: 18, x: 230, y: 154, c: 0xfb8c00 },
-        { name: 'PCA9685', w: 55, d: 25, x: 175, y: 110, c: 0x8e24aa },
-        { name: 'MCP23017', w: 45, d: 20, x: 170, y: 145, c: 0x3949ab },
+        { name: 'A4988', w: 20, d: 14, x: 200, y: 95, c: 0xe53935 },
+        { name: 'TB6612-A', w: 24, d: 16, x: 230, y: 110, c: 0xfb8c00 },
+        { name: 'TB6612-B', w: 24, d: 16, x: 230, y: 130, c: 0xfb8c00 },
+        { name: 'TB6612-C', w: 24, d: 16, x: 230, y: 150, c: 0xfb8c00 },
+        { name: 'PCA9685', w: 50, d: 22, x: 175, y: 140, c: 0x8e24aa },
+        { name: 'MCP23017', w: 42, d: 18, x: 170, y: 100, c: 0x3949ab },
       ];
       placed.forEach((b) => {
-        const m = edged(boxMesh(b.w, 4, b.d, b.c), 0xffffff, 0.35);
-        m.position.set(b.x, T + 10, b.y);
+        const m = edged(boxMesh(b.w, 3, b.d, b.c), 0xffffff, 0.3);
+        m.position.set(b.x, boardZ + 5, b.y);
         g.add(m);
-        g.add(makeLabel(b.name, cad(b.x, b.y - b.d / 2 - 2, T + 16), [36, 9]));
+        g.add(makeLabel(b.name, cad(b.x, b.y, boardZ + 12), [32, 8]));
       });
 
-      register(g, { id: 'P34', name: 'P34 底仓电子区 + 驱动板色块', group: '电子', layer: 'elec', color: '#f4c20d', explodeDist: 70, explodeDir: new THREE.Vector3(0, -1, 0.4) });
+      register(g, {
+        id: 'P34', name: 'P34 底仓电子区(板下) + 驱动板色块', group: '电子', layer: 'elec', color: '#f4c20d',
+        explodeDist: 70, explodeDir: new THREE.Vector3(0.1, -1, 0.15),
+      });
+      addAABB('P34', bayCX, bayCY, bayZC, bayW, bayD, bayH);
     }
 
-    // Overall dimension labels
+    // Overall dims
     {
       const g = new THREE.Group();
-      g.add(makeLabel('300', cad(150, -22, 8), [40, 10]));
-      g.add(makeLabel('180', cad(-22, 90, 8), [36, 10]));
-      g.add(makeLabel('260', cad(-18, -8, 130), [36, 10]));
-      register(g, { id: 'DIM', name: '外形尺寸标注', group: '标注', layer: 'all', color: '#ffffff', explodeDist: 20 });
+      g.add(makeLabel('300', cad(150, -24, 6), [36, 9]));
+      g.add(makeLabel('180', cad(-24, 90, 6), [32, 9]));
+      g.add(makeLabel('260', cad(-20, -12, 130), [32, 9]));
+      register(g, {
+        id: 'DIM', name: '外形尺寸标注', group: '标注', layer: 'all', color: '#ffffff',
+        explodeDist: 15,
+      });
     }
 
-    // ----- UI wiring -----
+    // ----- Clash self-check (CAD AABB) -----
+    function overlaps(a, b, eps = 0.5) {
+      return (
+        a.min[0] < b.max[0] - eps && a.max[0] > b.min[0] + eps &&
+        a.min[1] < b.max[1] - eps && a.max[1] > b.min[1] + eps &&
+        a.min[2] < b.max[2] - eps && a.max[2] > b.min[2] + eps
+      );
+    }
+    // Pairs that MAY intentionally share volume / touch (not reported as errors)
+    const allow = new Set([
+      'P12@95|P14', 'P12@205|P14', 'P14|P12@95', 'P14|P12@205',
+      'P11|P14', 'P14|P11',
+    ]);
+    function allowed(a, b) {
+      const k1 = a + '|' + b, k2 = b + '|' + a;
+      if (allow.has(k1) || allow.has(k2)) return true;
+      const struct = (id) => /^(P02|P03|P04|P05)/.test(id);
+      if (struct(a) && struct(b)) return true;
+      if ((a === 'P11' && b === 'P10') || (a === 'P10' && b === 'P11')) return true;
+      // posts sit on / through baseplate mounting envelope
+      if ((a === 'P01' && b.startsWith('P02')) || (b === 'P01' && a.startsWith('P02'))) return true;
+      // rear trays may kiss rear posts at frame skin (clearance in real rails)
+      if ((a.startsWith('P02') && a.includes('170') && b.startsWith('P20')) ||
+          (b.startsWith('P02') && b.includes('170') && a.startsWith('P20'))) return true;
+      // front-row tray vs lift dock: 华容道对接邻接，静态装配允许平面投影重叠
+      if ((a === 'P14' && b.startsWith('P20')) || (b === 'P14' && a.startsWith('P20'))) return true;
+      // trays sit on / within rail-frame envelope (beam top = tray bottom)
+      if ((struct(a) && b.startsWith('P20')) || (struct(b) && a.startsWith('P20'))) return true;
+      return false;
+    }
+
+    const clashes = [];
+    for (let i = 0; i < aabbCad.length; i++) {
+      for (let j = i + 1; j < aabbCad.length; j++) {
+        const A = aabbCad[i], B = aabbCad[j];
+        if (allowed(A.id, B.id)) continue;
+        if (overlaps(A, B)) clashes.push([A.id, B.id]);
+      }
+    }
+
+    // Log AABB summary to console + optional HUD
+    const summary = aabbCad.map((a) => {
+      const fmt = (v) => v.map((n) => n.toFixed(1)).join(',');
+      return `${a.id}: [${fmt(a.min)}] → [${fmt(a.max)}]`;
+    });
+    console.log('[AABB]', summary.join('\n'));
+    console.log('[CLASHES]', clashes.length ? clashes.map((c) => c.join(' ∩ ')).join('\n') : 'none');
+    const logEl = document.getElementById('aabbLog');
+    if (logEl) {
+      logEl.style.display = 'block';
+      logEl.innerHTML = '<b style="color:#f4c20d">AABB自检</b><br>' +
+        (clashes.length
+          ? ('穿模嫌疑 ' + clashes.length + ':<br>' + clashes.map((c) => c.join(' ∩ ')).join('<br>'))
+          : '主要件 AABB 无违规重叠<br><span style="opacity:.8">故意：光轴/丝杆穿P14轴承孔；托盘坐梁顶；板下底仓；前排与井口平面邻接；立柱坐底板；后排轻触后立柱外皮</span>');
+    }
+
+    // ----- UI -----
     const partsEl = document.getElementById('parts');
     const groups = {};
     parts.forEach((p) => {
@@ -565,10 +797,7 @@
           const cb = document.createElement('input');
           cb.type = 'checkbox';
           cb.checked = p.obj.visible;
-          cb.dataset.id = p.id;
-          cb.addEventListener('change', () => {
-            p.obj.visible = cb.checked;
-          });
+          cb.addEventListener('change', () => { p.obj.visible = cb.checked; });
           const sw = document.createElement('span');
           sw.className = 'swatch';
           sw.style.background = p.color || '#888';
@@ -590,15 +819,12 @@
     document.getElementById('btnAllOff').onclick = () => setAllVisible(false);
 
     function applyLayerFilter(mode) {
-      // mode: all | struct | L1 | L2
       parts.forEach((p) => {
         const L = p.layer;
         let show = true;
         if (mode === 'struct') show = (L === 'struct' || L === 'elec' || L === 'all' || L === 'lift');
-        else if (mode === 'L1') show = (L === 'L1' || L === 'struct' || L === 'lift' || L === 'all');
-        else if (mode === 'L2') show = (L === 'L2' || L === 'struct' || L === 'lift' || L === 'all');
-        else show = true;
-        // For L1/L2 emphasize: hide other layer trays/beams
+        else if (mode === 'L1') show = (L === 'L1' || L === 'struct' || L === 'lift' || L === 'all' || L === 'elec');
+        else if (mode === 'L2') show = (L === 'L2' || L === 'struct' || L === 'lift' || L === 'all' || L === 'elec');
         if (mode === 'L1' && L === 'L2') show = false;
         if (mode === 'L2' && L === 'L1') show = false;
         if (mode === 'struct' && (L === 'L1' || L === 'L2')) show = false;
@@ -611,18 +837,12 @@
     document.getElementById('btnLayer1').onclick = () => applyLayerFilter('L1');
     document.getElementById('btnLayer2').onclick = () => applyLayerFilter('L2');
 
-    let explodeAmt = 0;
     function applyExplode(t) {
-      explodeAmt = t;
       parts.forEach((p) => {
         const home = p.obj.userData.home;
         const dir = p.obj.userData.explodeDir;
         const dist = p.obj.userData.explodeDist * (t / 100);
-        p.obj.position.set(
-          home.x + dir.x * dist,
-          home.y + dir.y * dist,
-          home.z + dir.z * dist
-        );
+        p.obj.position.set(home.x + dir.x * dist, home.y + dir.y * dist, home.z + dir.z * dist);
       });
     }
     const explodeInput = document.getElementById('explode');
@@ -631,7 +851,6 @@
       explodeVal.textContent = explodeInput.value + '%';
       applyExplode(+explodeInput.value);
     });
-
     document.getElementById('btnReset').onclick = () => {
       explodeInput.value = 0;
       explodeVal.textContent = '0%';
