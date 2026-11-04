@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>立体车库 · V3 层模块尺寸示意</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b1522;--line:#2b4052;--text:#e7f0f4;--muted:#93a9b8;--accent:#b8f56b}
+    *{box-sizing:border-box}body{margin:0;min-width:1000px;background:var(--bg);color:var(--text);font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif}a{color:var(--accent);text-decoration:none}
+    header{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(24px,calc((100vw - 1440px)/2));background:#101c2a}header strong{font-size:15px}header small{display:block;font-size:9px;color:var(--muted);letter-spacing:1px;margin-top:5px}header a{font-size:12px}
+    main{max-width:1440px;margin:auto;padding:30px 24px;display:grid;grid-template-columns:1fr 330px;gap:20px}.drawing,.side{border:1px solid var(--line);background:#101e2d;border-radius:6px}.drawing{overflow:hidden}.drawing+.drawing{margin-top:20px}.draw-head{padding:20px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:end}.eyebrow{font-size:10px;letter-spacing:1.2px;color:#91a5b1;font-weight:700}h1{font-size:20px;margin:8px 0 0}.draft{font-size:10px;color:#bee9a3;background:#20372e;padding:7px 9px;border:1px solid #355443;border-radius:3px}
+    .canvas{background:radial-gradient(ellipse,#203447,#101e2b 75%);padding:18px;display:flex;justify-content:center}.canvas svg{width:100%;max-width:900px;overflow:visible}.drawing-foot{padding:14px 24px;border-top:1px solid var(--line);font-size:11px;line-height:1.8;color:#9eafba}.drawing-foot b{color:#e5cea0}
+    .side{padding:22px;align-self:start}.side h2{font-size:16px;margin:7px 0 14px}.side h3{font-size:12px;margin:22px 0 10px}.toggle{display:flex;align-items:center;gap:9px;color:#d0e0e7;font-size:12px;padding:6px 0}.toggle input{accent-color:var(--accent)}.metric{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #263c4d;color:#9bb0be;font-size:11px}.metric b{color:#e4edf0;font-family:Consolas,monospace;font-size:12px;text-align:right}.info{border-left:2px solid #e5c379;background:#2c2e29;padding:13px;margin-top:22px;font-size:11px;line-height:1.8;color:#d1cec0}.info strong{display:block;color:#f4d89c;margin-bottom:5px}.links{margin-top:20px;font-size:11px;line-height:2}.links a{display:block;color:#9bd5dd}
+    text{font-family:"Microsoft YaHei",sans-serif}.t{fill:#deedf1;font-size:10px}.s{fill:#acc1cc;font-size:8px}.d{fill:#b8f56b;font-family:Consolas,monospace;font-size:9px}.dl{stroke:#b8f56b;stroke-width:.8;fill:none}.off{display:none}
+  </style>
+</head>
+<body>
+<header><div><strong>立体车库 / V3 层模块尺寸示意</strong><small>GARAGE SIMULATOR · LAYER MODULE PLAN</small></div><a href="assembly-exploded.html">← 返回三维演示</a></header>
+<main>
+  <div>
+    <section class="drawing">
+      <div class="draw-head"><div><span class="eyebrow">LAYER MODULE / TOP VIEW</span><h1>层模块俯视：8 个辐射车位 + 中央升降井（一层）</h1></div><span class="draft">设计草案 · 单位 mm</span></div>
+      <div class="canvas"><svg id="plan" viewBox="-320 -320 640 640" role="img" aria-label="层模块俯视布局"></svg></div>
+      <div class="drawing-foot"><b>注意：</b>原点为塔中心，X 向右、Y 向后（图中向上）。前侧（图中下方）为用户侧，一层前车位即 DOCK；二层同一位置不设车位并取消前环梁（虚线 ±38 缺口），形成 DOCK 竖井。导杆、丝杆、拖链位于车位缝隙 22.5°+k·90°、r=140 处；车位方向上不得布置任何竖向件。孔位须以实物和完整三维模型复核后再下单切割。</div>
+    </section>
+    <section class="drawing">
+      <div class="draw-head"><div><span class="eyebrow">SIDE ELEVATION / Z</span><h1>立面高度：计划书两层，样机先做一层</h1></div><span class="draft">设计草案 · 单位 mm</span></div>
+      <div class="canvas"><svg id="elev" viewBox="-300 -300 600 340" role="img" aria-label="立面高度示意"></svg></div>
+      <div class="drawing-foot"><b>Z 定义：</b>Z 为转运台托盘支撑面高度。啮合 / 对齐高度 = 甲板面；脱开高度 = 甲板面 − 8。每个车位的实际 Z 以标定表记录，可补偿甲板挠度。</div>
+    </section>
+  </div>
+  <aside class="side">
+    <span class="eyebrow">03 / DIMENSIONS</span><h2>图层与关键参数</h2>
+    <label class="toggle"><input type="checkbox" checked data-layer="g-deck">甲板与车位</label>
+    <label class="toggle"><input type="checkbox" checked data-layer="g-trays">托盘</label>
+    <label class="toggle"><input type="checkbox" checked data-layer="g-lift">升降件与转运台</label>
+    <label class="toggle"><input type="checkbox" checked data-layer="g-dim">尺寸标注</label>
+    <h3>方案参数</h3>
+    <div class="metric"><span>外框 / 底板</span><b>500 × 500 / 520 × 520</b></div>
+    <div class="metric"><span>托盘 / 模型车</span><b>125 × 60 / 105 × 43 × 30</b></div>
+    <div class="metric"><span>转运台 / 旋转包络</span><b>170 × 66 / R 91.2</b></div>
+    <div class="metric"><span>井口净空半径</span><b>R 96</b></div>
+    <div class="metric"><span>车位内托盘</span><b>r 97 … 222，内端 C10</b></div>
+    <div class="metric"><span>定位销 / 拨叉行程</span><b>r 107 / u −31 … 107</b></div>
+    <div class="metric"><span>支撑臂 / 甲板臂槽</span><b>10 宽 / ±7</b></div>
+    <div class="metric"><span>导杆 / 丝杆 / 拖链</span><b>r140 @ 22.5° 等</b></div>
+    <div class="metric"><span>甲板 Z（L1 / L2）</span><b>100 / 190</b></div>
+    <div class="metric"><span>存车位 一层 / 两层</span><b>7 / 14</b></div>
+    <div class="metric"><span>整机外形</span><b>520 × 520 × 275</b></div>
+    <div class="metric"><span>脱开下沉 / 销啮合深度</span><b>8 / 4</b></div>
+    <div class="info"><strong>与 V2 的区别</strong>不再有每层 X/Y 移盘机构、侧置升降台和跨缝滚筒。层模块只含甲板、导条、端挡、7～8 个霍尔和 1 片 MCP23017。</div>
+    <div class="links"><a href="../硬件方案_v3.md">硬件方案 V3 ↗</a><a href="../硬件验证与实施_v3.md">验证与实施说明 ↗</a><a href="../采购清单_v4.md">采购清单 V4 ↗</a></div>
+  </aside>
+</main>
+<script src="deck.js"></script>
+<script>
+(function () {
+  'use strict';
+  const deg = Math.PI / 180;
+  const NS = 'http://www.w3.org/2000/svg';
+  // SVG 的 y 向下；图纸 Y 向上，所以 y = -Y。
+  const el = (parent, tag, attrs, text) => {
+    const node = document.createElementNS(NS, tag);
+    for (const [k, v] of Object.entries(attrs)) node.setAttribute(k, v);
+    if (text !== undefined) node.textContent = text;
+    parent.appendChild(node); return node;
+  };
+  const group = (parent, id) => el(parent, 'g', id ? { id } : {});
+  const plan = document.getElementById('plan');
+  el(plan, 'defs', {}).innerHTML = '<marker id="ar" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b8f56b"/></marker>';
+
+  const pathOf = pts => pts.map(([x, y], i) => `${i ? 'L' : 'M'}${x.toFixed(2)} ${(-y).toFixed(2)}`).join('') + 'Z';
+  const holePath = pathOf(GarageDeck.hole());
+
+  const deck = group(plan, 'g-deck');
+  el(deck, 'rect', { x: -260, y: -260, width: 520, height: 520, fill: '#132332', stroke: '#4d6573' });
+  el(deck, 'path', { d: `M-250 -250H250V250H-250Z${holePath}`, 'fill-rule': 'evenodd', fill: '#385c69', 'fill-opacity': .6, stroke: '#8aa9b3', 'stroke-width': 1 });
+  for (const x of [-240, 240]) for (const y of [-240, 240]) el(deck, 'rect', { x: x - 10, y: y - 10, width: 20, height: 20, fill: '#809ba8' });
+  const dirs = [['E', 0], ['NE', 45], ['N · 后', 90], ['NW', 135], ['W', 180], ['SW', 225], ['S · DOCK（二层为竖井）', 270], ['SE', 315]];
+  for (const [name, a] of dirs) {
+    const g = el(deck, 'g', { transform: `rotate(${-a})` });
+    el(g, 'rect', { x: 96, y: -32, width: 130, height: 64, fill: 'none', stroke: a === 270 ? '#f0c060' : '#c4e0dc', 'stroke-dasharray': '3 3' });
+    el(g, 'rect', { x: 226, y: -25, width: 4, height: 50, fill: a === 270 ? '#f0c060' : '#5a7584' });
+    el(g, 'rect', { x: 197, y: -5, width: 10, height: 10, fill: '#67c3d1' });
+    const tx = a % 90 ? 226 : 268, ang = a * deg;
+    el(deck, 'text', { x: (tx * Math.cos(ang)).toFixed(1), y: (-tx * Math.sin(ang) + 3).toFixed(1), class: 't', 'text-anchor': 'middle' }, name);
+  }
+
+  const trays = group(plan, 'g-trays');
+  for (const [, a] of dirs) {
+    const g = el(trays, 'g', { transform: `rotate(${-a})` });
+    el(g, 'path', { d: 'M97 -20L107 -30H222V30H107L97 20Z', fill: '#c0cbd0', 'fill-opacity': .22, stroke: '#d5dde0' });
+    el(g, 'rect', { x: 107, y: -21.5, width: 105, height: 43, rx: 5, fill: '#c1ed73', 'fill-opacity': .18, stroke: '#c1ed73', 'stroke-opacity': .5 });
+    el(g, 'circle', { cx: 107, cy: 0, r: 2, fill: '#fff' });
+    el(g, 'circle', { cx: 202, cy: 0, r: 3, fill: '#182a38', stroke: '#67c3d1' });
+  }
+
+  const lift = group(plan, 'g-lift');
+  el(lift, 'circle', { r: 91.2, fill: 'none', stroke: '#fac978', 'stroke-dasharray': '4 3' });
+  el(lift, 'circle', { r: 96, fill: 'none', stroke: '#8aa9b3', 'stroke-width': .6 });
+  el(lift, 'rect', { x: -85, y: -33, width: 170, height: 66, fill: '#396b70', 'fill-opacity': .7, stroke: '#7ad2d6' });
+  el(lift, 'rect', { x: -85, y: -3.5, width: 170, height: 7, fill: '#9aabb6' });
+  el(lift, 'rect', { x: -84, y: 4, width: 28, height: 28, fill: '#182a38', stroke: '#5a7584' });
+  el(lift, 'line', { x1: -31, y1: -12, x2: 107, y2: -12, stroke: '#c2ed71', 'stroke-width': 2, 'marker-start': 'url(#ar)', 'marker-end': 'url(#ar)' });
+  el(lift, 'text', { x: 38, y: -16, class: 's', 'text-anchor': 'middle' }, '拨叉 u −31 → 107');
+  const pol = a => [Math.round(140 * Math.cos(a * deg) * 10) / 10, Math.round(140 * Math.sin(a * deg) * 10) / 10];
+  el(deck, 'rect', { x: -38, y: 96, width: 76, height: 154, fill: 'none', stroke: '#f0c060', 'stroke-dasharray': '5 3' });
+  for (const [[x, y], name] of [[pol(22.5), '导杆'], [pol(202.5), '导杆'], [pol(112.5), 'T8 丝杆'], [pol(67.5), '拖链']]) {
+    el(lift, 'circle', { cx: x, cy: -y, r: name === '拖链' ? 6 : 4, fill: name === 'T8 丝杆' ? '#c2ed71' : '#9aabb6' });
+    el(lift, 'text', { x: x + (x > 0 ? 8 : -8), y: -y + (y > 0 ? -6 : 12), class: 's', 'text-anchor': x > 0 ? 'start' : 'end' }, name);
+  }
+  el(lift, 'text', { x: 0, y: 48, class: 's', 'text-anchor': 'middle' }, '转运台 170 × 66（θ = 0 时）');
+  el(lift, 'text', { x: 0, y: 58, class: 's', 'text-anchor': 'middle', fill: '#fac978' }, '旋转包络 R91.2 · 井口 R96');
+
+  const dim = group(plan, 'g-dim');
+  const dline = (d, label, x, y, rot) => {
+    el(dim, 'path', { d, class: 'dl', 'marker-start': 'url(#ar)', 'marker-end': 'url(#ar)' });
+    el(dim, 'text', { x, y, class: 'd', 'text-anchor': 'middle', transform: rot ? `rotate(${rot} ${x} ${y})` : '' }, label);
+  };
+  dline('M-250 300H250', '500', 0, 296);
+  dline('M300 -250V250', '500', 296, 0, -90);
+  dline('M-222 46H-97', '托盘 125（r 97…222）', -160, 60);
+  el(dim, 'text', { x: -312, y: 316, class: 'd' }, '(0,0) 塔中心 · X → / Y ↑');
+
+  const elev = document.getElementById('elev');
+  el(elev, 'defs', {}).innerHTML = plan.querySelector('defs').innerHTML;
+  const y = z => -z;
+  el(elev, 'rect', { x: -260, y: 0, width: 520, height: 6, fill: '#34495a' });
+  for (const x of [-250, 230]) el(elev, 'rect', { x, y: y(270), width: 20, height: 270, fill: '#809ba8' });
+  el(elev, 'rect', { x: -250, y: y(275), width: 500, height: 5, fill: '#6d8f9c', 'fill-opacity': .5 });
+  const levels = [[100, 'L1 甲板 Z=100（样机先做；前侧为 DOCK）'], [190, 'L2 甲板 Z=190（计划书方案；前侧为竖井）']];
+  levels.forEach(([z, label], i) => {
+    const dash = i === 1 ? { 'stroke-dasharray': '4 3', 'fill-opacity': .55 } : {};
+    for (const [x0, x1] of [[-230, -96], [96, 230]]) {
+      el(elev, 'rect', Object.assign({ x: x0, y: y(z), width: x1 - x0, height: 5, fill: '#6d8f9c' }, dash));
+      el(elev, 'rect', Object.assign({ x: x0 + 1, y: y(z + 33), width: 125, height: 33, fill: 'none', stroke: '#c1ed73', 'stroke-opacity': i === 1 ? .45 : .7 }, {}));
+    }
+    el(elev, 'text', { x: -292, y: y(z) + 3, class: 'd' }, String(z));
+    el(elev, 'text', { x: 0, y: y(z) - 4, class: 's', 'text-anchor': 'middle' }, label);
+  });
+  el(elev, 'line', { x1: 75, y1: y(60), x2: 75, y2: y(260), stroke: '#c2ed71', 'stroke-width': 3 });
+  el(elev, 'rect', { x: 54, y: y(40), width: 42, height: 40, fill: '#34495a' });
+  el(elev, 'rect', { x: -85, y: y(100 - 8 + 0), width: 170, height: 14, fill: '#396b70', stroke: '#7ad2d6' });
+  el(elev, 'rect', { x: -21, y: y(92 - 27), width: 42, height: 46, fill: '#182a38', stroke: '#5a7584' });
+  el(elev, 'text', { x: 0, y: y(92 - 27) + 58, class: 's', 'text-anchor': 'middle' }, '旋转电机（随平台升降）');
+  el(elev, 'text', { x: 84, y: y(245), class: 's' }, 'T8×2 丝杆 200（Z 60…260）');
+  el(elev, 'text', { x: 102, y: y(20), class: 's' }, '升降电机');
+  el(elev, 'path', { d: `M-140 ${y(133)}V${y(184)}`, class: 'dl', 'marker-start': 'url(#ar)', 'marker-end': 'url(#ar)' });
+  el(elev, 'text', { x: -134, y: y(160), class: 'd' }, '车顶净空 ≥ 51');
+  el(elev, 'text', { x: -292, y: y(272) + 3, class: 'd' }, '275');
+
+  document.querySelectorAll('[data-layer]').forEach(input => input.addEventListener('change', () => {
+    document.getElementById(input.dataset.layer).classList.toggle('off', !input.checked);
+  }));
+})();
+</script>
+</body>
+</html>

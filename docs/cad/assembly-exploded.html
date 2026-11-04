@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>模块化塔式立体车库 · 结构与存取演示</title>
+  <link rel="stylesheet" href="garage.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">P<span>↗</span></span><div><strong>立体车库</strong><small>GARAGE SIMULATOR / V3</small></div></div>
+    <div class="top-title"><span class="eyebrow">PROJECT 03 / 结构概念验证</span><h1>模块化塔式车库 · 交互演示</h1></div>
+    <div class="top-right"><span class="version"><i></i> 硬件方案 V3</span><a href="layer-plan.html">查看尺寸图 <span>↗</span></a></div>
+  </header>
+
+  <main class="workspace">
+    <aside class="sidebar leftbar">
+      <div class="section-heading"><div><span class="eyebrow">01 / PARKING LAYOUT</span><h2>车位状态</h2></div><span class="section-number" id="layer-badge">2F</span></div>
+      <p class="intro">每层 8 个无电机辐射车位，围绕中央升降转运台。一层前侧为 DOCK，二层前侧留空作 DOCK 竖井。</p>
+      <div class="legend"><span><i class="dot car-dot"></i>有车</span><span><i class="dot tray-dot"></i>空托盘</span><span><i class="dot empty-dot"></i>无托盘</span></div>
+      <div id="floor-maps" class="floor-maps"></div>
+      <div class="selection-box"><span class="eyebrow">CURRENT SELECTION</span><strong id="selection-title">请选择载车托盘</strong><span id="selection-detail">存车无需选择，系统自动分配车位</span></div>
+      <div class="action-row"><button id="store" class="button primary" type="button">存入车辆 <span>↗</span></button><button id="retrieve" class="button secondary" type="button">取出车辆 <span>↘</span></button></div>
+      <p id="selection-help" class="hint">存车：调空托盘到 DOCK；取车：先选中载车托盘。</p>
+      <div class="sidebar-foot"><span class="mini-icon">i</span><span>样机先做一层（7 车位）；计划书按两层（14 车位）。第二层是无源层模块：甲板 + 7 霍尔 + 1 片 MCP23017，运动部件不增加。</span></div>
+    </aside>
+
+    <section class="viewer" aria-label="车库三维示意">
+      <div class="viewer-top"><div><span class="eyebrow">LIVE MODEL / MM</span><h2>结构总览 <span>01</span></h2></div><div class="viewer-tags"><span><i></i> 实时演示</span><span>三维示意</span></div></div>
+      <div id="viewport" class="viewport"><div id="render-error" class="render-error" hidden>三维画面无法启动，请使用支持 WebGL 的浏览器打开。车位与流程模拟仍可使用。</div></div>
+      <div class="viewer-overlay"><div class="scene-caption"><span class="crosshair">✳</span><div><strong>中央升降 · 旋转转运 · 无源层模块</strong><small>按住拖动旋转 · 滚轮缩放 · 右键平移</small></div></div><div class="view-controls"><button id="reset-view" type="button" title="重置视角" aria-label="重置视角">⟳</button><button id="top-view" type="button" title="俯视" aria-label="切换俯视">▦</button></div></div>
+      <div class="viewer-bottom"><div><span>整机估计外轮廓</span><strong>520 <i>×</i> 520 <i>×</i> 275 <small>mm</small></strong></div><div><span>甲板高度 L1 / L2</span><strong>100 <i>/</i> 190 <small>mm</small></strong></div><div><span>托盘 / 模型车</span><strong>125×60 <i>/</i> 105×43×30 <small>mm</small></strong></div></div>
+    </section>
+
+    <aside class="sidebar rightbar">
+      <div class="section-heading"><div><span class="eyebrow">02 / OPERATION</span><h2>运行流程</h2></div><span class="status-pill" id="status-pill">待机</span></div>
+      <div class="process-card"><span class="eyebrow">CURRENT STEP</span><strong id="current-step">选择托盘取车，或点击存车</strong><div class="process-line"><span class="pulse"></span><span id="motor-state">全部停止</span></div></div>
+      <div class="position-grid">
+        <div><span>升降 Z</span><strong id="lift-height">92 <small>mm</small></strong></div>
+        <div><span>转角 θ</span><strong id="lift-theta">0 <small>°</small></strong></div>
+        <div><span>拨叉 u</span><strong id="lift-fork">-31 <small>mm</small></strong></div>
+        <div><span>转运台托盘</span><strong id="platform-state">无</strong></div>
+      </div>
+      <div id="dock-card" class="dock-card" hidden><span class="eyebrow">ACTION REQUIRED / DOCK</span><strong id="dock-title">请确认车辆状态</strong><p id="dock-detail"></p><button id="confirm-dock" class="button primary" type="button">确认并继续 <span>→</span></button><button id="cancel-dock" class="button secondary cancel" type="button">取消存车，保留空托盘</button></div>
+      <div class="control-heading"><h3>演示控制</h3><span id="speed-label">2×</span></div>
+      <label class="speed-row" for="speed"><span>速度</span><input id="speed" type="range" min="1" max="4" value="2" step="1"><span>4×</span></label>
+      <div class="switches"><label><input id="show-frame" type="checkbox" checked><span>显示框架</span></label><label><input id="show-cars" type="checkbox" checked><span>显示车辆</span></label></div>
+      <div class="switches"><label><input id="auto-stage" type="checkbox" checked><span>空闲预置空托盘</span></label><label><input id="one-layer" type="checkbox"><span>仅一层样机</span></label></div>
+      <label class="explode-row" for="explode"><span>结构拆解</span><input id="explode" type="range" min="0" max="100" value="0"><output id="explode-value">0%</output></label>
+      <div class="control-buttons"><button id="pause" type="button" disabled>暂停</button><button id="reset" type="button">重置演示</button><button id="stop" class="stop" type="button" disabled>模拟急停</button></div>
+      <div class="log-heading"><span class="eyebrow">EVENT LOG / 操作记录</span><span>●</span></div><ol id="event-log" class="event-log"></ol>
+      <div class="notice"><strong>概念演示，非设备控制</strong><span>尺寸为设计目标；结构、干涉与安全互锁尚待实物验证，不能作为加工图。实机时间为按假设速度的粗估。</span></div>
+    </aside>
+  </main>
+  <script src="vendor/three.min.js"></script>
+  <script src="vendor/OrbitControls.js"></script>
+  <script src="deck.js"></script>
+  <script src="simulation.js"></script>
+  <script src="garage.js"></script>
+</body>
+</html>
