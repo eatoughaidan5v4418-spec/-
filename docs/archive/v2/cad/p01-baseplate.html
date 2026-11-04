@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>立体车库 · V2 布局尺寸示意</title>
+  <style>
+    :root{color-scheme:dark;--bg:#0b1522;--line:#2b4052;--text:#e7f0f4;--muted:#93a9b8;--accent:#b8f56b}
+    *{box-sizing:border-box}body{margin:0;min-width:1000px;background:var(--bg);color:var(--text);font-family:"Segoe UI","Microsoft YaHei",system-ui,sans-serif}a{color:var(--accent);text-decoration:none}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+    header{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(24px,calc((100vw - 1440px)/2));background:#101c2a}header strong{font-size:15px}header small{display:block;font-size:9px;color:var(--muted);letter-spacing:1px;margin-top:5px}header a{font-size:12px}
+    main{max-width:1440px;margin:auto;padding:34px 24px;display:grid;grid-template-columns:1fr 310px;gap:20px}.drawing,.side{border:1px solid var(--line);background:#101e2d;border-radius:6px}.drawing{overflow:hidden}.draw-head{padding:22px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:end}.eyebrow{font-size:10px;letter-spacing:1.2px;color:#91a5b1;font-weight:700}h1{font-size:22px;margin:8px 0 0}.draft{font-size:10px;color:#bee9a3;background:#20372e;padding:7px 9px;border:1px solid #355443;border-radius:3px}
+    .canvas{background:radial-gradient(ellipse,#203447,#101e2b 75%);padding:20px;min-height:470px;display:flex;align-items:center;justify-content:center}.canvas svg{width:100%;max-width:950px;max-height:650px;overflow:visible}.drawing-foot{padding:16px 24px;border-top:1px solid var(--line);font-size:11px;line-height:1.8;color:#9eafba}.drawing-foot b{color:#e5cea0}
+    .side{padding:22px}.side h2{font-size:16px;margin:7px 0 14px}.side h3{font-size:12px;margin:24px 0 12px}.toggle{display:flex;align-items:center;gap:9px;color:#d0e0e7;font-size:12px;padding:7px 0}.toggle input{accent-color:var(--accent)}.metric{display:flex;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid #263c4d;color:#9bb0be;font-size:11px}.metric b{color:#e4edf0;font-family:Consolas,monospace;font-size:12px;text-align:right}.info{border-left:2px solid #e5c379;background:#2c2e29;padding:13px;margin-top:24px;font-size:11px;line-height:1.8;color:#d1cec0}.info strong{display:block;color:#f4d89c;margin-bottom:5px}.links{margin-top:22px;font-size:11px;line-height:2}.links a{display:block;color:#9bd5dd}
+    .plan-text{fill:#deedf1;font-family:"Microsoft YaHei",sans-serif;font-size:9px}.small{font-size:7px;fill:#acc1cc}.dim{fill:#b8f56b;font-family:Consolas,monospace;font-size:9px}.outline{stroke:#b8f56b;stroke-width:1;fill:none;vector-effect:non-scaling-stroke}.layer-off{display:none}
+  </style>
+</head>
+<body>
+<header><div><strong>立体车库 / V2 尺寸示意</strong><small>GARAGE SIMULATOR · LAYOUT PLAN</small></div><a href="assembly-exploded.html">← 返回三维演示</a></header>
+<main>
+  <section class="drawing">
+    <div class="draw-head"><div><span class="eyebrow">STRUCTURE / TOP VIEW</span><h1>工作面与侧置升降布局</h1></div><span class="draft">设计草案 · 单位 mm</span></div>
+    <div class="canvas">
+      <svg viewBox="-100 -120 700 430" role="img" aria-labelledby="diagram-title diagram-desc">
+        <title id="diagram-title">立体车库 V2 平面布局示意</title>
+        <desc id="diagram-desc">左侧 320 乘 180 的固定工作面，四个停车位 A、B、C、D；右侧是 150 乘 90 升降台，固定面与升降台之间有 5 毫米间隙。后方标示两根导向轴及丝杆示意中心。</desc>
+        <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#b8f56b"/></marker><pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#8caab1" stroke-opacity=".12" stroke-width=".5"/></pattern></defs>
+        <g id="base"><rect x="-35" y="-60" width="550" height="300" fill="#152634" stroke="#5a7682" stroke-width="1.5"/><rect x="-35" y="-60" width="550" height="300" fill="url(#grid)"/><text x="-25" y="227" class="small">底座约 550 × 300，图中相对位置为示意</text></g>
+        <g id="work"><rect x="0" y="0" width="320" height="180" fill="#385c69" fill-opacity=".65" stroke="#8aa9b3" stroke-width="1.5"/><rect x="300" y="0" width="20" height="180" fill="#6cbec9" fill-opacity=".5"/><text x="160" y="-9" text-anchor="middle" class="plan-text">固定工作面 320 × 180</text><text x="310" y="176" text-anchor="middle" class="small" transform="rotate(-90 310 176)">20 唇板</text></g>
+        <g id="bays">
+          <g fill="#8ea4a8" fill-opacity=".18" stroke="#c4e0dc" stroke-dasharray="3 3" stroke-width="1">
+            <rect x="5" y="5" width="140" height="80" rx="3"/><rect x="155" y="5" width="140" height="80" rx="3"/>
+            <rect x="5" y="95" width="140" height="80" rx="3"/><rect x="155" y="95" width="140" height="80" rx="3"/>
+          </g>
+          <g text-anchor="middle" class="plan-text"><text x="75" y="40">C · 左后</text><text x="225" y="40">D · 交接位</text><text x="75" y="130">A · 左前</text><text x="225" y="130">B · 右前</text></g>
+          <g text-anchor="middle" class="small"><text x="75" y="54">(75, 135)</text><text x="225" y="54">(225, 135)</text><text x="75" y="144">(75, 45)</text><text x="225" y="144">(225, 45)</text></g>
+        </g>
+        <g id="lift"><rect x="325" y="0" width="150" height="90" fill="#396b70" fill-opacity=".65" stroke="#7ad2d6" stroke-width="1.5"/><g stroke="#95d4d6" stroke-width="5" stroke-linecap="round"><line x1="340" y1="10" x2="340" y2="80"/><line x1="380" y1="10" x2="380" y2="80"/><line x1="420" y1="10" x2="420" y2="80"/><line x1="460" y1="10" x2="460" y2="80"/></g><text x="400" y="109" class="plan-text" text-anchor="middle">侧置升降台 150 × 90</text><text x="400" y="121" class="small" text-anchor="middle">中心 (400, 135)</text><g fill="#b8f56b" stroke="#101e2b" stroke-width="1"><circle cx="345" cy="-25" r="4"/><circle cx="455" cy="-25" r="4"/><circle cx="400" cy="-25" r="4"/></g><text x="400" y="-37" class="small" text-anchor="middle">导向轴 (345 / 455, 205) · 丝杆 (400, 205)</text></g>
+        <g id="dimensions" class="outline">
+          <path d="M0 185V209M320 185V209M0 202H320" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+          <path d="M-5 0H-27M-5 180H-27M-20 0V180" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+          <path d="M325 130V151M475 130V151M325 145H475" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+          <path d="M75 156V170M225 156V170M75 164H225" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+          <path d="M320 62V83M325 62V83M322.5 73H370"/>
+        </g>
+        <g id="dimension-text" class="dim"><text x="160" y="198" text-anchor="middle">320</text><text x="-25" y="90" text-anchor="middle" transform="rotate(-90 -25 90)">180</text><text x="400" y="141" text-anchor="middle">150</text><text x="150" y="160" text-anchor="middle">150 节距</text><text x="345" y="68">缝 5</text><text x="-7" y="190">(0,0)</text><text x="503" y="263" text-anchor="end">X → / Y 向上</text></g>
+      </svg>
+    </div>
+    <div class="drawing-foot"><b>注意：</b>底座尺寸和位置均为估算，支架、电机、导轨和安装孔位尚未冻结。此图用于理解布局，不可直接打印下料或钻孔。</div>
+  </section>
+  <aside class="side">
+    <span class="eyebrow">03 / DIMENSIONS</span><h2>图层与关键参数</h2>
+    <label class="toggle"><input type="checkbox" checked data-layer="base">底座示意</label>
+    <label class="toggle"><input type="checkbox" checked data-layer="work">固定工作面</label>
+    <label class="toggle"><input type="checkbox" checked data-layer="bays">停车位包络</label>
+    <label class="toggle"><input type="checkbox" checked data-layer="lift">升降台及轴线</label>
+    <label class="toggle"><input type="checkbox" checked data-layer="dimensions">尺寸标注</label>
+    <h3>方案参数</h3>
+    <div class="metric"><span>底座（估算）</span><b>550 × 300 × 6</b></div>
+    <div class="metric"><span>停车区 / 唇板</span><b>300 × 180 / 20</b></div>
+    <div class="metric"><span>托盘 / 模型车</span><b>140 × 80 / 105 × 43</b></div>
+    <div class="metric"><span>车位节距 X / Y</span><b>150 / 90</b></div>
+    <div class="metric"><span>工作位 Z</span><b>70 / 200 / 420</b></div>
+    <div class="metric"><span>跨缝 / 目标高差</span><b>5 / ≤ 0.5</b></div>
+    <div class="info"><strong>没有已确认的底板孔位</strong>旧版内置升降井的 300×180 底板、(150,40) 电机孔和旧光轴坐标均不适用于当前方案。</div>
+    <div class="links"><a href="../硬件方案_v2.md">硬件方案 V2 ↗</a><a href="../硬件验证与实施_v2.md">验证与实施说明 ↗</a></div>
+  </aside>
+</main>
+<script>
+  document.querySelectorAll('[data-layer]').forEach(input => input.addEventListener('change', () => {
+    document.getElementById(input.dataset.layer).classList.toggle('layer-off', !input.checked);
+    if (input.dataset.layer === 'dimensions') document.getElementById('dimension-text').classList.toggle('layer-off', !input.checked);
+  }));
+</script>
+</body>
+</html>
