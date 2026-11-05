@@ -2,6 +2,8 @@
 *.pdf binary
 *.dwg binary
 *.dxf binary
+*.sat binary
+*.SAT binary
 *.png binary
 *.jpg binary
 *.jpeg binary
