@@ -6,6 +6,9 @@
 |------|------|
 | [assembly-exploded.html](./assembly-exploded.html) | v3 三维结构、存取车、空闲预置、暂停、模拟急停、一层 / 两层切换与拆解视图 |
 | [layer-plan.html](./layer-plan.html) | 层模块俯视（8 车位、井孔、竖向件、DOCK 竖井）与立面高度 |
+| [一层甲板_易懂图.png](./一层甲板_易懂图.png) | 一层甲板的孔槽、托盘位置和转运方向说明 |
+| [图纸_v3_草案/README.md](./图纸_v3_草案/README.md) | AutoCAD 生成的六种板件三视图草案（DWG / DXF）及待确认事项 |
+| [图纸_v3_完善版/README.md](./图纸_v3_完善版/README.md) | 补充隐藏线、尺寸、已购硬件候选孔及转运台加宽备选；仍需实物装配验证 |
 | `deck.js` | 甲板井孔轮廓，两个页面共用 |
 | `simulation.js` | 存取状态机与互锁，网页和 `tools/test_cad_simulation.js` 共用 |
 
@@ -16,3 +19,5 @@
 - 模拟急停后，“重置”只恢复网页演示；真实设备应断开电机电源，人工检查托盘与拨叉位置。
 
 可运行 `node tools/test_cad_simulation.js` 检查模拟状态机。测试不验证实际机构、电气或三维碰撞。
+
+可运行 `node tools/test_deck_geometry.js` 检查两层甲板的销槽布置。
