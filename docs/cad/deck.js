@@ -26,7 +26,12 @@
       for (let t = from; t < to; t += 2) points.push([R * Math.cos(t * deg), R * Math.sin(t * deg)]);
       points.push([R * Math.cos(to * deg), R * Math.sin(to * deg)]);
     };
-    const list = FEATURES.map(f => { let x = f.a; while (x < a0) x += 360; return Object.assign({ x }, f); })
+    const list = FEATURES.map(f => {
+      let x = f.a;
+      while (x < a0) x += 360;
+      while (x >= a0 + 360) x -= 360;
+      return Object.assign({ x }, f);
+    })
       .filter(f => f.x - halfAngle > a0 && f.x + halfAngle < a1).sort((p, q) => p.x - q.x);
     let current = a0;
     for (const f of list) {

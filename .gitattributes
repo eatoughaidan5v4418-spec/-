@@ -1,0 +1,8 @@
+# CAD、文档及附件必须保持原始字节，避免换行转换破坏文件。
+*.pdf binary
+*.dwg binary
+*.dxf binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.rar binary

@@ -22,6 +22,8 @@
 | [tools/test_cad_simulation.js](tools/test_cad_simulation.js) | 演示状态机测试：`node tools/test_cad_simulation.js` |
 | [docs/cad/assembly-exploded.html](docs/cad/assembly-exploded.html) | 三维结构和存取车交互模拟 |
 | [docs/cad/layer-plan.html](docs/cad/layer-plan.html) | 层模块俯视和立面尺寸示意 |
+| [docs/cad/图纸_v3_草案/README.md](docs/cad/图纸_v3_草案/README.md) | 六种板件的 AutoCAD 三视图草案（DWG / DXF），不可直接加工 |
+| [docs/cad/图纸_v3_完善版/README.md](docs/cad/图纸_v3_完善版/README.md) | 已购硬件核对、补充投影和尺寸、转运台加宽备选及无孔托盘轮廓 |
 | [docs/archive/v2/](docs/archive/v2/) | 已被取代的 v2 方案（侧置升降 + 每层 X/Y 移盘），仅供对照 |
 
 ## CAD 交互演示
