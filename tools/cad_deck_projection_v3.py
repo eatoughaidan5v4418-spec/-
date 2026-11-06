@@ -12,7 +12,7 @@ from check_cad_drawings_v3 import edge, entities, field, near, point
 
 EPS = 1e-5
 ROOT = Path(__file__).resolve().parent.parent
-SOURCE = ROOT / "docs" / "cad" / "图纸_v3_草案"
+SOURCE = ROOT / "docs" / "archive" / "cad" / "图纸_v3_草案"
 
 
 def on_arc(angle, start, end):

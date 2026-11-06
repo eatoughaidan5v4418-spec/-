@@ -2,7 +2,7 @@
 .SYNOPSIS
   用 AutoCAD ActiveX 生成 v6 夹紧止推限位方案涉及的板件三视图（单位 mm）。
 .NOTES
-  Windows PowerShell 5.1: powershell.exe -NoProfile -File tools\create_cad_v3_detail.ps1
+  Windows PowerShell 5.1: powershell.exe -NoProfile -File tools\create_cad_v6.ps1
   在新目录中生成文件；目标目录已存在时拒绝覆盖。图纸不是加工图。
 #>
 param(
@@ -43,7 +43,7 @@ else {
 Write-Host ('连接到 ' + $app.Name + ' ' + $app.Version)
 $template = Join-Path $env:LOCALAPPDATA 'Autodesk\AutoCAD 2025\R25.0\chs\Template\acadiso.dwt'
 if (-not (Test-Path -LiteralPath $template)) { throw "未找到 AutoCAD 公制模板：$template" }
-$source = Join-Path (Split-Path $PSScriptRoot -Parent) 'docs\cad\图纸_v3_草案'
+$source = Join-Path (Split-Path $PSScriptRoot -Parent) 'docs\archive\cad\图纸_v3_草案'
 $json = & py -X utf8 (Join-Path $PSScriptRoot 'cad_deck_projection_v3.py') $source
 if ($LASTEXITCODE -ne 0) { throw '甲板正投影计算失败。' }
 $projection = $json | ConvertFrom-Json

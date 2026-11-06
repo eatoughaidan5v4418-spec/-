@@ -8,7 +8,7 @@ from cad_deck_projection_v3 import get_profile
 
 
 ROOT = Path(__file__).resolve().parents[1]
-DRAWINGS = ROOT / "docs" / "cad" / "图纸_v3_完善版"
+DRAWINGS = ROOT / "docs" / "archive" / "cad" / "图纸_v3_完善版"
 
 
 def edge_with_signed_area(segment):

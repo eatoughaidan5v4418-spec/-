@@ -3,4 +3,4 @@ __pycache__/
 *.dwl
 *.dwl2
 # AutoCAD 保留在本地的三维装配备份。
-docs/cad/三维装配_初步校核/*.bak
+docs/archive/cad/三维装配_初步校核/*.bak
