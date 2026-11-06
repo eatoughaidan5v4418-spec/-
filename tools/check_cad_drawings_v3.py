@@ -10,7 +10,7 @@ import sys
 
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT = ROOT / "docs" / "cad" / "图纸_v3_草案"
+DEFAULT = ROOT / "docs" / "archive" / "cad" / "图纸_v3_草案"
 PARTS = {
     "P01": (125, 60, 3),
     "P02": (520, 520, 6),

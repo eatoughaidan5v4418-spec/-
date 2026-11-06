@@ -10,7 +10,7 @@
 - **规模**：计划书按两层、14 个车位写；样机先做一层、7 个车位。
 - **外形与预算**：约 520×520×275 mm。一层样机预算约 ¥1,419，两层约 ¥1,614，均含 15% 机动费。
 
-此版本仍须完成三维建模、单件和一层样机验证，不能直接作为加工图。
+现有 CAD 为 v6 试配方案，仍须完成单件和一层样机验证，不能直接作为最终加工图。
 
 | 文档 | 说明 |
 |------|------|
@@ -22,9 +22,8 @@
 | [tools/test_cad_simulation.js](tools/test_cad_simulation.js) | 演示状态机测试：`node tools/test_cad_simulation.js` |
 | [docs/cad/assembly-exploded.html](docs/cad/assembly-exploded.html) | 三维结构和存取车交互模拟 |
 | [docs/cad/layer-plan.html](docs/cad/layer-plan.html) | 层模块俯视和立面尺寸示意 |
-| [docs/cad/图纸_v3_草案/README.md](docs/cad/图纸_v3_草案/README.md) | 六种板件的 AutoCAD 三视图草案（DWG / DXF），不可直接加工 |
-| [docs/cad/图纸_v3_完善版/README.md](docs/cad/图纸_v3_完善版/README.md) | 已购硬件核对、补充投影和尺寸、转运台加宽备选及无孔托盘轮廓 |
-| [docs/archive/v2/](docs/archive/v2/) | 已被取代的 v2 方案（侧置升降 + 每层 X/Y 移盘），仅供对照 |
+| [CAD 索引](docs/cad/README.md) | 当前 v6 三维装配、板件和安装试配详图 |
+| [历史版本归档](docs/archive/README.md) | v2 旧方案、v3～v5 CAD 及旧文档备份 |
 
 ## CAD 交互演示
 
@@ -33,6 +32,6 @@
 - 勾选“仅一层样机”，可以切换到一层配置。
 - 网址后加 `?view=top` 打开俯视视角，加 `?layers=1` 直接打开一层配置。
 
-页面不连接实际设备，模型为示意而非加工图。Three.js 已放在本地，不依赖网络。
+页面基于 v3，仅用于演示原理，与 v6 试配方案存在差异；页面不连接实际设备，模型不能作为加工图。Three.js 已放在本地，不依赖网络。
 
-计划书初稿已按 v3 写成，【待实测】项须用一层样机数据替换；完整机械 CAD 和电气原理图需根据当前方案及一层样机的实测结果制作。
+计划书初稿已按 v3 写成，【待实测】项须用一层样机数据替换；机械 CAD 和电气原理图需根据当前方案及一层样机的实测结果继续完善。
