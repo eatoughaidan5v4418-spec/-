@@ -4,6 +4,7 @@
 *.dxf binary
 *.sat binary
 *.SAT binary
+*.stl binary
 *.png binary
 *.jpg binary
 *.jpeg binary

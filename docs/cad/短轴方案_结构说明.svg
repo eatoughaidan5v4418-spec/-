@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 850" width="1280" height="850" role="img" aria-labelledby="title desc">
+  <title id="title">两台短轴电机的安装方式</title>
+  <desc id="desc">左边是升降电机、联轴器、200毫米丝杆和顶部支承；右边是旋转电机、转盘、转运板和托盘的高度关系。图仅解释安装，实际尺寸以模型和图纸为准。</desc>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#526274"/></marker>
+    <style>
+      text { font-family:'Microsoft YaHei','Noto Sans CJK SC',sans-serif; fill:#17273a; }
+      .title{font-size:30px;font-weight:700}.subtitle{font-size:17px;fill:#526274}.head{font-size:23px;font-weight:700}
+      .label{font-size:16px}.small{font-size:14px;fill:#526274}.tiny{font-size:13px;fill:#526274}
+      .call{stroke:#526274;stroke-width:1.6;fill:none;marker-end:url(#arrow)}
+      .frame{fill:#f5f8fc;stroke:#cad6e4;stroke-width:1.5}.motor{fill:#4f6883;stroke:#30465e;stroke-width:1.5}
+      .shaft{fill:#ef8b43;stroke:#af5420;stroke-width:1}.screw{fill:#e8b543;stroke:#9f7412;stroke-width:1}
+      .plate{fill:#61b9c1;stroke:#257d87;stroke-width:1.2}.bracket{fill:#987fc6;stroke:#694c9e;stroke-width:1.2}
+      .metal{fill:#c5d1dd;stroke:#657b90;stroke-width:1.2}
+    </style>
+  </defs>
+  <rect width="1280" height="850" fill="#fff"/>
+  <text x="44" y="52" class="title">24 mm 短轴方案：两台电机怎么装</text>
+  <text x="44" y="80" class="subtitle">两边是不同的电机和不同位置的侧视示意；竖向关系按模型名义高度绘制，横向宽度为说明而简化。</text>
+  <rect x="35" y="105" width="586" height="590" rx="18" class="frame"/>
+  <rect x="659" y="105" width="586" height="590" rx="18" class="frame"/>
+  <text x="60" y="143" class="head">① 升降：电机固定在底板上</text>
+  <text x="684" y="143" class="head">② 旋转：电机跟着升降盘移动</text>
+  <!-- Lift Z scale y = 608 - 1.6 Z, mm. -->
+  <rect x="139" y="168" width="157" height="8" class="plate"/>
+  <rect x="184" y="190.4" width="68" height="19.2" rx="3" class="metal"/>
+  <rect x="206" y="179.2" width="24" height="9.6" rx="2" class="metal"/>
+  <rect x="211" y="188.8" width="14" height="1.6" fill="#748ca2"/>
+  <rect x="212" y="179.2" width="12" height="320" class="screw"/>
+  <rect x="172" y="544" width="92" height="64" rx="4" class="motor"/>
+  <rect x="214" y="505.6" width="8" height="38.4" class="shaft"/>
+  <rect x="199" y="481.6" width="38" height="40" rx="5" fill="#db965e" fill-opacity=".83" stroke="#a84e1b" stroke-width="1.2"/>
+  <path d="M165 608V537.6H271V608 M153 608H165 M271 608H283" fill="none" stroke="#7959b5" stroke-width="6"/>
+  <rect x="119" y="608" width="198" height="9.6" class="metal"/>
+  <text x="175" y="583" font-size="15" fill="#fff" style="fill:white">42 电机</text>
+  <path d="M312 172H295" class="call"/><text x="320" y="176" class="label">原顶板，厚 5 mm</text>
+  <path d="M321 198H254" class="call"/><text x="328" y="202" class="label">KFL 顶部轴承座</text>
+  <path d="M352 232L232 184" class="call"/><text x="359" y="228" class="label">垫片＋金属轴用挡圈</text><text x="359" y="249" class="small">靠内圈承托，需实物验证</text>
+  <path d="M320 330H226" class="call"/><text x="328" y="335" class="label">现有 T8 丝杆：200 mm</text>
+  <path d="M320 492H239" class="call"/><text x="328" y="497" class="label">联轴器包住两个轴端</text>
+  <text x="328" y="519" class="small">两轴端名义相距 4 mm</text>
+  <path d="M321 552H269" class="call"/><text x="328" y="557" class="label">打印跨式电机支架</text>
+  <path d="M321 605H318" class="call"/><text x="328" y="610" class="label">底板不需要中央大窗</text>
+  <!-- Rotary: same Z scale, tray datum Z=100. -->
+  <rect x="738" y="608" width="219" height="9.6" class="metal"/>
+  <rect x="795" y="515.2" width="90" height="64" rx="4" class="motor"/>
+  <rect x="836" y="476.8" width="8" height="38.4" class="shaft"/>
+  <rect x="760" y="491.2" width="160" height="8" class="plate"/>
+  <rect x="822" y="486.7" width="36" height="16" rx="2" fill="#d99b69" stroke="#a84e1b"/>
+  <rect x="817" y="483.2" width="46" height="3.5" class="metal"/>
+  <rect x="767" y="470.4" width="41" height="12.8" class="metal"/>
+  <rect x="872" y="470.4" width="41" height="12.8" class="metal"/>
+  <rect x="821" y="470.4" width="38" height="12.8" class="bracket"/>
+  <rect x="750" y="465.6" width="180" height="4.8" class="plate"/>
+  <rect x="775" y="457.6" width="130" height="8" class="metal"/>
+  <rect x="748" y="443.2" width="184" height="4.8" fill="#a1cc9a" stroke="#50874a"/>
+  <text x="801" y="553" font-size="15" style="fill:white">42 电机</text>
+  <path d="M955 446H934" class="call"/><text x="963" y="450" class="label">载车托盘</text>
+  <path d="M955 468H931" class="call"/><text x="963" y="472" class="label">转运板与导轨</text>
+  <path d="M955 485H915" class="call"/><text x="963" y="489" class="label">转盘轴承 / 法兰 / 隔套</text>
+  <path d="M955 503H922" class="call"/><text x="963" y="507" class="label">升降中心盘</text>
+  <path d="M955 535H887" class="call"/><text x="963" y="539" class="label">24 mm 轴穿过法兰</text>
+  <path d="M955 603H957" class="call"/><text x="963" y="607" class="label">同一块底板</text>
+  <text x="67" y="655" class="small">图中电机输出轴为橙色；丝杆为黄色；支架为紫色。</text>
+  <text x="690" y="655" class="small">示意为载盘 Z=100 mm；最低位置按 Z=86 mm 检查。</text>
+  <rect x="35" y="718" width="1210" height="98" rx="14" fill="#fff8e9" stroke="#eacb7e"/>
+  <text x="59" y="750" class="label" font-weight="700">这张图用于理解装配，不是加工图。</text>
+  <text x="59" y="778" class="small">最低位置旋转电机距底板仅约 4 mm，皮带距井口约 1.84 mm，顶部挡圈距顶板约 2 mm，均是名义值。</text>
+  <text x="59" y="801" class="small">轴承支承、皮带夹持、限位和实际零件公差仍需验证；不要按未确认的候选孔直接加工。</text>
+</svg>
