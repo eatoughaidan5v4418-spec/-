@@ -1,0 +1,8 @@
+from building import *
+import os
+cwd = GetCurrentDir()
+# Garage HMI fonts only. IMG_* and Font_RexBold_* stay in the tree as the
+# original spark demo assets, but they are not linked into this UI.
+src = Glob('font_garage_*.c')
+group = DefineGroup('GarageAssets', src, depend = ['BSP_USING_LVGL'], CPPPATH = [cwd])
+Return('group')

@@ -25,6 +25,10 @@
 | [CAD 索引](docs/cad/README.md) | 当前 v7 三维装配、板件和安装试配详图 |
 | [历史版本归档](docs/archive/README.md) | v2 旧方案、v3～v5 CAD 及旧文档备份 |
 
+## 屏幕 HMI
+
+一层样机的板载界面在 [firmware/spark_garage_lvgl](firmware/spark_garage_lvgl/README.md)。它是星火1号 LVGL 例程上的应用层：待机车位环、存车、取车、进度和故障。按键和烧录说明在 [README_UI.md](firmware/spark_garage_lvgl/applications/lvgl/demo/README_UI.md)。这里没有放 RT-Thread 和 LVGL 包，那些从星火1号例程取。
+
 ## CAD 交互演示
 
 用电脑浏览器直接打开 [三维演示](docs/cad/assembly-exploded.html)：
