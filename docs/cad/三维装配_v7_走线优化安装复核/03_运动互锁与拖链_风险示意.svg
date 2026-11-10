@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1720" viewBox="0 0 2400 1720">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#5d7283"/></marker></defs>
+<rect width="2400" height="1720" fill="#eef3f6"/>
+<text x="65" y="78" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="49" font-weight="700" text-anchor="start" >v7 运动复核：拖链与推拉互锁</text>
+<text x="68" y="125" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="24" font-weight="400" text-anchor="start" >基准 ZL=100、推拉行程 U=138 的俯视；仅画拖链和移动托盘，其他零件省略</text>
+<rect x="2030" y="40" width="295" height="56" rx="24" fill="#fff3d7" stroke="none" stroke-width="1" />
+<text x="2177" y="77" fill="#8a5b12" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="middle" >几何试配 · 非加工图</text>
+<rect x="55" y="165" width="1095" height="1260" rx="20" fill="#fff" stroke="none" stroke-width="1" />
+<text x="90" y="230" fill="#087f8c" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="31" font-weight="700" text-anchor="start" >对准车位后推拉：拖链避开托盘</text>
+<text x="90" y="270" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >θ=45°，U=138</text>
+<circle cx="480" cy="1050" r="326.40000000000003" fill="#f5f9fa" stroke="#acbec7" stroke-width="3" />
+<text x="396" y="1060" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="700" text-anchor="start" >井口 R102</text>
+<polygon points="751.5,869.0 796.8,869.0 1057.0,608.8 921.2,473.0 661.0,733.2 661.0,778.5" fill="#9cc8d6" fill-opacity="0.58" stroke="#4b8aa1" stroke-width="4"/>
+<polygon points="642.0,725.7 649.4,708.0 602.1,688.4 594.7,706.1" fill="#087f8c" stroke="white" stroke-width="3"/>
+<polygon points="703.3,577.9 710.6,560.2 663.3,540.6 656.0,558.3" fill="#087f8c" stroke="white" stroke-width="3"/>
+<text x="657.0520900939214" y="687.0559175318103" fill="#087f8c" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="700" text-anchor="start" >拖链内侧段</text>
+<text x="718.2814392723358" y="539.2351923300046" fill="#087f8c" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="700" text-anchor="start" >拖链外侧段</text>
+<text x="100" y="1320" fill="#087f8c" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="start" >移动托盘未碰到拖链。</text>
+<rect x="1250" y="165" width="1095" height="1260" rx="20" fill="#fff" stroke="none" stroke-width="1" />
+<text x="1285" y="230" fill="#c94c43" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="31" font-weight="700" text-anchor="start" >非车位角度误推拉：发生相交</text>
+<text x="1285" y="270" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >θ=67.5°，U=138</text>
+<circle cx="1675" cy="1050" r="326.40000000000003" fill="#f5f9fa" stroke="#acbec7" stroke-width="3" />
+<text x="1591" y="1060" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="700" text-anchor="start" >井口 R102</text>
+<polygon points="1856.6,778.9 1898.4,761.5 2039.2,421.5 1861.8,348.1 1721.0,688.1 1738.3,729.9" fill="#9cc8d6" fill-opacity="0.58" stroke="#4b8aa1" stroke-width="4"/>
+<polygon points="1837.0,725.7 1844.4,708.0 1797.1,688.4 1789.7,706.1" fill="#c94c43" stroke="white" stroke-width="3"/>
+<polygon points="1898.3,577.9 1905.6,560.2 1858.3,540.6 1851.0,558.3" fill="#c94c43" stroke="white" stroke-width="3"/>
+<text x="1852.0520900939214" y="687.0559175318103" fill="#c94c43" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="700" text-anchor="start" >拖链内侧段</text>
+<text x="1913.2814392723358" y="539.2351923300046" fill="#c94c43" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="700" text-anchor="start" >拖链外侧段</text>
+<text x="1295" y="1320" fill="#c94c43" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="start" >移动托盘与两段拖链均发生相交。</text>
+<text x="1295" y="1360" fill="#c94c43" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="700" text-anchor="start" >Z=100、θ=67.5°：U=34.5 即检测到相交。</text>
+<rect x="55" y="1460" width="2290" height="220" rx="14" fill="#fff2ee" stroke="#edd0c9" stroke-width="2" />
+<text x="90" y="1510" fill="#c94c43" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="start" >动作条件必须落实</text>
+<text x="90" y="1555" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="24" font-weight="400" text-anchor="start" >旋转前确认拨叉已收回；推拉前确认转盘已停止并对准有效车位。</text>
+<text x="90" y="1595" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >项目网页仅为演示，实际控制和检测须实现并验证互锁；啮合 / 脱开按机构工序受控执行。</text>
+<text x="90" y="1637" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="400" text-anchor="start" >正常车位角度的推拉与收回状态下的旋转已做保守连续净空计算；其他组合不能视为安全。</text>
+</svg>

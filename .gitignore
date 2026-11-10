@@ -1,6 +1,13 @@
 .DS_Store
 __pycache__/
+*.pyc
 *.dwl
 *.dwl2
 # AutoCAD 保留在本地的三维装配备份。
 docs/archive/cad/三维装配_初步校核/*.bak
+
+# 本地打包备份和与项目无关的系统日志，不进仓库。
+/*.zip
+/NVIDIA Corporation/
+Thumbs.db
+desktop.ini

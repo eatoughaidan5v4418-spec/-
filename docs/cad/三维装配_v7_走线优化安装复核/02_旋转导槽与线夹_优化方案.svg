@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1720" viewBox="0 0 2400 1720">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#5d7283"/></marker></defs>
+<rect width="2400" height="1720" fill="#eef3f6"/>
+<text x="65" y="78" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="49" font-weight="700" text-anchor="start" >v7 旋转线环导槽与线夹：优化试配</text>
+<text x="68" y="125" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="24" font-weight="400" text-anchor="start" >基准 ZL=100；为便于比较，将不同方位部件投影到同一径向剖面</text>
+<rect x="2030" y="40" width="295" height="56" rx="24" fill="#fff3d7" stroke="none" stroke-width="1" />
+<text x="2177" y="77" fill="#8a5b12" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="middle" >几何试配 · 非加工图</text>
+<rect x="55" y="165" width="1250" height="1370" rx="20" fill="#fff" stroke="none" stroke-width="1" />
+<rect x="1330" y="165" width="1015" height="1370" rx="20" fill="#fff" stroke="none" stroke-width="1" />
+<text x="90" y="230" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="34" font-weight="700" text-anchor="start" >① 高度与连接关系</text>
+<text x="90" y="270" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="400" text-anchor="start" >黄色：固定侧 / 绿色：旋转侧 / 紫色：线环占用区</text>
+<rect x="185" y="934" width="208" height="170" rx="0" fill="#b8c8d1" stroke="#839ba9" stroke-width="2" />
+<text x="205" y="1044" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="700" text-anchor="start" >升降盘</text>
+<rect x="233" y="1104" width="864" height="102" rx="0" fill="#e6b95f" stroke="#b77f28" stroke-width="2" />
+<text x="353" y="1180" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="start" >J1 一体支架</text>
+<rect x="409" y="1070" width="528" height="34" rx="0" fill="#e5b251" stroke="#b77f28" stroke-width="2" />
+<rect x="409" y="900" width="32" height="170" rx="0" fill="#e5b251" stroke="#b77f28" stroke-width="2" />
+<rect x="921" y="900" width="16" height="170" rx="0" fill="#e5b251" stroke="#b77f28" stroke-width="2" />
+<rect x="457" y="917.0" width="448" height="136" rx="0" fill="#e6d1ee" stroke="#a45dc0" stroke-width="3" fill-opacity="0.55"/>
+<text x="617" y="995.1999999999999" fill="#8a469e" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="start" >线环占用区</text>
+<rect x="345" y="560" width="704" height="102" rx="0" fill="#accbd8" stroke="#638e9d" stroke-width="2" />
+<text x="665" y="636" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="start" >P03E 转运板</text>
+<rect x="362.6" y="662" width="276.80000000000007" height="204" rx="0" fill="#90c6b7" stroke="#448e7b" stroke-width="3" />
+<text x="540.2" y="772" fill="#255f55" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="start" >JR</text>
+<rect x="953" y="900" width="96" height="204" rx="0" fill="#e2ab44" stroke="#b77f28" stroke-width="3" />
+<rect x="953" y="917.0" width="96" height="136" rx="0" fill="#fff" stroke="#b77f28" stroke-width="2" />
+<text x="953" y="871" fill="#c48820" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="start" >JF</text>
+<rect x="461.79999999999995" y="560" width="72.0" height="306" rx="0" fill="#fff" stroke="#6f8794" stroke-width="2" />
+<text x="461.79999999999995" y="541" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="20" font-weight="700" text-anchor="start" >Ø4.5</text>
+<rect x="253.0" y="849.0" width="88.0" height="85.0" rx="0" fill="#6d8090" stroke="#526a79" stroke-width="2" />
+<text x="185" y="803" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="20" font-weight="700" text-anchor="start" >原支撑臂螺钉头</text>
+<path d="M 1033 985.0 L 729 985.0 L 505 985.0 L 498.5999999999999 849.0" fill="none" stroke="#a45dc0" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="9 7"/>
+<text x="115" y="1425" fill="#a45dc0" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="700" text-anchor="start" >紫色虚线仅示意连接关系；双端 R12 轨迹和线夹入口槽请看三维模型。</text>
+<text x="1370" y="230" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="34" font-weight="700" text-anchor="start" >② 新的固定与穿线方式</text>
+<circle cx="1390" cy="332" r="24" fill="#087f8c" stroke="none" stroke-width="2" />
+<text x="1390" y="340" fill="white" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="middle" >1</text>
+<text x="1435" y="340" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="28" font-weight="700" text-anchor="start" >JF 固定侧线夹</text>
+<text x="1435" y="379" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >中心约 r96；预留 5 × 4 穿线通道。</text>
+<text x="1435" y="413" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >2 个 Ø2.2 试配孔与 J1 支架对齐。</text>
+<circle cx="1390" cy="502" r="24" fill="#087f8c" stroke="none" stroke-width="2" />
+<text x="1390" y="510" fill="white" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="middle" >2</text>
+<text x="1435" y="510" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="28" font-weight="700" text-anchor="start" >JR 旋转侧线夹</text>
+<text x="1435" y="549" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >移至板下 Z80～86；入口加切向避让槽。</text>
+<text x="1435" y="583" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >转运板 x62、y18 开 Ø4.5 候选穿线孔。</text>
+<circle cx="1390" cy="672" r="24" fill="#087f8c" stroke="none" stroke-width="2" />
+<text x="1390" y="680" fill="white" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="middle" >3</text>
+<text x="1435" y="680" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="28" font-weight="700" text-anchor="start" >一体导槽</text>
+<text x="1435" y="719" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >J1 支架与环形底座、内外壁合为一体。</text>
+<text x="1435" y="753" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >在 67.5° 外壁开口，接入 JF。</text>
+<circle cx="1390" cy="842" r="24" fill="#087f8c" stroke="none" stroke-width="2" />
+<text x="1390" y="850" fill="white" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="middle" >4</text>
+<text x="1435" y="850" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="28" font-weight="700" text-anchor="start" >候选紧固件</text>
+<text x="1435" y="889" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >J0、J1、JF、JR 各按两颗候选紧固件建包络。</text>
+<text x="1435" y="923" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >实际螺钉、螺纹、螺母及装配方式待选定。</text>
+<rect x="1370" y="1010" width="890" height="240" rx="14" fill="#f4eef8" stroke="#dfcde9" stroke-width="2" />
+<text x="1400" y="1055" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="26" font-weight="700" text-anchor="start" >仍需验证</text>
+<text x="1400" y="1100" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >线环占用区仅高 4 mm，Ø4.5 孔和 5 × 4 口</text>
+<text x="1400" y="1137" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >是否容纳 10 芯柔性线束，取决于实际线材。</text>
+<text x="1400" y="1174" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >基准弯头中心线 R12，Ø3 线缆内侧约 R10.5；</text>
+<text x="1400" y="1211" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >须按线材规格的半径定义核对，并验证往返。</text>
+<text x="1380" y="1360" fill="#087f8c" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="start" >连续包络通过仅适用于本次建模的刚性候选件。</text>
+<text x="1380" y="1400" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >未建模的线束、插头和末端引出仍需检查。</text>
+<text x="1380" y="1440" fill="#c94c43" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="start" >JR 入口槽上方局部厚度仅 0.8，强度需试做。</text>
+<rect x="55" y="1560" width="2290" height="120" rx="14" fill="#e6eff2" stroke="none" stroke-width="1" />
+<text x="85" y="1608" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="27" font-weight="700" text-anchor="start" >复核结果</text>
+<text x="245" y="1608" fill="#c94c43" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="start" >227 个预设姿态无新增实体相交；非车位 67.5° 误推拉会撞拖链，必须落实互锁。</text>
+<text x="85" y="1650" fill="#5b7181" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="400" text-anchor="start" >夹座安装面和端头容纳腔不适用连续包络的 1 mm；全装配与真实软线仍需验证。</text>
+</svg>

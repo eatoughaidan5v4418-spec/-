@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1720" viewBox="0 0 2400 1720">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#5d7283"/></marker></defs>
+<rect width="2400" height="1720" fill="#eef3f6"/>
+<text x="70" y="82" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="52" font-weight="700" text-anchor="start" >v7 活动线束：从哪里接到哪里</text>
+<text x="72" y="135" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="26" font-weight="400" text-anchor="start" >按四组线束看起点、经过的固定点和终点 · 此图是连接关系，不是模块针序图</text>
+<rect x="2040" y="43" width="280" height="53" rx="24" fill="#fff3d7" stroke="none" stroke-width="1" />
+<text x="2180" y="79" fill="#8a5b12" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="middle" >试配方案 · 未校核</text>
+<rect x="55" y="175" width="2290" height="1250" rx="22" fill="#ffffff" stroke="none" stroke-width="1" />
+<text x="250" y="256" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="middle" >底座起点</text>
+<text x="680" y="256" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="middle" >J0 → J1 拖链</text>
+<text x="1095" y="256" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="middle" >J2 升降平台</text>
+<text x="1540" y="256" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="middle" >JF → JR 旋转连接</text>
+<text x="2060" y="256" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="middle" >最终终点</text>
+<rect x="90" y="320" width="2150" height="135" rx="14" fill="#f7fafb" stroke="none" stroke-width="1" />
+<circle cx="105" cy="387" r="27" fill="#087f8c" stroke="none" stroke-width="2" />
+<text x="105" y="396" fill="white" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >MT</text>
+<rect x="145" y="333" width="250" height="100" rx="12" fill="#f0f5f7" stroke="#bccbd3" stroke-width="3" />
+<text x="270.0" y="393" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >θ 轴驱动</text>
+<rect x="520" y="333" width="310" height="100" rx="12" fill="#eef7f8" stroke="#087f8c" stroke-width="3" />
+<text x="675.0" y="393" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >4 芯电机线</text>
+<rect x="930" y="333" width="260" height="100" rx="12" fill="#f0f5f7" stroke="#bccbd3" stroke-width="3" />
+<text x="1060.0" y="393" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >J2 分出</text>
+<line x1="400" y1="383" x2="510" y2="383" stroke="#087f8c" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<line x1="835" y1="383" x2="920" y2="383" stroke="#087f8c" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="1365" y="333" width="375" height="100" rx="12" fill="#eef7f8" stroke="#087f8c" stroke-width="3" />
+<text x="1552.5" y="393" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >θ 电机两相</text>
+<line x1="1195" y1="383" x2="1355" y2="383" stroke="#087f8c" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="1970" y="392" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="600" text-anchor="middle" >不经过旋转线环</text>
+<rect x="90" y="540" width="2150" height="135" rx="14" fill="#f7fafb" stroke="none" stroke-width="1" />
+<circle cx="105" cy="607" r="27" fill="#7254ad" stroke="none" stroke-width="2" />
+<text x="105" y="616" fill="white" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >ST</text>
+<rect x="145" y="553" width="250" height="100" rx="12" fill="#f0f5f7" stroke="#bccbd3" stroke-width="3" />
+<text x="270.0" y="613" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >主控 + 3.3 V</text>
+<rect x="520" y="553" width="310" height="100" rx="12" fill="#f5f1fa" stroke="#7254ad" stroke-width="3" />
+<text x="675.0" y="613" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >3 芯传感器线</text>
+<rect x="930" y="553" width="260" height="100" rx="12" fill="#f0f5f7" stroke="#bccbd3" stroke-width="3" />
+<text x="1060.0" y="613" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >J2 分出</text>
+<line x1="400" y1="603" x2="510" y2="603" stroke="#7254ad" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<line x1="835" y1="603" x2="920" y2="603" stroke="#7254ad" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="1365" y="553" width="375" height="100" rx="12" fill="#f5f1fa" stroke="#7254ad" stroke-width="3" />
+<text x="1552.5" y="613" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >θ 原点霍尔</text>
+<line x1="1195" y1="603" x2="1355" y2="603" stroke="#7254ad" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<text x="1970" y="612" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="600" text-anchor="middle" >不经过旋转线环</text>
+<rect x="90" y="760" width="2150" height="135" rx="14" fill="#f7fafb" stroke="none" stroke-width="1" />
+<circle cx="105" cy="827" r="27" fill="#087f8c" stroke="none" stroke-width="2" />
+<text x="105" y="836" fill="white" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >MU</text>
+<rect x="145" y="773" width="250" height="100" rx="12" fill="#f0f5f7" stroke="#bccbd3" stroke-width="3" />
+<text x="270.0" y="833" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >U 轴驱动</text>
+<rect x="520" y="773" width="310" height="100" rx="12" fill="#eef7f8" stroke="#087f8c" stroke-width="3" />
+<text x="675.0" y="833" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >4 芯电机线</text>
+<rect x="930" y="773" width="260" height="100" rx="12" fill="#f0f5f7" stroke="#bccbd3" stroke-width="3" />
+<text x="1060.0" y="833" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >经过 J2</text>
+<line x1="400" y1="823" x2="510" y2="823" stroke="#087f8c" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<line x1="835" y1="823" x2="920" y2="823" stroke="#087f8c" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="1280" y="773" width="310" height="100" rx="12" fill="#fff7e7" stroke="#d99422" stroke-width="3" />
+<text x="1435.0" y="833" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >经过 JF / JR</text>
+<rect x="1850" y="773" width="365" height="100" rx="12" fill="#eef7f8" stroke="#087f8c" stroke-width="3" />
+<text x="2032.5" y="833" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >U 电机两相</text>
+<line x1="1195" y1="823" x2="1270" y2="823" stroke="#087f8c" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<line x1="1595" y1="823" x2="1840" y2="823" stroke="#087f8c" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="90" y="980" width="2150" height="135" rx="14" fill="#f7fafb" stroke="none" stroke-width="1" />
+<circle cx="105" cy="1047" r="27" fill="#7254ad" stroke="none" stroke-width="2" />
+<text x="105" y="1056" fill="white" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >SU</text>
+<rect x="145" y="993" width="250" height="100" rx="12" fill="#f0f5f7" stroke="#bccbd3" stroke-width="3" />
+<text x="270.0" y="1053" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >主控 + 3.3 V</text>
+<rect x="520" y="993" width="310" height="100" rx="12" fill="#f5f1fa" stroke="#7254ad" stroke-width="3" />
+<text x="675.0" y="1053" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >5 芯 + 1 备用</text>
+<rect x="930" y="993" width="260" height="100" rx="12" fill="#f0f5f7" stroke="#bccbd3" stroke-width="3" />
+<text x="1060.0" y="1053" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >经过 J2</text>
+<line x1="400" y1="1043" x2="510" y2="1043" stroke="#7254ad" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<line x1="835" y1="1043" x2="920" y2="1043" stroke="#7254ad" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="1280" y="993" width="310" height="100" rx="12" fill="#fff7e7" stroke="#d99422" stroke-width="3" />
+<text x="1435.0" y="1053" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >经过 JF / JR</text>
+<rect x="1850" y="993" width="365" height="100" rx="12" fill="#f5f1fa" stroke="#7254ad" stroke-width="3" />
+<text x="2032.5" y="1053" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >U 两限位 + 托盘霍尔</text>
+<line x1="1195" y1="1043" x2="1270" y2="1043" stroke="#7254ad" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<line x1="1595" y1="1043" x2="1840" y2="1043" stroke="#7254ad" stroke-width="5" stroke-linecap="round" marker-end="url(#arrow)"/>
+<rect x="95" y="1250" width="2140" height="110" rx="14" fill="#fff7e7" stroke="#efd59e" stroke-width="2" />
+<text x="125" y="1293" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="26" font-weight="700" text-anchor="start" >SU 线束预算</text>
+<text x="315" y="1293" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="400" text-anchor="start" >3.3 V / GND / U 收回 / U 伸出 / 托盘霍尔输出 / 1 芯备用</text>
+<text x="125" y="1333" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >前提：微动为无源触点并共地；传感器若需其他电源或隔离，应增加线芯。</text>
+<rect x="55" y="1460" width="2290" height="205" rx="14" fill="#dfebf0" stroke="none" stroke-width="1" />
+<text x="85" y="1510" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="28" font-weight="700" text-anchor="start" >安装与接线时</text>
+<text x="85" y="1555" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >两组电机各自按 A 相、B 相配对；具体颜色与插头针序按电机实物核实。</text>
+<text x="85" y="1591" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >J0 / J1 / JF / JR 是固定点；保护拖链与线环中的电缆，不能让插头受力。</text>
+<text x="85" y="1627" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >旋转侧短线的穿板口、线夹与避让路径仍需在 v7 三维装配中落实。</text>
+</svg>

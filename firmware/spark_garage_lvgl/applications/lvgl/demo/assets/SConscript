@@ -1,0 +1,6 @@
+from building import *
+import os
+cwd = GetCurrentDir()
+src = Glob('*.c')
+group = DefineGroup('GarageAssets', src, depend = ['BSP_USING_LVGL'], CPPPATH = [cwd])
+Return('group')

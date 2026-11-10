@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1720" viewBox="0 0 2400 1720">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#5d7283"/></marker></defs>
+<rect width="2400" height="1720" fill="#eef3f6"/>
+<text x="65" y="78" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="50" font-weight="700" text-anchor="start" >v7 拖链：需要调整的位置</text>
+<text x="68" y="126" fill="#5c7182" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="24" font-weight="400" text-anchor="start" >按当前三维实体试配：67.5° 方位、链体名义 6 × 16、中心线 R25；尺寸单位 mm</text>
+<rect x="2000" y="40" width="325" height="58" rx="25" fill="#fff0ed" stroke="none" stroke-width="1" />
+<text x="2162" y="79" fill="#ad4038" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="middle" >试配未通过 · 禁止按图加工</text>
+<rect x="55" y="165" width="1120" height="1370" rx="20" fill="#fff" stroke="none" stroke-width="1" />
+<rect x="1200" y="165" width="1145" height="1370" rx="20" fill="#fff" stroke="none" stroke-width="1" />
+<text x="90" y="230" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="33" font-weight="700" text-anchor="start" >① 径向侧视：两层甲板与拖链</text>
+<text x="90" y="270" fill="#5c7182" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >低位实线 / 高位虚线；灰色为甲板，黄色为新增支架</text>
+<line x1="205.0" y1="1370.0" x2="1018.7500000000001" y2="1370.0" stroke="#8299a7" stroke-width="10" stroke-linecap="round" />
+<text x="110" y="1408.0" fill="#5c7182" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="400" text-anchor="start" >底座 Z=0</text>
+<rect x="763.0" y="970.0" width="255.75000000000003" height="20" rx="0" fill="#a8b8c3" stroke="none" stroke-width="1" />
+<text x="773.0" y="952.0" fill="#5c7182" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="20" font-weight="600" text-anchor="start" >一层甲板 Z=95～100</text>
+<line x1="493.3" y1="970.0" x2="763.0" y2="970.0" stroke="#bacbd4" stroke-width="2" stroke-linecap="round" stroke-dasharray="8 7"/>
+<rect x="763.0" y="610.0" width="255.75000000000003" height="20" rx="0" fill="#a8b8c3" stroke="none" stroke-width="1" />
+<text x="773.0" y="592.0" fill="#5c7182" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="20" font-weight="600" text-anchor="start" >二层甲板 Z=185～190</text>
+<line x1="493.3" y1="610.0" x2="763.0" y2="610.0" stroke="#bacbd4" stroke-width="2" stroke-linecap="round" stroke-dasharray="8 7"/>
+<rect x="753.7" y="1354.0" width="74.4" height="16" rx="0" fill="#d8a341" stroke="#a36917" stroke-width="2" />
+<rect x="804.85" y="1194.0" width="18.6" height="160" rx="0" fill="#d8a341" stroke="#a36917" stroke-width="2" />
+<text x="683.95" y="1230.0" fill="#c98719" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="start" >J0  固定座</text>
+<rect x="242.2" y="1078.0" width="334.8" height="12" rx="0" fill="#e6b955" stroke="#ac7927" stroke-width="2" />
+<text x="242.2" y="1124.0" fill="#c98719" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="start" >J1  随升降支架</text>
+<path d="M 790.9000000000001 1210.0 L 790.9000000000001 650.0 A 116.25000000000001 100 0 0 0 558.4000000000001 650.0 L 558.4000000000001 718.0" fill="none" stroke="#c0b0df" stroke-width="18" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="14 13"/>
+<path d="M 790.9000000000001 1210.0 L 790.9000000000001 650.0 A 116.25000000000001 100 0 0 0 558.4000000000001 650.0 L 558.4000000000001 718.0" fill="none" stroke="#7254ad" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="14 13"/>
+<path d="M 790.9000000000001 1210.0 L 790.9000000000001 830.0 A 116.25000000000001 100 0 0 0 558.4000000000001 830.0 L 558.4000000000001 1078.0" fill="none" stroke="#c6e2e2" stroke-width="23" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M 790.9000000000001 1210.0 L 790.9000000000001 830.0 A 116.25000000000001 100 0 0 0 558.4000000000001 830.0 L 558.4000000000001 1078.0" fill="none" stroke="#087f8c" stroke-width="7" stroke-linejoin="round" stroke-linecap="round" />
+<text x="265" y="405" fill="#7254ad" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="start" >高位 ZL=190</text>
+<text x="265" y="447" fill="#087f8c" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="start" >低位 ZL=100</text>
+<circle cx="790.9000000000001" cy="980.0" r="31" fill="none" stroke="#cc413b" stroke-width="5" />
+<circle cx="845.9000000000001" cy="933.0" r="23" fill="#cc413b" stroke="white" stroke-width="3" />
+<text x="845.9000000000001" y="941.0" fill="white" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="middle" >1</text>
+<text x="110" y="1480" fill="#cc413b" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="start" >1  外侧链段穿过一层甲板实体；二层需按全运动包络改口。</text>
+<text x="1235" y="230" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="33" font-weight="700" text-anchor="start" >② 俯视：现有槽口与两条链段</text>
+<text x="1235" y="270" fill="#5c7182" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >低位截面叠加；浅灰为甲板，白色为现有开口</text>
+<defs><clipPath id="p"><rect x="1220" y="300" width="1100" height="1070"/></clipPath></defs><g clip-path="url(#p)">
+<rect x="1230" y="300" width="1080" height="1060" rx="0" fill="#e6edf0" stroke="none" stroke-width="1" />
+<circle cx="1660" cy="1040" r="280.5" fill="#fff" stroke="#96aab6" stroke-width="3" />
+<polygon points="1784.87,788.83 1809.33,729.78 1824.58,736.10 1861.41,647.17 1795.35,619.81 1758.52,708.74 1773.76,715.05 1749.31,774.09" fill="#fff" stroke="#96aab6" stroke-width="3" />
+<polygon points="1893.35,884.44 1932.24,884.44 2155.86,660.81 2039.19,544.14 1815.56,767.76 1815.56,806.65" fill="#c8dce7" stroke="#7197aa" stroke-width="3" fill-opacity="0.60"/>
+<polygon points="1799.24,761.32 1805.56,746.08 1764.91,729.24 1758.59,744.49" fill="#087f8c" stroke="#006b78" stroke-width="2" />
+<polygon points="1851.86,634.29 1858.18,619.05 1817.53,602.21 1811.21,617.45" fill="#087f8c" stroke="#006b78" stroke-width="2" />
+<polygon points="1799.24,761.32 1805.56,746.08 1803.02,745.03 1796.70,760.27" fill="#cc413b" stroke="none" stroke-width="1" />
+<polygon points="1761.13,745.54 1767.45,730.29 1764.91,729.24 1758.59,744.49" fill="#cc413b" stroke="none" stroke-width="1" />
+<line x1="1660.0" y1="1040.0" x2="1854.6901962157394" y2="569.9762878348829" stroke="#8da0ac" stroke-width="2" stroke-linecap="round" stroke-dasharray="8 7"/>
+</g>
+<circle cx="1712.0760149244636" cy="675.2824291288996" r="23" fill="#cc413b" stroke="white" stroke-width="3" />
+<text x="1712.0760149244636" y="683.2824291288996" fill="white" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="middle" >2</text>
+<circle cx="1890.6949868746635" cy="570.2489934085977" r="23" fill="#cc413b" stroke="white" stroke-width="3" />
+<text x="1890.6949868746635" y="578.2489934085977" fill="white" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="middle" >1</text>
+<text x="1265" y="370" fill="#5c7182" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="600" text-anchor="start" >现有井口 R102</text>
+<text x="1265" y="405" fill="#5c7182" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="600" text-anchor="start" >现有窄槽：切向宽 14</text>
+<text x="1265" y="440" fill="#087f8c" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="700" text-anchor="start" >蓝色：链体截面 6 × 16</text>
+<text x="1265" y="475" fill="#547e90" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="700" text-anchor="start" >浅蓝：45° 车位托盘</text>
+<text x="1250" y="1450" fill="#cc413b" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="start" >2  内侧链段比现有 14 mm 窄槽宽；两侧各有名义 1 mm 重叠。</text>
+<text x="1250" y="1485" fill="#5c7182" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >支架固定孔、甲板余量及车位支承均需按实物重新设计。</text>
+<rect x="55" y="1560" width="2290" height="112" rx="14" fill="#e6eff2" stroke="none" stroke-width="1" />
+<text x="85" y="1605" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="27" font-weight="700" text-anchor="start" >调整方向</text>
+<text x="235" y="1605" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >先确定拖链及线材外形 → 重画 P05R / P06R 通道 → 核查相邻托盘与支承 → 再设计 J0 / J1 紧固。</text>
+<text x="85" y="1645" fill="#5c7182" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >图示间隙未计安装误差、端头、固定件和电缆弯曲；红圈仅指出位置，不是切割尺寸。</text>
+</svg>

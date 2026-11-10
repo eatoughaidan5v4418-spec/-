@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1720" viewBox="0 0 2400 1720">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#5d7283"/></marker></defs>
+<rect width="2400" height="1720" fill="#eef3f6"/>
+<text x="70" y="82" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="52" font-weight="700" text-anchor="start" >v7 活动线束：升降拖链</text>
+<text x="72" y="135" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="26" font-weight="400" text-anchor="start" >67.5° 方位的侧视剖面 · 低位和高位叠加 · 图中机构及线束未按共同尺度绘制</text>
+<rect x="2040" y="43" width="280" height="53" rx="24" fill="#fff3d7" stroke="none" stroke-width="1" />
+<text x="2180" y="79" fill="#8a5b12" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="middle" >试配方案 · 未校核</text>
+<rect x="55" y="175" width="1400" height="1360" rx="22" fill="#ffffff" stroke="none" stroke-width="1" />
+<rect x="1480" y="175" width="865" height="1360" rx="22" fill="#ffffff" stroke="none" stroke-width="1" />
+<circle cx="118" cy="236" r="27" fill="#087f8c" stroke="none" stroke-width="2" />
+<text x="118" y="245" fill="white" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >1</text>
+<text x="165" y="245" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="34" font-weight="700" text-anchor="start" >先从底座走到升降平台</text>
+<text x="165" y="288" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >底座固定端 → 拖链 → 移动端 → 平台分线点</text>
+<rect x="827.5" y="572.5" width="71.5" height="577.5" rx="0" fill="#e6f2f3" stroke="#087f8c" stroke-width="2" stroke-dasharray="9 8" opacity="0.7"/>
+<text x="757.5" y="554.5" fill="#087f8c" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="600" text-anchor="start" >v7 拖链占位</text>
+<line x1="112" y1="1260.0" x2="1345" y2="1260.0" stroke="#6f8491" stroke-width="12" stroke-linecap="round" />
+<text x="118" y="1296.0" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >底板 Z=0</text>
+<line x1="957.5" y1="985.0" x2="1270" y2="985.0" stroke="#8ca1af" stroke-width="13" stroke-linecap="round" />
+<line x1="925.0" y1="985.0" x2="957.5" y2="985.0" stroke="#d99422" stroke-width="13" stroke-linecap="round" stroke-dasharray="8 7"/>
+<text x="1050" y="966.0" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="600" text-anchor="start" >一层甲板 Z=100</text>
+<line x1="957.5" y1="737.5" x2="1270" y2="737.5" stroke="#8ca1af" stroke-width="13" stroke-linecap="round" />
+<line x1="925.0" y1="737.5" x2="957.5" y2="737.5" stroke="#d99422" stroke-width="13" stroke-linecap="round" stroke-dasharray="8 7"/>
+<text x="1050" y="718.5" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="600" text-anchor="start" >二层甲板 Z=190</text>
+<line x1="405.0" y1="1232.5" x2="405.0" y2="545.0" stroke="#c6d4dc" stroke-width="2" stroke-linecap="round" stroke-dasharray="9 9"/>
+<rect x="336.75" y="1100.5" width="136.5" height="110.0" rx="8" fill="#9aadb9" stroke="none" stroke-width="1" />
+<text x="405.0" y="1160.0" fill="#ffffff" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="middle" >θ 电机</text>
+<text x="405.0" y="1187.5" fill="#ffffff" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="19" font-weight="400" text-anchor="middle" >只升降</text>
+<rect x="216.5" y="1045.5" width="377.0" height="13.75" rx="4" fill="#96adba" stroke="none" stroke-width="1" />
+<rect x="281.5" y="1023.5" width="247.0" height="22.0" rx="3" fill="#c2cdd4" stroke="none" stroke-width="1" />
+<rect x="112.5" y="1015.25" width="594.75" height="8.25" rx="3" fill="#648da1" stroke="none" stroke-width="1" />
+<rect x="281.5" y="976.75" width="406.25" height="8.25" rx="3" fill="#d4dfe4" stroke="none" stroke-width="1" />
+<rect x="177.5" y="899.75" width="81.25" height="68.75" rx="5" fill="#b1c5cf" stroke="#698796" stroke-width="2" />
+<text x="152.5" y="885.75" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="start" >拨叉 U 电机</text>
+<text x="155" y="985.25" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="start" >P03E 转运板</text>
+<rect x="600.0" y="1023.5" width="97.5" height="22.0" rx="4" fill="#f8dfad" stroke="#d99422" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="711.5" y="1013.5" fill="#92621e" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="21" font-weight="700" text-anchor="start" >线环试配区 → 见图 2</text>
+<line x1="593.5" y1="1059.25" x2="782.0" y2="1059.25" stroke="#d99422" stroke-width="15" stroke-linecap="round" stroke-dasharray="14 8"/>
+<text x="600.0" y="1101.25" fill="#98600d" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="700" text-anchor="start" >新增随升降支架</text>
+<text x="600.0" y="1128.25" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="19" font-weight="400" text-anchor="start" >穿过 67.5° 甲板槽</text>
+<path d="M 944.5 1150.0 L 944.5 765.0 A 81.2 68.8 0 0 0 782.0 765.0 L 782.0 811.8" fill="none" stroke="#a8bac5" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="13 10" opacity="0.85"/>
+<path d="M 944.5 1150.0 L 944.5 888.8 A 81.2 68.8 0 0 0 782.0 888.8 L 782.0 1059.2" fill="none" stroke="#d7e7e9" stroke-width="24" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M 944.5 1150.0 L 944.5 888.8 A 81.2 68.8 0 0 0 782.0 888.8 L 782.0 1059.2" fill="none" stroke="#087f8c" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M 944.5 1150.0 L 944.5 888.8 A 81.2 68.8 0 0 0 782.0 888.8 L 782.0 1059.2" fill="none" stroke="#7254ad" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="12 10"/>
+<text x="1045" y="750.0" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="600" text-anchor="start" >高位形态</text>
+<text x="1045" y="898.75" fill="#087f8c" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="600" text-anchor="start" >低位形态</text>
+<line x1="593.5" y1="1049.25" x2="782.0" y2="1049.25" stroke="#087f8c" stroke-width="6" stroke-linecap="round" />
+<line x1="593.5" y1="1057.25" x2="782.0" y2="1057.25" stroke="#7254ad" stroke-width="4" stroke-linecap="round" stroke-dasharray="10 7"/>
+<path d="M 944.5 1150.0 L 944.5 1238.0 L 308 1238.0" fill="none" stroke="#087f8c" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M 935.5 1150.0 L 935.5 1229.75 L 308 1229.75" fill="none" stroke="#7254ad" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="10 7"/>
+<rect x="105" y="1116" width="203" height="97" rx="9" fill="#eaf1f5" stroke="#a6bac5" stroke-width="2" />
+<text x="206" y="1153" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="24" font-weight="700" text-anchor="middle" >底座电控区</text>
+<text x="206" y="1187" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="20" font-weight="400" text-anchor="middle" >主控 + 驱动</text>
+<path d="M 593.5 1049.2 L 557.8 1049.2 L 557.8 1114.2 L 473.2 1114.2" fill="none" stroke="#087f8c" stroke-width="6" stroke-linejoin="round" stroke-linecap="round" />
+<path d="M 593.5 1057.2 L 622.8 1057.2 L 622.8 1108.8" fill="none" stroke="#7254ad" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="10 7"/>
+<text x="615" y="1160" fill="#7254ad" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="20" font-weight="700" text-anchor="start" >θ 霍尔线</text>
+<text x="615" y="1188" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="18" font-weight="400" text-anchor="start" >传感器座待定</text>
+<circle cx="944.5" cy="1150.0" r="11" fill="#fff" stroke="#087f8c" stroke-width="4" />
+<text x="958.5" y="1134.0" fill="#087f8c" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="start" >J0</text>
+<circle cx="782.0" cy="1059.25" r="11" fill="#fff" stroke="#087f8c" stroke-width="4" />
+<text x="796.0" y="1043.25" fill="#087f8c" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="start" >J1</text>
+<circle cx="593.5" cy="1059.25" r="11" fill="#fff" stroke="#087f8c" stroke-width="4" />
+<text x="607.5" y="1043.25" fill="#087f8c" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="700" text-anchor="start" >J2</text>
+<text x="1050" y="1160.0" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="600" text-anchor="start" >J0 底座固定端</text>
+<text x="795" y="1141.25" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="600" text-anchor="start" >J1 移动端</text>
+<text x="280" y="1420" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >低位 Z=100：线环顶部 Z≈160；高位 Z=190：顶部 Z≈205。</text>
+<text x="280" y="1456" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >这是 R25 中心线示例；实际链体、端头和公差尚未计入。</text>
+<circle cx="1543" cy="236" r="27" fill="#087f8c" stroke="none" stroke-width="2" />
+<text x="1543" y="245" fill="white" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="middle" >2</text>
+<text x="1590" y="245" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="34" font-weight="700" text-anchor="start" >如何固定、哪里要改</text>
+<text x="1590" y="288" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >带编号的点均是本方案新增的位置</text>
+<circle cx="1545" cy="341" r="8" fill="#087f8c" stroke="none" stroke-width="2" />
+<text x="1567" y="350" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="start" >J0  底座固定端</text>
+<text x="1567" y="390" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >设在 67.5° 扇区，示例 r≈166、Z≈40。</text>
+<text x="1567" y="425" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >增加底座立架和线夹；线先固定再进拖链。</text>
+<circle cx="1545" cy="486" r="8" fill="#d99422" stroke="none" stroke-width="2" />
+<text x="1567" y="495" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="start" >J1  拖链移动端</text>
+<text x="1567" y="535" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >示例 r≈116，随升降运动。</text>
+<text x="1567" y="570" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >新增支架连接升降盘；插头不承受拉力。</text>
+<circle cx="1545" cy="631" r="8" fill="#087f8c" stroke="none" stroke-width="2" />
+<text x="1567" y="640" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="start" >J2  平台分线点</text>
+<text x="1567" y="680" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >固定在只升降、不旋转的一侧。</text>
+<text x="1567" y="715" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >θ 电机与原点霍尔在此分出。</text>
+<circle cx="1545" cy="776" r="8" fill="#d99422" stroke="none" stroke-width="2" />
+<text x="1567" y="785" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="start" >P05R / P06R  两层甲板</text>
+<text x="1567" y="825" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >原口袋外端 r=160；本示例外支路约 r=166。</text>
+<text x="1567" y="860" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >需要按实物扩大通道，并复核车位支承。</text>
+<circle cx="1545" cy="921" r="8" fill="#d99422" stroke="none" stroke-width="2" />
+<text x="1567" y="930" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="start" >链体、线径与弯曲</text>
+<text x="1567" y="970" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >示例 R25：中心线理想长度约 236 mm。</text>
+<text x="1567" y="1005" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >它不是成品规格或采购长度；两侧需分隔。</text>
+<rect x="1530" y="1060" width="765" height="200" rx="14" fill="#fff7e7" stroke="#efd59e" stroke-width="2" />
+<text x="1560" y="1105" fill="#76541d" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >为什么原占位不够？</text>
+<text x="1560" y="1143" fill="#76541d" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >若弯曲面沿径向，两个直段中心距为 2R。</text>
+<text x="1560" y="1181" fill="#76541d" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >v7 占位径向仅 22 mm：R25 示例需 50 mm，</text>
+<text x="1560" y="1219" fill="#76541d" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >还未计链体厚度、端头和活动余量。</text>
+<text x="1545" y="1335" fill="#c75146" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="start" >预留区是模型占位，不是真实拖链。</text>
+<text x="1545" y="1375" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="23" font-weight="400" text-anchor="start" >尺寸冻结前，需补做运动和碰撞检查。</text>
+<rect x="55" y="1565" width="2290" height="110" rx="14" fill="#dfebf0" stroke="none" stroke-width="1" />
+<text x="85" y="1610" fill="#17334a" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="28" font-weight="700" text-anchor="start" >拖链内</text>
+<text x="215" y="1610" fill="#087f8c" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="start" >θ 电机 4 芯</text>
+<text x="480" y="1610" fill="#087f8c" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="start" >U 电机 4 芯</text>
+<text x="742" y="1610" fill="#7254ad" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="start" >θ 霍尔 3 芯</text>
+<text x="1010" y="1610" fill="#7254ad" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="25" font-weight="700" text-anchor="start" >转台检测 5 芯 + 1 备用</text>
+<text x="85" y="1650" fill="#5d7283" font-family="Microsoft YaHei, Noto Sans CJK SC, sans-serif" font-size="22" font-weight="400" text-anchor="start" >电机线与检测线分束；具体线径、分隔、接头与弯曲半径按实物确认。</text>
+</svg>
