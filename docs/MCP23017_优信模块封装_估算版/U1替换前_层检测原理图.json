@@ -1,0 +1,596 @@
+{
+  "id": "req_815",
+  "type": "response",
+  "version": "v1",
+  "windowId": "b4ddf90f-f231-4ada-9693-6477f0ed11ed",
+  "createdAt": "2026-11-11T01:05:45.7477185Z",
+  "ok": true,
+  "result": {
+    "check": {
+      "findings": [
+        {
+          "count": 30,
+          "designator": "U1",
+          "level": "warn",
+          "message": "30 个引脚悬空(无导线连接,未打 NC 标识)",
+          "pinDetails": [
+            {
+              "name": "A2",
+              "number": "1",
+              "x": 320,
+              "y": 760
+            },
+            {
+              "name": "A1",
+              "number": "2",
+              "x": 320,
+              "y": 750
+            },
+            {
+              "name": "A0",
+              "number": "3",
+              "x": 320,
+              "y": 740
+            },
+            {
+              "name": "RST",
+              "number": "4",
+              "x": 320,
+              "y": 730
+            },
+            {
+              "name": "SO",
+              "number": "5",
+              "x": 320,
+              "y": 720
+            },
+            {
+              "name": "CS",
+              "number": "6",
+              "x": 320,
+              "y": 710
+            },
+            {
+              "name": "SDA",
+              "number": "7",
+              "x": 320,
+              "y": 700
+            },
+            {
+              "name": "SCL",
+              "number": "8",
+              "x": 320,
+              "y": 690
+            },
+            {
+              "name": "GND",
+              "number": "9",
+              "x": 320,
+              "y": 680
+            },
+            {
+              "name": "VCC",
+              "number": "10",
+              "x": 320,
+              "y": 670
+            },
+            {
+              "name": "VCC",
+              "number": "11",
+              "x": 340,
+              "y": 630
+            },
+            {
+              "name": "ITB",
+              "number": "12",
+              "x": 350,
+              "y": 630
+            },
+            {
+              "name": "PB0",
+              "number": "13",
+              "x": 360,
+              "y": 630
+            },
+            {
+              "name": "PB1",
+              "number": "14",
+              "x": 370,
+              "y": 630
+            },
+            {
+              "name": "PB2",
+              "number": "15",
+              "x": 380,
+              "y": 630
+            },
+            {
+              "name": "PB3",
+              "number": "16",
+              "x": 390,
+              "y": 630
+            },
+            {
+              "name": "PB4",
+              "number": "17",
+              "x": 400,
+              "y": 630
+            },
+            {
+              "name": "PB5",
+              "number": "18",
+              "x": 410,
+              "y": 630
+            },
+            {
+              "name": "PB6",
+              "number": "19",
+              "x": 420,
+              "y": 630
+            },
+            {
+              "name": "PB7",
+              "number": "20",
+              "x": 430,
+              "y": 630
+            },
+            {
+              "name": "GND",
+              "number": "21",
+              "x": 450,
+              "y": 760
+            },
+            {
+              "name": "ITA",
+              "number": "22",
+              "x": 450,
+              "y": 750
+            },
+            {
+              "name": "PA0",
+              "number": "23",
+              "x": 450,
+              "y": 740
+            },
+            {
+              "name": "PA1",
+              "number": "24",
+              "x": 450,
+              "y": 730
+            },
+            {
+              "name": "PA2",
+              "number": "25",
+              "x": 450,
+              "y": 720
+            },
+            {
+              "name": "PA3",
+              "number": "26",
+              "x": 450,
+              "y": 710
+            },
+            {
+              "name": "PA4",
+              "number": "27",
+              "x": 450,
+              "y": 700
+            },
+            {
+              "name": "PA5",
+              "number": "28",
+              "x": 450,
+              "y": 690
+            },
+            {
+              "name": "PA6",
+              "number": "29",
+              "x": 450,
+              "y": 680
+            },
+            {
+              "name": "PA7",
+              "number": "30",
+              "x": 450,
+              "y": 670
+            }
+          ],
+          "pins": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "21",
+            "22",
+            "23",
+            "24",
+            "25",
+            "26",
+            "27",
+            "28",
+            "29",
+            "30"
+          ],
+          "primitiveId": "5be3873d019e7a37",
+          "type": "floating-pin"
+        }
+      ],
+      "passed": false,
+      "summary": {
+        "componentsWithFloating": 1,
+        "danglingWires": 0,
+        "floatingPins": 30,
+        "geomNetMismatches": 0,
+        "multiNetWires": 0,
+        "netMarkerMismatches": 0,
+        "polarityConventionOutliers": 0,
+        "total": 1,
+        "wireCrossings": 0,
+        "wireOverPins": 0,
+        "zeroLengthWires": 0
+      }
+    },
+    "componentCount": 4,
+    "components": [
+      {
+        "componentType": "sheet",
+        "designator": "",
+        "footprint": "",
+        "name": "",
+        "pins": [],
+        "primitiveId": "6753df47ed62b5ec",
+        "supplierId": "",
+        "uniqueId": "",
+        "x": 0,
+        "y": 0
+      },
+      {
+        "componentType": "part",
+        "designator": "CN1",
+        "footprint": {
+          "libraryUuid": "0819f05c4eef4c71ace90d822a990e87",
+          "name": "CONN-TH_4P-P2.50_BX-XH2.54-4PZZ",
+          "uuid": "a8c75caab4e01695"
+        },
+        "name": "={Manufacturer Part}",
+        "pins": [
+          {
+            "name": "1",
+            "net": "V3P3_OUT",
+            "number": "1"
+          },
+          {
+            "name": "2",
+            "net": "GND",
+            "number": "2"
+          },
+          {
+            "name": "3",
+            "net": "PB7",
+            "number": "3"
+          },
+          {
+            "name": "4",
+            "net": "PB6",
+            "number": "4"
+          }
+        ],
+        "primitiveId": "44f348e2102caec5",
+        "supplierId": "C54431935",
+        "uniqueId": "gge1",
+        "x": 185,
+        "y": 745
+      },
+      {
+        "componentType": "part",
+        "designator": "CN2",
+        "footprint": {
+          "libraryUuid": "0819f05c4eef4c71ace90d822a990e87",
+          "name": "CONN-TH_2.54MM-2P-ZZ",
+          "uuid": "9f99ecd201140176"
+        },
+        "name": "={Manufacturer Part}",
+        "pins": [
+          {
+            "name": "1",
+            "net": "V5_SYS",
+            "number": "1"
+          },
+          {
+            "name": "2",
+            "net": "GND",
+            "number": "2"
+          }
+        ],
+        "primitiveId": "1a3b5466b9c42c33",
+        "supplierId": "C5368775",
+        "uniqueId": "gge2",
+        "x": 185,
+        "y": 680
+      },
+      {
+        "componentType": "part",
+        "designator": "U1",
+        "footprint": {
+          "libraryUuid": "stdPublic",
+          "name": "UZXMCP23017P",
+          "uuid": "a86a9de8a04e92b8"
+        },
+        "name": "UZXMCP23017(另外一个模块）",
+        "pins": [
+          {
+            "name": "A2",
+            "net": null,
+            "number": "1"
+          },
+          {
+            "name": "A1",
+            "net": null,
+            "number": "2"
+          },
+          {
+            "name": "A0",
+            "net": null,
+            "number": "3"
+          },
+          {
+            "name": "RST",
+            "net": null,
+            "number": "4"
+          },
+          {
+            "name": "SO",
+            "net": null,
+            "number": "5"
+          },
+          {
+            "name": "CS",
+            "net": null,
+            "number": "6"
+          },
+          {
+            "name": "SDA",
+            "net": null,
+            "number": "7"
+          },
+          {
+            "name": "SCL",
+            "net": null,
+            "number": "8"
+          },
+          {
+            "name": "GND",
+            "net": null,
+            "number": "9"
+          },
+          {
+            "name": "VCC",
+            "net": null,
+            "number": "10"
+          },
+          {
+            "name": "VCC",
+            "net": null,
+            "number": "11"
+          },
+          {
+            "name": "ITB",
+            "net": null,
+            "number": "12"
+          },
+          {
+            "name": "PB0",
+            "net": null,
+            "number": "13"
+          },
+          {
+            "name": "PB1",
+            "net": null,
+            "number": "14"
+          },
+          {
+            "name": "PB2",
+            "net": null,
+            "number": "15"
+          },
+          {
+            "name": "PB3",
+            "net": null,
+            "number": "16"
+          },
+          {
+            "name": "PB4",
+            "net": null,
+            "number": "17"
+          },
+          {
+            "name": "PB5",
+            "net": null,
+            "number": "18"
+          },
+          {
+            "name": "PB6",
+            "net": null,
+            "number": "19"
+          },
+          {
+            "name": "PB7",
+            "net": null,
+            "number": "20"
+          },
+          {
+            "name": "GND",
+            "net": null,
+            "number": "21"
+          },
+          {
+            "name": "ITA",
+            "net": null,
+            "number": "22"
+          },
+          {
+            "name": "PA0",
+            "net": null,
+            "number": "23"
+          },
+          {
+            "name": "PA1",
+            "net": null,
+            "number": "24"
+          },
+          {
+            "name": "PA2",
+            "net": null,
+            "number": "25"
+          },
+          {
+            "name": "PA3",
+            "net": null,
+            "number": "26"
+          },
+          {
+            "name": "PA4",
+            "net": null,
+            "number": "27"
+          },
+          {
+            "name": "PA5",
+            "net": null,
+            "number": "28"
+          },
+          {
+            "name": "PA6",
+            "net": null,
+            "number": "29"
+          },
+          {
+            "name": "PA7",
+            "net": null,
+            "number": "30"
+          }
+        ],
+        "primitiveId": "5be3873d019e7a37",
+        "supplierId": "",
+        "uniqueId": "gge3",
+        "x": 380,
+        "y": 690
+      }
+    ],
+    "floatingPinCount": 30,
+    "floatingPins": [
+      "U1.1",
+      "U1.2",
+      "U1.3",
+      "U1.4",
+      "U1.5",
+      "U1.6",
+      "U1.7",
+      "U1.8",
+      "U1.9",
+      "U1.10",
+      "U1.11",
+      "U1.12",
+      "U1.13",
+      "U1.14",
+      "U1.15",
+      "U1.16",
+      "U1.17",
+      "U1.18",
+      "U1.19",
+      "U1.20",
+      "U1.21",
+      "U1.22",
+      "U1.23",
+      "U1.24",
+      "U1.25",
+      "U1.26",
+      "U1.27",
+      "U1.28",
+      "U1.29",
+      "U1.30"
+    ],
+    "netCount": 5,
+    "netlistAvailable": true,
+    "nets": [
+      {
+        "degree": 2,
+        "isGlobal": true,
+        "net": "GND",
+        "pins": [
+          "CN1.2",
+          "CN2.2"
+        ]
+      },
+      {
+        "degree": 1,
+        "isGlobal": false,
+        "net": "PB6",
+        "pins": [
+          "CN1.4"
+        ]
+      },
+      {
+        "degree": 1,
+        "isGlobal": false,
+        "net": "PB7",
+        "pins": [
+          "CN1.3"
+        ]
+      },
+      {
+        "degree": 1,
+        "isGlobal": false,
+        "net": "V3P3_OUT",
+        "pins": [
+          "CN1.1"
+        ]
+      },
+      {
+        "degree": 1,
+        "isGlobal": false,
+        "net": "V5_SYS",
+        "pins": [
+          "CN2.1"
+        ]
+      }
+    ]
+  },
+  "context": {
+    "projectUuid": "19d02698275446db823ff02b06eaf887",
+    "projectName": "立体车库 MCP 原理图重绘 20261107",
+    "documentUuid": "bfef1c16ab42a596",
+    "documentType": "schematic",
+    "tabId": "bfef1c16ab42a596@19d02698275446db823ff02b06eaf887",
+    "pageVisibility": "visible"
+  },
+  "mutationContext": {
+    "projectUuid": "19d02698275446db823ff02b06eaf887",
+    "projectName": "立体车库 MCP 原理图重绘 20261107",
+    "documentUuid": "bfef1c16ab42a596",
+    "documentType": "schematic",
+    "tabId": "bfef1c16ab42a596@19d02698275446db823ff02b06eaf887",
+    "pageVisibility": "visible"
+  },
+  "mutationContextAvailable": true,
+  "seq": 539,
+  "seqAbandoned": 1,
+  "abandonedIds": [
+    "req_784"
+  ]
+}

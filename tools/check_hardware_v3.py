@@ -9,7 +9,7 @@ from math import cos, hypot, radians, sin
 from pathlib import Path
 import re
 
-# ---- design values (keep in sync with docs/硬件方案_v3.md and docs/cad/simulation.js) ----
+# ---- design values (keep in sync with docs/cad/simulation.js) ----
 BAY_ANGLES = [0, 45, 90, 135, 180, 225, 270, 315]   # 8 radial bays; 270 = front (DOCK / shaft)
 DOCK_ANGLE = 270
 TRAY_L, TRAY_W = 125, 60
@@ -194,7 +194,7 @@ def geometry():
 
 
 def budget():
-    path = Path(__file__).resolve().parent.parent / "docs" / "采购清单_v4.md"
+    path = Path(__file__).resolve().parent.parent / "docs" / "采购清单_v5.md"
     text = path.read_text(encoding="utf-8-sig")
     totals = {}
     for marker in ("一层样机合计", "第二层扩展包合计"):

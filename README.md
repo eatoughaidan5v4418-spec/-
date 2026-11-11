@@ -23,26 +23,13 @@
 | [docs/硬件方案_v4.md](docs/硬件方案_v4.md) | 硬件总述：布局、转运机构、升降、电气、引脚分配、屏幕策略、互锁、调度、风险 |
 | [docs/硬件验证与实施_v4.md](docs/硬件验证与实施_v4.md) | 已做校核的范围、下单前确认事项、实施顺序、样机后要回填的数据 |
 | [docs/采购清单_v5.md](docs/采购清单_v5.md) | 分两批的数量、下料和预算 |
-| [docs/转接板_模块插装_v3/](docs/转接板_模块插装_v3/00_板卡结构确认.md) | 板卡结构和主转接板逐针表（00～03、05 有效；04 已被 05 取代） |
+| [docs/转接板_模块插装_v3/](docs/转接板_模块插装_v3/00_板卡结构确认.md) | 板卡结构和主转接板逐针表 |
 | [docs/转接板_双板_v2/02_副板逐针接线.md](docs/转接板_双板_v2/02_副板逐针接线.md) | 副转接板 PMOD 逐针表（GPIO 分配有效） |
+| [docs/PCB生产文件_20261111/](docs/PCB生产文件_20261111/交付说明.md) | 主、副转接板的 Gerber、坐标文件和打样说明 |
 | [docs/cad/README.md](docs/cad/README.md) | CAD 索引：v7 三维装配、图纸、走线复核 |
 | [使用的硬件资料/资料索引.md](使用的硬件资料/资料索引.md) | 开发板、串口屏、电机、驱动的原厂资料 |
+| [docs/串口屏界面_v1/](docs/串口屏界面_v1/README.md) | 串口屏界面方案：可点击原型、页面与控件表、图片清单、通信协议、屏幕工程搭建步骤 |
 | [firmware/spark_garage_lvgl/](firmware/spark_garage_lvgl/README.md) | 固件工程 |
-
-## 历史文档（已被取代，保留原位）
-
-这些文件不再维护。其中采购清单 v4 被 `tools/check_hardware_v3.py` 读取，所以没有移动位置。
-
-| 文档 | 被谁取代 |
-|------|----------|
-| docs/计划书.md | 计划书_定稿 |
-| docs/硬件方案_v3.md、docs/硬件验证与实施_v3.md | 硬件方案 v4、验证与实施 v4 |
-| docs/采购清单_v4.md | 采购清单 v5 |
-| docs/电气接线与走线初审_v1.md | 硬件方案 v4 第 6 节、CAD 走线复核 |
-| docs/星火转接板_引脚分配与逐针接线_v1.md、docs/接口转接采购清单_一层样机_v1.md | 转接板_模块插装_v3 |
-| docs/转接板_双板_v2/（除 02 号副板表） | 转接板_模块插装_v3 |
-| docs/嘉立创原理图_双板_v1/ | docs/嘉立创原理图_双板_已连线_0805/ |
-| [docs/archive/](docs/archive/README.md) | v2 方案、v3～v5 CAD |
 
 ## 工具
 
@@ -51,9 +38,9 @@
 | `node tools/test_cad_simulation.js` | 调度状态机和互锁规则测试（104 个循环） |
 | `node tools/test_deck_geometry.js` | 两层甲板销槽布置检查 |
 | `py tools/check_garage_assembly_v7.py` | v7 三维装配检查，另有 `check_garage_stl_v7.py`、`check_cad_v7.py`、`check_cad_v7_details.py` |
-| `py tools/check_hardware_v3.py` | v3 平面几何与旧清单加总（设计值仍是 v3，未按 v7 更新） |
+| `py tools/check_hardware_v3.py` | v3 平面几何校核（设计值仍是 v3，未按 v7 更新）和采购清单 v5 加总 |
 
-`tools/` 里的 `create_*`、`verify_*`、`export_*` 脚本用于在 AutoCAD 中重新生成和复查 v6 / v7 模型，用法见 v7 装配说明。
+`tools/` 里的 `create_*`、`verify_*`、`export_*` 脚本用于在 AutoCAD 中重新生成和复查 v7 模型，用法见 v7 装配说明。
 
 ## CAD 交互演示
 

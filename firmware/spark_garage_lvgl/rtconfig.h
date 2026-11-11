@@ -251,6 +251,7 @@
 #define BSP_USING_GPIO
 #define BSP_USING_UART
 #define BSP_USING_UART1
+#define BSP_USING_UART3
 #define BSP_USING_UART6
 #define BSP_USING_PWM
 #define BSP_USING_PWM14

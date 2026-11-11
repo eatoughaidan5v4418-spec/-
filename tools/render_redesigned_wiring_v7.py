@@ -9,7 +9,7 @@ edge = Path(r'C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe')
 if not edge.exists():
     raise SystemExit('找不到 Microsoft Edge；SVG 仍可直接打开。')
 for stem in ('01_甲板通道与支架_优化对照', '02_旋转导槽与线夹_优化方案', '03_运动互锁与拖链_风险示意'):
-    with tempfile.TemporaryDirectory(prefix='codex-wire-review-') as profile:
+    with tempfile.TemporaryDirectory(prefix='wire-review-') as profile:
         result = subprocess.run([
             str(edge), '--headless', '--disable-gpu', '--hide-scrollbars',
             '--force-device-scale-factor=1', '--user-data-dir='+profile,
@@ -22,7 +22,7 @@ for stem in ('01_甲板通道与支架_优化对照', '02_旋转导槽与线夹_
 
 viewer = folder / '走线三维预览_双端R12.html'
 if viewer.exists():
-    with tempfile.TemporaryDirectory(prefix='codex-wire-3d-') as profile:
+    with tempfile.TemporaryDirectory(prefix='wire-3d-') as profile:
         result = subprocess.run([
             str(edge), '--headless', '--use-gl=angle', '--use-angle=swiftshader',
             '--enable-unsafe-swiftshader', '--hide-scrollbars',

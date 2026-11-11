@@ -1,0 +1,17 @@
+{
+  "footprintUuid": "c535154de1124e93bfc36cd01b2da738",
+  "libraryUuid": "1b951ce4c7f54cce99be4f9e3b4d9aee",
+  "name": "EA_AGENT__YOUXIN_MCP23017_21X26_P2_54_W19_05_PHOTO_REV2",
+  "createdPads": 30,
+  "createdLines": 5,
+  "savedAndImmediateReadbackVerified": true,
+  "outerSpan_mm": 19.05,
+  "body_mm": [
+    21,
+    26
+  ],
+  "physicalMeasurement": false,
+  "nativeFootprintDRC": false,
+  "oldVersionRetained": true,
+  "projectU1Rebound": false
+}

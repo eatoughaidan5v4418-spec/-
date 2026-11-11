@@ -1,0 +1,286 @@
+{
+  "pins": [
+    {
+      "y": 70,
+      "x": -60,
+      "pinType": "Passive",
+      "number": "1",
+      "length": 10,
+      "rotation": 180,
+      "name": "A2"
+    },
+    {
+      "y": 60,
+      "x": -60,
+      "pinType": "Passive",
+      "number": "2",
+      "length": 10,
+      "rotation": 180,
+      "name": "A1"
+    },
+    {
+      "y": 50,
+      "x": -60,
+      "pinType": "Passive",
+      "number": "3",
+      "length": 10,
+      "rotation": 180,
+      "name": "A0"
+    },
+    {
+      "y": 40,
+      "x": -60,
+      "pinType": "Passive",
+      "number": "4",
+      "length": 10,
+      "rotation": 180,
+      "name": "RST"
+    },
+    {
+      "y": 30,
+      "x": -60,
+      "pinType": "Passive",
+      "number": "5",
+      "length": 10,
+      "rotation": 180,
+      "name": "SO"
+    },
+    {
+      "y": 20,
+      "x": -60,
+      "pinType": "Passive",
+      "number": "6",
+      "length": 10,
+      "rotation": 180,
+      "name": "CS"
+    },
+    {
+      "y": 10,
+      "x": -60,
+      "pinType": "Passive",
+      "number": "7",
+      "length": 10,
+      "rotation": 180,
+      "name": "SDA"
+    },
+    {
+      "y": 0,
+      "x": -60,
+      "pinType": "Passive",
+      "number": "8",
+      "length": 10,
+      "rotation": 180,
+      "name": "SCL"
+    },
+    {
+      "y": -10,
+      "x": -60,
+      "pinType": "Passive",
+      "number": "9",
+      "length": 10,
+      "rotation": 180,
+      "name": "GND"
+    },
+    {
+      "y": -20,
+      "x": -60,
+      "pinType": "Passive",
+      "number": "10",
+      "length": 10,
+      "rotation": 180,
+      "name": "VCC"
+    },
+    {
+      "y": -60,
+      "x": -40,
+      "pinType": "Passive",
+      "number": "11",
+      "length": 10,
+      "rotation": 270,
+      "name": "VCC"
+    },
+    {
+      "y": -60,
+      "x": -30,
+      "pinType": "Passive",
+      "number": "12",
+      "length": 10,
+      "rotation": 270,
+      "name": "ITB"
+    },
+    {
+      "y": -60,
+      "x": -20,
+      "pinType": "Passive",
+      "number": "13",
+      "length": 10,
+      "rotation": 270,
+      "name": "PB0"
+    },
+    {
+      "y": -60,
+      "x": -10,
+      "pinType": "Passive",
+      "number": "14",
+      "length": 10,
+      "rotation": 270,
+      "name": "PB1"
+    },
+    {
+      "y": -60,
+      "x": 0,
+      "pinType": "Passive",
+      "number": "15",
+      "length": 10,
+      "rotation": 270,
+      "name": "PB2"
+    },
+    {
+      "y": -60,
+      "x": 10,
+      "pinType": "Passive",
+      "number": "16",
+      "length": 10,
+      "rotation": 270,
+      "name": "PB3"
+    },
+    {
+      "y": -60,
+      "x": 20,
+      "pinType": "Passive",
+      "number": "17",
+      "length": 10,
+      "rotation": 270,
+      "name": "PB4"
+    },
+    {
+      "y": -60,
+      "x": 30,
+      "pinType": "Passive",
+      "number": "18",
+      "length": 10,
+      "rotation": 270,
+      "name": "PB5"
+    },
+    {
+      "y": -60,
+      "x": 40,
+      "pinType": "Passive",
+      "number": "19",
+      "length": 10,
+      "rotation": 270,
+      "name": "PB6"
+    },
+    {
+      "y": -60,
+      "x": 50,
+      "pinType": "Passive",
+      "number": "20",
+      "length": 10,
+      "rotation": 270,
+      "name": "PB7"
+    },
+    {
+      "y": 70,
+      "x": 70,
+      "pinType": "Passive",
+      "number": "21",
+      "length": 10,
+      "rotation": 0,
+      "name": "GND"
+    },
+    {
+      "y": 60,
+      "x": 70,
+      "pinType": "Passive",
+      "number": "22",
+      "length": 10,
+      "rotation": 0,
+      "name": "ITA"
+    },
+    {
+      "y": 50,
+      "x": 70,
+      "pinType": "Passive",
+      "number": "23",
+      "length": 10,
+      "rotation": 0,
+      "name": "PA0"
+    },
+    {
+      "y": 40,
+      "x": 70,
+      "pinType": "Passive",
+      "number": "24",
+      "length": 10,
+      "rotation": 0,
+      "name": "PA1"
+    },
+    {
+      "y": 30,
+      "x": 70,
+      "pinType": "Passive",
+      "number": "25",
+      "length": 10,
+      "rotation": 0,
+      "name": "PA2"
+    },
+    {
+      "y": 20,
+      "x": 70,
+      "pinType": "Passive",
+      "number": "26",
+      "length": 10,
+      "rotation": 0,
+      "name": "PA3"
+    },
+    {
+      "y": 10,
+      "x": 70,
+      "pinType": "Passive",
+      "number": "27",
+      "length": 10,
+      "rotation": 0,
+      "name": "PA4"
+    },
+    {
+      "y": 0,
+      "x": 70,
+      "pinType": "Passive",
+      "number": "28",
+      "length": 10,
+      "rotation": 0,
+      "name": "PA5"
+    },
+    {
+      "y": -10,
+      "x": 70,
+      "pinType": "Passive",
+      "number": "29",
+      "length": 10,
+      "rotation": 0,
+      "name": "PA6"
+    },
+    {
+      "y": -20,
+      "x": 70,
+      "pinType": "Passive",
+      "number": "30",
+      "length": 10,
+      "rotation": 0,
+      "name": "PA7"
+    }
+  ],
+  "outline": [
+    -50,
+    -50,
+    60,
+    -50,
+    60,
+    80,
+    -50,
+    80,
+    -50,
+    -50
+  ]
+}

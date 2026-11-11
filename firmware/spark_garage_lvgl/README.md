@@ -10,7 +10,7 @@
 | 步进驱动（TMC2209 ×3） | 未开始 |
 | MCP23017 层检测 | 未开始 |
 | 安全监测、运动、调度线程 | 未开始 |
-| TJC 串口屏通信 | 未开始 |
+| TJC 串口屏通信 `applications/hmi/` | 后端和协议已写完，接的是假车库 `ui_sim.c`；只在电脑上跑过场景测试，**未接真屏，屏幕工程未做** |
 
 `applications/main.c` 目前是空的；界面由 LVGL 软件包的初始化流程调用 `lv_user_gui_init()` 启动。
 
@@ -52,6 +52,7 @@ EN 低有效。上电后先把三路 EN 置高（禁止），再初始化脉冲�
 | `applications/main.c` | 入口，目前为空 |
 | `applications/lvgl/` | LVGL 显示移植（`lv_port_disp.c`）和配置（`lv_conf.h`） |
 | `applications/lvgl/demo/garage_ui.c` | 调试界面 |
+| `applications/hmi/` | 串口屏后端、协议、界面与调度的接口，说明见 [串口屏界面方案](../../docs/串口屏界面_v1/README.md) |
 | `board/` | 板级初始化、CubeMX 配置、链接脚本 |
 | `packages/` | LVGL v8.3.5 等软件包（由包管理器下载） |
 

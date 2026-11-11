@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>串口屏界面原型 v2 · 480×272</title>
+<style>
+:root{
+  --bg:#080D18; --panel:#0E1626; --card:#131D31; --line:#24344F; --line2:#33486B;
+  --tx:#E8F0FA; --mute:#7F90AB; --dim:#4C5B75;
+  --acc:#22D3EE; --acc2:#0EA5E9; --car:#3B7BFF; --ok:#34D399; --bad:#FF4D5E; --warn:#FFB020;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#1b1d21;color:#ddd;font:14px/1.5 "Microsoft YaHei UI","Microsoft YaHei",sans-serif;padding:24px;display:flex;flex-direction:column;align-items:center;gap:16px}
+h1{font-size:16px;font-weight:600}
+.note{color:#9aa;max-width:960px;text-align:center;font-size:13px}
+.bezel{background:#000;padding:14px;border-radius:12px;box-shadow:0 8px 30px #000a}
+.nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:960px}
+.nav button,.nav label{background:#33363b;color:#eee;border:0;border-radius:4px;padding:6px 12px;font:inherit;cursor:pointer}
+.nav button:hover{background:#44484e}
+
+/* ---------- 屏幕本体：480×272，下面全部按真实像素写 ---------- */
+#scr{width:480px;height:272px;zoom:2;position:relative;overflow:hidden;color:var(--tx);
+  background:radial-gradient(circle at 136px 136px,#12233f 0,#0A1120 46%,var(--bg) 72%);
+  font-family:"Microsoft YaHei UI","Microsoft YaHei",sans-serif;user-select:none;cursor:default}
+.num{font-family:Bahnschrift,"DIN Alternate","Arial Narrow",sans-serif;font-weight:400;font-stretch:condensed}
+.pg{position:absolute;inset:0;display:none}
+.pg.on{display:block}
+#map{position:absolute;left:0;top:0;width:272px;height:272px}
+#side{position:absolute;left:272px;top:0;width:208px;height:272px;background:var(--panel);border-left:1px solid var(--line)}
+.bar{height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-size:14px;color:var(--tx);border-bottom:1px solid var(--line)}
+.bar span:first-child::before{content:"";display:inline-block;width:8px;height:8px;border-radius:2px;background:var(--acc);box-shadow:0 0 8px var(--acc);margin-right:8px;vertical-align:1px}
+.bar .num{font-size:17px;color:var(--mute)}
+.tabs{display:flex;height:30px;margin:8px 12px 0;background:#080E1A;border:1px solid var(--line);border-radius:8px;padding:2px;gap:2px}
+.tabs div{flex:1;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--dim);border-radius:6px}
+.tabs div.on{background:#1C2A45;color:var(--tx);box-shadow:inset 0 -2px 0 var(--acc)}
+.body{padding:8px 12px 0}
+.lab{font-size:14px;color:var(--mute)}
+.big{font-size:60px;line-height:54px;color:#fff}
+.big small{font-size:22px;color:var(--mute)}
+.h{font-size:22px;font-weight:700;line-height:28px}
+.txt{font-size:15px;line-height:22px}
+.btn{position:absolute;left:12px;right:12px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;border-radius:10px}
+.btn.pri{background:linear-gradient(180deg,#3BE0F5,#0EA5E9);color:#03131D;box-shadow:0 0 5px #22D3EE55,inset 0 1px 0 #ffffff66}
+.btn.sec{background:var(--card);color:var(--tx);border:1px solid var(--line2)}
+.btn.off{background:#0D1524;color:var(--dim);border:1px solid var(--line)}
+.btn.hint{color:var(--mute);font-size:14px;font-weight:400}
+.btn:not(.off):not(.hint):active,.btn.down,.fbtn.down{transform:translateY(1px);filter:brightness(.85)}
+/* 导出素材时用：去掉外框和缩放，停掉闪烁 */
+body.export{padding:0;gap:0;display:block;background:#000}
+body.export h1,body.export .nav,body.export .note{display:none}
+body.export .bezel{padding:0;border-radius:0;box-shadow:none;display:inline-block}
+body.export #scr{zoom:1}
+body.export .blink{animation:none}
+.seg{display:flex;gap:3px;margin-top:6px}
+.seg i{flex:1;height:6px;border-radius:3px;background:#1A2740}
+.seg i.d{background:var(--acc2)} .seg i.c{background:var(--acc);box-shadow:0 0 8px var(--acc)} .seg i.k{background:var(--car)}
+.chk{display:flex;align-items:center;gap:10px;font-size:15px;margin-top:9px}
+.dot{width:10px;height:10px;border-radius:50%;background:#1A2740;border:1px solid var(--line2);flex:none}
+.dot.ok{background:var(--ok);border-color:var(--ok);box-shadow:0 0 8px var(--ok)}
+.dot.no{background:var(--warn);border-color:var(--warn);box-shadow:0 0 8px var(--warn)}
+@keyframes bl{50%{opacity:.3}} .blink{animation:bl 1s ease-in-out infinite}
+
+/* 故障 / 急停 / 待机 / 密码 / 维护 */
+#fault{background:radial-gradient(circle at 90px 90px,#3A0D16 0,#14080C 60%)}
+#estop{background:#0B0A0D}
+#idle{background:radial-gradient(circle at 240px 110px,#101E38 0,#070B14 70%)}
+#pwd,#maint{background:var(--bg)}
+.fbtn{position:absolute;display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:700;border-radius:10px}
+.tog{position:absolute;height:44px;display:flex;align-items:center;gap:10px;padding:0 12px;border:1px solid #6B2B36;border-radius:10px;font-size:15px;background:#1D0C11;color:#E7C6CB}
+.tog b{width:18px;height:18px;border:1.5px solid #B4606C;border-radius:5px;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px}
+.tog.on{border-color:var(--ok);background:#0C1F1A;color:var(--tx)} .tog.on b{background:var(--ok);border-color:var(--ok);color:#03130D}
+.key{position:absolute;width:66px;height:56px;display:flex;align-items:center;justify-content:center;font-size:28px;background:var(--card);border:1px solid var(--line);border-radius:10px}
+.key:active{background:var(--acc2);color:#03131D}
+.mt{display:flex;height:36px;background:#0B1220;border-bottom:1px solid var(--line)}
+.mt div{flex:1;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:16px}
+.mt div.on{color:var(--tx);font-weight:700;box-shadow:inset 0 -2px 0 var(--acc)}
+.mt div.x{flex:none;width:72px;color:var(--mute);border-left:1px solid var(--line)}
+.row{display:flex;align-items:center;height:54px;padding:0 14px;border-bottom:1px solid #18243A;gap:10px}
+.row .n{width:60px;font-size:17px;color:var(--mute)}
+.row .v{flex:1;font-size:28px;text-align:right;padding-right:6px;color:#fff}
+.row .v small{font-size:13px;color:var(--mute);font-family:"Microsoft YaHei UI"}
+.sq{width:64px;height:40px;display:flex;align-items:center;justify-content:center;font-size:24px;border:1px solid var(--line2);background:var(--card);border-radius:10px;color:var(--acc)}
+.sq:active{background:var(--acc2);color:#03131D}
+.pill{height:40px;padding:0 16px;display:flex;align-items:center;justify-content:center;font-size:16px;border:1px solid var(--line2);background:var(--card);border-radius:10px}
+.pill.on{border-color:var(--acc);color:var(--acc);background:#0D2230}
+.pill.sig{background:linear-gradient(180deg,#3BE0F5,#0EA5E9);color:#03131D;border:0;font-weight:700;box-shadow:0 0 12px #22D3EE55}
+.lamp{display:flex;align-items:center;gap:9px;font-size:15px;width:25%;height:38px;padding-left:14px;color:#C6D2E3}
+</style>
+</head>
+<body>
+<h1>塔式立体车库 · TJC4827T143 串口屏界面原型 v2 深色（480×272，2 倍显示）</h1>
+<div class="bezel"><div id="scr">
+  <div class="pg" id="main"><svg id="map" viewBox="0 0 272 272"></svg><div id="side"></div></div>
+  <div class="pg" id="fault"></div>
+  <div class="pg" id="estop"></div>
+  <div class="pg" id="idle"></div>
+  <div class="pg" id="pwd"></div>
+  <div class="pg" id="maint"></div>
+</div></div>
+<div class="nav">
+  <button onclick="go('home')">主页</button>
+  <button onclick="act('store')">存车流程</button>
+  <button onclick="demoGet()">取车流程</button>
+  <button onclick="go('fault')">故障</button>
+  <button onclick="go('estop')">急停</button>
+  <button onclick="go('idle')">待机</button>
+  <button onclick="go('pwd')">维护密码</button>
+  <button onclick="go('maint')">维护</button>
+  <label><input type="checkbox" onchange="S.layers=this.checked?1:2;S.layer=1;draw()"> 仅一层样机</label>
+</div>
+<p class="note">屏内可直接点击：点车位图上亮蓝色的车位选车，再点“取车”；长按右上标题栏 1.5 秒进入维护密码页（实机为 3 秒，原型里任意 4 位数字都能进）。<br>
+原型用浏览器渲染。实机上发光、渐变、圆角都要先画进背景图和状态小图里，再由屏幕按状态切图；文字是点阵字库，边缘会比这里硬。</p>
+
+<script>
+const DIRS=['E','NE','N','NW','W','SW','S','SE'];
+const ANG={E:0,NE:-45,N:-90,NW:-135,W:180,SW:135,S:90,SE:45};
+const CN={E:'东',NE:'东北',N:'北',NW:'西北',W:'西',SW:'西南',S:'出入口',SE:'东南'};
+const S={page:'home',layer:1,layers:2,sel:null,head:'S',lift:1,job:null,mt:0,pin:'',step:10,chk:[0,0],
+  bay:{1:{E:2,NE:1,N:2,NW:1,W:1,SW:2,S:1,SE:1},2:{E:1,NE:1,N:2,NW:1,W:1,SW:1,S:-1,SE:1}}};
+const $=id=>document.getElementById(id);
+const P=(r,a)=>{a=a*Math.PI/180;return [(136+r*Math.cos(a)).toFixed(1),(136+r*Math.sin(a)).toFixed(1)]};
+function wedge(a,r0,r1,hw){const [x1,y1]=P(r1,a-hw),[x2,y2]=P(r1,a+hw),[x3,y3]=P(r0,a+hw+1.5),[x4,y4]=P(r0,a-hw-1.5);
+  return `M${x1} ${y1}A${r1} ${r1} 0 0 1 ${x2} ${y2}L${x3} ${y3}A${r0} ${r0} 0 0 0 ${x4} ${y4}Z`}
+function arc(r,a0,a1){const [x1,y1]=P(r,a0),[x2,y2]=P(r,a1);return `M${x1} ${y1}A${r} ${r} 0 0 1 ${x2} ${y2}`}
+function free(){let n=0,t=0;for(let l=1;l<=S.layers;l++)for(const d of DIRS){if(d==='S')continue;t++;if(S.bay[l][d]!==2)n++}return [n,t]}
+function clock(){const d=new Date();return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0')}
+
+function drawMap(){
+  const L=S.layer,j=S.job;
+  let h=`<defs>
+    <pattern id="hat" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="1.2" height="6" fill="#24344F"/></pattern>
+    <radialGradient id="gcar" cx="136" cy="136" r="124" gradientUnits="userSpaceOnUse"><stop offset=".4" stop-color="#1E4FC4"/><stop offset="1" stop-color="#4C8DFF"/></radialGradient>
+    <radialGradient id="gacc" cx="136" cy="136" r="132" gradientUnits="userSpaceOnUse"><stop offset=".4" stop-color="#0E9FD0"/><stop offset="1" stop-color="#48E6FA"/></radialGradient>
+    <radialGradient id="gtray" cx="136" cy="136" r="124" gradientUnits="userSpaceOnUse"><stop offset=".4" stop-color="#101A2C"/><stop offset="1" stop-color="#18253D"/></radialGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="2.2" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  </defs>`;
+  for(let a=0;a<360;a+=7.5){const big=a%45===22.5,[x1,y1]=P(big?126:129,a),[x2,y2]=P(132,a);h+=`<path d="M${x1} ${y1}L${x2} ${y2}" stroke="${big?'#3B5278':'#1E2C45'}" stroke-width="1"/>`}
+  let top='';
+  for(const d of DIRS){
+    const st=S.bay[L][d],dock=d==='S'&&L===1,shaft=st===-1,a=ANG[d];
+    if(S.fx==='none')continue;
+    const sel=S.fx==='sel'?!dock&&!shaft:S.sel&&S.sel.l===L&&S.sel.d===d, tgt=S.fx==='tgt'?!shaft:j&&j.l===L&&j.d===d&&S.page==='prog', dk=dock&&S.page==='dock';
+    let fill=st===2?'url(#gcar)':st===1?'url(#gtray)':'none',tc=st===2?'#fff':st===1?'#9FB1CB':'#4C5B75',sc=st===2?'#7FB0FF':'#2C3F60',sw=1,ex='';
+    if(shaft){fill='url(#hat)';tc='#4C5B75';sc='#24344F'}
+    if(st===0)ex='stroke-dasharray="4 4"';
+    if(sel||dk){fill='url(#gacc)';tc='#03131D';sc='#B8F6FF';ex='filter="url(#glow)"'}
+    const slot=`x="192" y="114" width="${dock?72:62}" height="44" rx="9" transform="rotate(${a} 136 136)"`;
+    const w=`<rect ${slot} fill="${fill}" stroke="${sc}" stroke-width="${sw}" ${ex} data-bay="${d}"/>`;
+    let t='';
+    if(st===2&&!dock){const [cx,cy]=P(101,a);t+=`<rect x="${cx-6}" y="${cy-10}" width="12" height="20" rx="4" fill="${sel?'#03131D':'#fff'}" opacity="${sel?.85:.92}" transform="rotate(${a+90} ${cx} ${cy})" pointer-events="none"/>`}
+    const [tx,ty]=P(dock?92:st===2?75:87,a);
+    t+=`<text x="${tx}" y="${+ty+5.5}" text-anchor="middle" font-size="15" font-weight="${st===2||sel||dk?700:400}" fill="${tc}" pointer-events="none">${shaft?'竖井':CN[d]}</text>`;
+    if(tgt)t+=`<rect class="blink" ${slot} fill="none" stroke="#22D3EE" stroke-width="2.5" filter="url(#glow)" pointer-events="none"/>`;
+    if(sel||dk||tgt)top+=w+t;else h+=w+t;
+  }
+  h+=top;
+  h+=`<circle cx="136" cy="136" r="46" fill="#0A1120" stroke="#24344F"/><circle cx="136" cy="136" r="41" fill="none" stroke="#1E2C45" stroke-dasharray="1 5"/>`;
+  /* 朝向指示必须画在半径 37 以内：实机上它是一张 76×76 的小图，再大就会和斜向车位的小图重叠 */
+  if(S.lift===L){const a=ANG[S.head],[x1,y1]=P(19,a),[x2,y2]=P(28,a);
+    h+=`<g filter="url(#glow)"><path d="${arc(32,a-24,a+24)}" fill="none" stroke="#22D3EE" stroke-width="3.5" stroke-linecap="round"/><path d="M${x1} ${y1}L${x2} ${y2}" stroke="#22D3EE" stroke-width="2" stroke-linecap="round"/></g>`}
+  h+=`<circle cx="136" cy="136" r="15" fill="#131D31" stroke="#33486B"/><circle cx="136" cy="136" r="4" fill="#33486B"/>`;
+  $('map').innerHTML=h;
+}
+
+function side(){
+  const [n,t]=free(),j=S.job;
+  let h=`<div class="bar" data-hold="1"><span>塔式立体车库</span><span class="num" data-ctl="tClk">${clock()}</span></div>`;
+  if(S.page==='home'){
+    if(S.layers>1)h+=`<div class="tabs" data-ctl="tabs"><div class="${S.layer===1?'on':''} num" data-act="l1">1F</div><div class="${S.layer===2?'on':''} num" data-act="l2">2F</div></div>`;
+    if(S.sel){const s=S.sel;
+      h+=`<div class="body"><div class="lab" style="margin-top:4px">已选车辆</div><div style="font-size:32px;line-height:44px;font-weight:700;color:var(--acc)" data-ctl="tSel"><span class="num" style="font-weight:600">${s.l}F</span> · ${CN[s.d]}</div><div class="txt" style="color:var(--mute)">再点一次车位取消选择</div></div>`;
+      h+=`<div class="btn pri" style="bottom:12px;height:54px" data-act="get" data-ctl="bGet">取 车</div>`;
+    }else{
+      h+=`<div class="body"><div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:2px"><div><div class="lab">空位</div><div class="big num"><span data-ctl="nFree">${n}</span><small data-ctl="tTot"> / ${t}</small></div></div></div>
+        <div class="seg" style="margin-top:2px" data-ctl="jOcc">${Array.from({length:t},(_,i)=>`<i class="${i<t-n?'k':''}"></i>`).join('')}</div></div>`;
+      h+=`<div class="btn ${n?'pri':'off'}" style="bottom:40px;height:48px" data-act="${n?'store':''}" data-ctl="bStore">存 车</div>`;
+      h+=`<div class="btn hint" style="bottom:8px;height:30px">取车：点选图中亮蓝色车位</div>`;
+    }
+  }
+  if(S.page==='dock'){
+    const put=j.kind==='store';
+    h+=`<div class="body"><div class="lab" style="margin-top:2px">${put?'存车':'取车'} · 出入口</div><div style="font-size:27px;font-weight:700;line-height:38px">${put?'请放入车辆':'请取走车辆'}</div>
+      <div class="chk" data-ctl="pTray" style="${j.notray?'color:var(--mute)':''}"><i class="dot ${j.notray?'':'ok'}"></i>${j.notray?'等待托盘到位':'托盘已到位'}</div>
+      <div class="chk" data-ctl="pHand" style="${j.hand?'color:var(--warn)':''}"><i class="dot ${j.hand?'no blink':'ok'}"></i>${j.hand?'检测到手，请离开':'出入口无遮挡'}</div></div>`;
+    if(put){h+=`<div class="btn ${j.hand?'off':'pri'}" style="bottom:54px;height:50px" data-act="${j.hand?'':'ok'}" data-ctl="bOk">确认存车</div><div class="btn sec" style="bottom:10px;height:36px;font-size:16px;font-weight:400" data-act="cancel" data-ctl="bCancel">取消</div>`}
+    else h+=`<div class="btn ${j.hand?'off':'pri'}" style="bottom:12px;height:54px" data-act="${j.hand?'':'done'}" data-ctl="bTaken">已取走，完成</div>`;
+  }
+  if(S.page==='prog'){
+    const k=j.i,N=j.steps.length;
+    h+=`<div class="body"><div class="lab" style="margin-top:2px" data-ctl="tJob">${j.kind==='store'?'存车中':'取车中'} · <span class="num" style="font-size:16px">${j.l}F</span> ${CN[j.d]}</div>
+      <div class="h" style="margin-top:6px;height:56px" data-ctl="tStep">${j.steps[k]}</div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="lab">步骤</span><span class="num" style="font-size:17px;color:var(--acc)" data-ctl="tIdx">${k+1} / ${N}</span></div>
+      <div style="height:6px;border-radius:3px;background:#1A2740;margin-top:6px" data-ctl="jStep"><div style="height:6px;border-radius:3px;width:${Math.round((k+1)*100/N)}%;background:linear-gradient(90deg,#0EA5E9,#22D3EE);box-shadow:0 0 8px #22D3EE"></div></div>
+      <div style="display:flex;align-items:baseline;gap:6px;margin-top:14px"><span class="lab">预计还需</span><span class="num" style="font-size:40px;line-height:40px;color:#fff" data-ctl="nEta">${(N-k)*4}</span><span class="lab">秒</span></div></div>`;
+    h+=`<div class="btn hint" style="bottom:8px;height:30px">运行中 · 紧急情况请按急停</div>`;
+  }
+  $('side').innerHTML=h;
+}
+
+function drawFault(){
+  const ok=S.chk[0]&&S.chk[1];
+  $('fault').innerHTML=`<div style="position:absolute;left:0;top:0;width:480px;height:3px;background:var(--bad);box-shadow:0 0 14px var(--bad)"></div>
+  <div style="position:absolute;left:16px;top:14px;font-size:14px;color:var(--bad)"><span class="blink">●</span> 故障 · 已停止全部动作</div>
+  <div class="num" style="position:absolute;right:16px;top:12px;font-size:17px;color:var(--mute)" data-ctl="tClk">${clock()}</div>
+  <div class="num" style="position:absolute;left:16px;top:38px;font-size:84px;line-height:88px;color:var(--bad);font-weight:600" data-ctl="tCode">E12</div>
+  <div style="position:absolute;left:180px;top:48px;width:286px"><div style="font-size:24px;font-weight:700;line-height:30px" data-ctl="tTitle">拨叉伸出超时</div><div style="font-size:15px;line-height:22px;margin-top:6px;color:#D5B9BE" data-ctl="tDesc">1F 东北位 · 第 4 步“送入车位”<br>请检查托盘是否卡在交接缝上</div></div>
+  <div style="position:absolute;left:16px;top:140px;font-size:14px;color:var(--mute)">确认下面两项后才能回零</div>
+  <div class="tog ${S.chk[0]?'on':''}" style="left:16px;top:164px;width:220px" data-act="c0" data-ctl="c0"><b>${S.chk[0]?'✓':''}</b>交接缝上没有托盘</div>
+  <div class="tog ${S.chk[1]?'on':''}" style="left:244px;top:164px;width:220px" data-act="c1" data-ctl="c1"><b>${S.chk[1]?'✓':''}</b>拨叉已完全收回</div>
+  <div class="fbtn" style="left:16px;top:218px;width:448px;height:42px;${ok?'background:linear-gradient(180deg,#3BE0F5,#0EA5E9);color:#03131D;box-shadow:0 0 5px #22D3EE55':'border:1px dashed #6B2B36;color:#8E5A63;font-weight:400;font-size:16px'}" data-act="${ok?'rehome':''}" data-ctl="bHome">${ok?'回零并恢复运行':'请先勾选上面两项'}</div>`;
+}
+function drawEstop(){
+  const stripe='repeating-linear-gradient(135deg,#FF4D5E 0 10px,#0B0A0D 10px 20px)';
+  $('estop').innerHTML=`<div style="position:absolute;left:0;top:0;width:480px;height:8px;background:${stripe}"></div>
+  <div style="position:absolute;left:0;bottom:0;width:480px;height:8px;background:${stripe}"></div>
+  <div style="position:absolute;left:28px;top:40px;font-size:76px;font-weight:700;line-height:88px;color:var(--bad);letter-spacing:8px;text-shadow:0 0 26px #FF4D5E99">急停</div>
+  <div style="position:absolute;left:218px;top:56px;font-size:20px;font-weight:700;line-height:30px">电机动力已切断</div>
+  <div style="position:absolute;left:218px;top:90px;font-size:15px;line-height:22px;color:var(--mute)">主控和屏幕保持供电<br>车位记录未丢失</div>
+  <div style="position:absolute;left:28px;top:158px;width:424px;border-top:1px solid #3A2228;padding-top:12px;font-size:15px;line-height:24px;color:#D8DEE8">排除危险后，顺时针旋转松开急停按钮。<br>松开后屏幕会进入位置确认，不会自动运动。</div>
+  <div class="blink" style="position:absolute;right:28px;top:24px;font-size:14px;color:var(--bad)">● 按钮按下中</div>`;
+}
+function drawIdle(){
+  const [n,t]=free(),c=clock();
+  $('idle').innerHTML=`<div class="num" style="position:absolute;left:0;top:34px;width:480px;text-align:center;font-size:124px;line-height:124px;font-weight:300;color:#fff;letter-spacing:4px">${c.slice(0,2)}<span class="blink" style="color:var(--acc);text-shadow:0 0 18px var(--acc)">:</span>${c.slice(3)}</div>
+  <div style="position:absolute;left:40px;top:184px;width:400px"><div class="seg">${Array.from({length:t},(_,i)=>`<i class="${i<t-n?'k':''}" style="height:4px"></i>`).join('')}</div>
+  <div style="display:flex;justify-content:space-between;align-items:baseline;margin-top:10px">
+  <span style="font-size:16px;color:var(--mute)">空位 <span class="num" style="font-size:36px;color:var(--acc)">${n}</span><span class="num" style="font-size:18px"> / ${t}</span></span>
+  <span style="font-size:15px;color:var(--dim)">轻触屏幕开始</span></div></div>`;
+}
+function drawPwd(){
+  let k='';['1','2','3','4','5','6','7','8','9','←','0','×'].forEach((c,i)=>{k+=`<div class="key num" style="left:${252+(i%3)*72}px;top:${13+Math.floor(i/3)*63}px;${i===9||i===11?'color:var(--mute);font-size:22px':''}" data-key="${c}">${c}</div>`});
+  $('pwd').innerHTML=`<div style="position:absolute;left:0;top:0;width:236px;height:272px;background:var(--bg);border-right:1px solid var(--line);padding:30px 22px">
+  <div style="font-size:24px;font-weight:700">维护密码</div><div style="font-size:14px;color:var(--mute);margin-top:6px;line-height:22px">点动、回零、标定仅限<br>维护人员操作</div>
+  <div style="display:flex;gap:12px;margin-top:36px">${[0,1,2,3].map(i=>{const f=i<S.pin.length;return `<i data-ctl="d${i}" style="width:38px;height:46px;border-radius:10px;border:1px solid ${f?'var(--acc)':'var(--line2)'};background:${f?'#0D2230':'#0A1120'};display:flex;align-items:center;justify-content:center">${f?'<b style="width:10px;height:10px;border-radius:50%;background:var(--acc);box-shadow:0 0 8px var(--acc)"></b>':''}</i>`}).join('')}</div></div>${k}`;
+}
+function drawMaint(){
+  const tabs=['点动','标定','传感器'];let h=`<div class="mt">${tabs.map((t,i)=>`<div class="${S.mt===i?'on':''}" data-act="m${i}">${t}</div>`).join('')}<div class="x" data-act="home">退出</div></div>`;
+  if(S.mt===0){
+    [['升降','12 480'],['旋转','3 200'],['拨叉','0']].forEach(a=>{h+=`<div class="row"><span class="n">${a[0]}</span><span class="v num">${a[1]} <small>步</small></span><span class="sq">−</span><span class="sq">+</span></div>`});
+    h+=`<div style="display:flex;align-items:center;gap:8px;padding:14px 14px 0"><span class="lab" style="margin-right:4px">步长</span>${[1,10,100].map(v=>`<span class="pill num ${S.step===v?'on':''}" data-act="s${v}">${v}</span>`).join('')}<span style="flex:1"></span><span class="pill sig">全部回零</span></div>`;
+  }
+  if(S.mt===1){
+    h+=`<div class="row" style="height:58px"><span class="sq">◀</span><span style="flex:1;text-align:center;font-size:24px;font-weight:700"><span class="num" style="font-weight:600">1F</span> · 东北</span><span class="sq">▶</span></div>
+    <div class="row"><span class="n" style="width:96px">啮合高度</span><span class="v num">12 480 <small>当前</small></span><span class="v num" style="color:var(--mute)">12 464 <small>已存</small></span></div>
+    <div class="row"><span class="n" style="width:96px">转角</span><span class="v num">3 200 <small>当前</small></span><span class="v num" style="color:var(--mute)">3 196 <small>已存</small></span></div>
+    <div style="display:flex;gap:8px;padding:14px"><span class="pill" style="flex:1">去点动页微调</span><span class="pill sig" style="flex:1">录入当前位置</span></div>`;
+  }
+  if(S.mt===2){
+    const L=[['东 托盘',1],['东北 托盘',1],['北 托盘',1],['西北 托盘',1],['西 托盘',1],['西南 托盘',1],['出入口 托盘',1],['东南 托盘',1],['转运台 托盘',0],['拨叉收回',1],['拨叉伸出',0],['升降下限',0],['出入口红外',0],['急停回路',1],['层板 0x20',1],['层板 0x21',0]];
+    h+=`<div style="display:flex;flex-wrap:wrap;padding-top:10px">${L.map(x=>`<div class="lamp" style="${x[1]?'':'color:var(--dim)'}"><i class="dot ${x[1]?'ok':''}"></i>${x[0]}</div>`).join('')}</div>
+    <div style="position:absolute;left:14px;right:14px;bottom:12px;border-top:1px solid #18243A;padding-top:8px;display:flex;justify-content:space-between" class="lab"><span>亮 = 有信号 · 每 200 ms 刷新</span><span class="num" style="font-size:16px">I2C1 100 kHz</span></div>`;
+  }
+  $('maint').innerHTML=h;
+}
+
+function draw(){
+  const main=['home','dock','prog'].includes(S.page);
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('on'));
+  $(main?'main':S.page).classList.add('on');
+  if(main){drawMap();side()}
+  ({fault:drawFault,estop:drawEstop,idle:drawIdle,pwd:drawPwd,maint:drawMaint}[S.page]||(()=>{}))();
+}
+let tm=null;
+function go(p){clearInterval(tm);S.page=p;S.pin='';S.chk=[0,0];if(p==='home'){S.job=null;S.sel=null}draw()}
+function run(steps,heads,after){const j=S.job;j.steps=steps;j.i=0;S.page='prog';S.head=heads[0];draw();
+  tm=setInterval(()=>{j.i++;if(j.i>=steps.length){clearInterval(tm);after();return}S.head=heads[j.i]||S.head;draw()},1300)}
+function hand(){S.job.hand=1;draw();setTimeout(()=>{if(S.job){S.job.hand=0;draw()}},1800)}
+function demoGet(){go('home');S.layer=1;S.sel={l:1,d:'N'};draw()}
+function act(a){
+  if(!a)return;
+  if(a==='l1'||a==='l2'){S.layer=+a[1];draw()}
+  else if(a==='home')go('home');
+  else if(a==='store'){go('home');S.layer=1;S.job={kind:'store',l:1,d:'NE'};S.page='dock';hand()}
+  else if(a==='cancel')go('home');
+  else if(a==='ok'){const j=S.job;run(['从出入口拉回托盘','旋转至'+CN[j.d]+'位','升至啮合高度','送入车位','拨叉收回','预置空托盘到出入口'],['S',j.d,j.d,j.d,j.d,'S'],()=>{S.bay[j.l][j.d]=2;go('home')})}
+  else if(a==='get'){const s=S.sel;S.job={kind:'get',l:s.l,d:s.d};S.sel=null;S.layer=s.l;
+    run(['送回出入口空托盘','旋转至'+CN[s.d]+'位','取出载车托盘','旋转至出入口','送到出入口'],['S',s.d,s.d,'S','S'],()=>{S.bay[s.l][s.d]=1;S.layer=1;S.page='dock';hand()})}
+  else if(a==='done')go('home');
+  else if(a==='c0'||a==='c1'){S.chk[+a[1]]^=1;draw()}
+  else if(a==='rehome')go('home');
+  else if(a[0]==='m'){S.mt=+a[1];draw()}
+  else if(a[0]==='s'){S.step=+a.slice(1);draw()}
+}
+let hold=null;
+$('scr').addEventListener('pointerdown',e=>{if(e.target.closest('[data-hold]'))hold=setTimeout(()=>go('pwd'),1500)});
+addEventListener('pointerup',()=>clearTimeout(hold));
+$('scr').addEventListener('click',e=>{
+  if(S.page==='idle'){go('home');return}
+  const k=e.target.closest('[data-key]');
+  if(k){const c=k.dataset.key;if(c==='×'){go('home');return}if(c==='←')S.pin=S.pin.slice(0,-1);else S.pin+=c;draw();if(S.pin.length===4)setTimeout(()=>go('maint'),250);return}
+  const b=e.target.closest('[data-bay]');
+  if(b&&S.page==='home'){const d=b.dataset.bay;if(S.bay[S.layer][d]===2&&d!=='S'){S.sel=(S.sel&&S.sel.d===d&&S.sel.l===S.layer)?null:{l:S.layer,d};draw()}return}
+  const t=e.target.closest('[data-act]');if(t)act(t.dataset.act);
+});
+setInterval(()=>{if(S.page==='idle'||S.page==='home')draw()},30000);
+draw();
+</script>
+</body>
+</html>

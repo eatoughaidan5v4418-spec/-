@@ -1,0 +1,254 @@
+{
+  "status": "PHOTO_ESTIMATE_NOT_MEASURED",
+  "view": "module front/component side, single control row on right",
+  "body_mm": [
+    21,
+    26
+  ],
+  "pitch_mm": 2.54,
+  "outer_span_mm": 19.05,
+  "double_row_span_mm": 2.54,
+  "remaining_span_mm": 16.51,
+  "pads": [
+    {
+      "number": 1,
+      "signal": "A2",
+      "x_mm": 9.525,
+      "y_mm": -11.43,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 2,
+      "signal": "A1",
+      "x_mm": 9.525,
+      "y_mm": -8.89,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 3,
+      "signal": "A0",
+      "x_mm": 9.525,
+      "y_mm": -6.35,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 4,
+      "signal": "RESET",
+      "x_mm": 9.525,
+      "y_mm": -3.81,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 5,
+      "signal": "NC_SO",
+      "x_mm": 9.525,
+      "y_mm": -1.27,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 6,
+      "signal": "NC_CS",
+      "x_mm": 9.525,
+      "y_mm": 1.27,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 7,
+      "signal": "SDA",
+      "x_mm": 9.525,
+      "y_mm": 3.81,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 8,
+      "signal": "SCL",
+      "x_mm": 9.525,
+      "y_mm": 6.35,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 9,
+      "signal": "GND",
+      "x_mm": 9.525,
+      "y_mm": 8.89,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 10,
+      "signal": "VCC",
+      "x_mm": 9.525,
+      "y_mm": 11.43,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 11,
+      "signal": "VCC",
+      "x_mm": -6.985,
+      "y_mm": -11.43,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 12,
+      "signal": "INTB",
+      "x_mm": -6.985,
+      "y_mm": -8.89,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 13,
+      "signal": "GPB0",
+      "x_mm": -6.985,
+      "y_mm": -6.35,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 14,
+      "signal": "GPB1",
+      "x_mm": -6.985,
+      "y_mm": -3.81,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 15,
+      "signal": "GPB2",
+      "x_mm": -6.985,
+      "y_mm": -1.27,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 16,
+      "signal": "GPB3",
+      "x_mm": -6.985,
+      "y_mm": 1.27,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 17,
+      "signal": "GPB4",
+      "x_mm": -6.985,
+      "y_mm": 3.81,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 18,
+      "signal": "GPB5",
+      "x_mm": -6.985,
+      "y_mm": 6.35,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 19,
+      "signal": "GPB6",
+      "x_mm": -6.985,
+      "y_mm": 8.89,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 20,
+      "signal": "GPB7",
+      "x_mm": -6.985,
+      "y_mm": 11.43,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 21,
+      "signal": "GND",
+      "x_mm": -9.525,
+      "y_mm": -11.43,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 22,
+      "signal": "INTA",
+      "x_mm": -9.525,
+      "y_mm": -8.89,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 23,
+      "signal": "GPA0",
+      "x_mm": -9.525,
+      "y_mm": -6.35,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 24,
+      "signal": "GPA1",
+      "x_mm": -9.525,
+      "y_mm": -3.81,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 25,
+      "signal": "GPA2",
+      "x_mm": -9.525,
+      "y_mm": -1.27,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 26,
+      "signal": "GPA3",
+      "x_mm": -9.525,
+      "y_mm": 1.27,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 27,
+      "signal": "GPA4",
+      "x_mm": -9.525,
+      "y_mm": 3.81,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 28,
+      "signal": "GPA5",
+      "x_mm": -9.525,
+      "y_mm": 6.35,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 29,
+      "signal": "GPA6",
+      "x_mm": -9.525,
+      "y_mm": 8.89,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    },
+    {
+      "number": 30,
+      "signal": "GPA7",
+      "x_mm": -9.525,
+      "y_mm": 11.43,
+      "pad_diameter_mm": 1.8,
+      "drill_mm": 1.0
+    }
+  ]
+}

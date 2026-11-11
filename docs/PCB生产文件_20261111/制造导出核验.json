@@ -1,0 +1,58 @@
+[
+  {
+    "pcb": 1,
+    "Gerber": "PCB1_20261111_Gerber.zip",
+    "sha256": "000ebeaa0cd2bf1fedb615fe6c548a3aa0160330d82296d6efe2b755fda2c300",
+    "files": [
+      "Gerber_TopLayer.GTL",
+      "Gerber_BottomLayer.GBL",
+      "Gerber_TopSilkscreenLayer.GTO",
+      "Gerber_BottomSilkscreenLayer.GBO",
+      "Gerber_TopSolderMaskLayer.GTS",
+      "Gerber_BottomSolderMaskLayer.GBS",
+      "Gerber_TopPasteMaskLayer.GTP",
+      "Gerber_BoardOutlineLayer.GKO",
+      "Gerber_DocumentLayer.GDL",
+      "Gerber_DrillDrawingLayer.GDD",
+      "Drill_PTH_Through.DRL",
+      "Drill_NPTH_Through.DRL",
+      "Drill_PTH_Through_Via.DRL",
+      "FlyingProbeTesting.json",
+      "PCB下单必读.txt"
+    ],
+    "placement": "PCB1_20261111_坐标.csv",
+    "placement_sha256": "ef7798e55dec8f2bde1911b1bf21ea50711e5485ac6334c423db90885cd97bbd",
+    "semanticSha256": "0539d8e373708d01ddfa79e89fbd2198bb3f6dda26550c2645b39df81e92e0e9",
+    "outlineReadbackLimitation": [
+      "board outline is an AABB approximation (connector reported outline format unexpected-start:R) — edge distances on a non-rectangular board are approximate"
+    ]
+  },
+  {
+    "pcb": 2,
+    "Gerber": "PCB2_20261111_Gerber.zip",
+    "sha256": "1f35c98bb276b2f3bb84c20a3fbb7bb165764b3ee0bedf57e3cf439665f882f2",
+    "files": [
+      "Gerber_TopLayer.GTL",
+      "Gerber_BottomLayer.GBL",
+      "Gerber_TopSilkscreenLayer.GTO",
+      "Gerber_BottomSilkscreenLayer.GBO",
+      "Gerber_TopSolderMaskLayer.GTS",
+      "Gerber_BottomSolderMaskLayer.GBS",
+      "Gerber_TopPasteMaskLayer.GTP",
+      "Gerber_BoardOutlineLayer.GKO",
+      "Gerber_DocumentLayer.GDL",
+      "Gerber_DrillDrawingLayer.GDD",
+      "Drill_PTH_Through.DRL",
+      "Drill_NPTH_Through.DRL",
+      "Drill_PTH_Through_Via.DRL",
+      "FlyingProbeTesting.json",
+      "PCB下单必读.txt"
+    ],
+    "placement": "PCB2_20261111_坐标.csv",
+    "placement_sha256": "a9f89f971d879335653d411485718be30b8675b60ad51ca2adbf81df86c038e6",
+    "semanticSha256": "22f6ce9131700694b148e7a97c2eafbe67f3ba6bc5f10331f3055ed7370536cc",
+    "outlineReadbackLimitation": [
+      "board outline is an AABB approximation (connector reported outline format unexpected-start:R) — edge distances on a non-rectangular board are approximate"
+    ]
+  }
+]

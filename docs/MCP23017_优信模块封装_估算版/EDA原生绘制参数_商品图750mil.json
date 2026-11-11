@@ -1,0 +1,559 @@
+{
+  "pads": [
+    {
+      "shape": [
+        "RECT",
+        70.8661,
+        70.8661,
+        0
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 450,
+      "number": "1",
+      "x": 375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 350,
+      "number": "2",
+      "x": 375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 250,
+      "number": "3",
+      "x": 375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 150,
+      "number": "4",
+      "x": 375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 50,
+      "number": "5",
+      "x": 375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -50,
+      "number": "6",
+      "x": 375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -150,
+      "number": "7",
+      "x": 375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -250,
+      "number": "8",
+      "x": 375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -350,
+      "number": "9",
+      "x": 375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -450,
+      "number": "10",
+      "x": 375
+    },
+    {
+      "shape": [
+        "RECT",
+        70.8661,
+        70.8661,
+        0
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 450,
+      "number": "11",
+      "x": -275
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 350,
+      "number": "12",
+      "x": -275
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 250,
+      "number": "13",
+      "x": -275
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 150,
+      "number": "14",
+      "x": -275
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 50,
+      "number": "15",
+      "x": -275
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -50,
+      "number": "16",
+      "x": -275
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -150,
+      "number": "17",
+      "x": -275
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -250,
+      "number": "18",
+      "x": -275
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -350,
+      "number": "19",
+      "x": -275
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -450,
+      "number": "20",
+      "x": -275
+    },
+    {
+      "shape": [
+        "RECT",
+        70.8661,
+        70.8661,
+        0
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 450,
+      "number": "21",
+      "x": -375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 350,
+      "number": "22",
+      "x": -375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 250,
+      "number": "23",
+      "x": -375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 150,
+      "number": "24",
+      "x": -375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": 50,
+      "number": "25",
+      "x": -375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -50,
+      "number": "26",
+      "x": -375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -150,
+      "number": "27",
+      "x": -375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -250,
+      "number": "28",
+      "x": -375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -350,
+      "number": "29",
+      "x": -375
+    },
+    {
+      "shape": [
+        "ELLIPSE",
+        70.8661,
+        70.8661
+      ],
+      "hole": [
+        "ROUND",
+        39.3701
+      ],
+      "metallization": true,
+      "padType": 0,
+      "layer": 12,
+      "y": -450,
+      "number": "30",
+      "x": -375
+    }
+  ],
+  "lines": [
+    {
+      "endX": 413.38582677165357,
+      "startX": -413.38582677165357,
+      "layer": 3,
+      "width": 4,
+      "startY": 511.8110236220473,
+      "endY": 511.8110236220473
+    },
+    {
+      "endX": 413.38582677165357,
+      "startX": 413.38582677165357,
+      "layer": 3,
+      "width": 4,
+      "startY": 511.8110236220473,
+      "endY": -511.8110236220473
+    },
+    {
+      "endX": -413.38582677165357,
+      "startX": 413.38582677165357,
+      "layer": 3,
+      "width": 4,
+      "startY": -511.8110236220473,
+      "endY": -511.8110236220473
+    },
+    {
+      "endX": -413.38582677165357,
+      "startX": -413.38582677165357,
+      "layer": 3,
+      "width": 4,
+      "startY": -511.8110236220473,
+      "endY": 511.8110236220473
+    },
+    {
+      "endX": 375,
+      "startX": 335,
+      "layer": 3,
+      "width": 4,
+      "startY": 511.8110236220473,
+      "endY": 490
+    }
+  ]
+}

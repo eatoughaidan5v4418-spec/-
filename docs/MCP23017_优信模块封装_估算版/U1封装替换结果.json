@@ -1,0 +1,17 @@
+{
+  "id": "req_817",
+  "type": "response",
+  "version": "v1",
+  "windowId": "b4ddf90f-f231-4ada-9693-6477f0ed11ed",
+  "createdAt": "2026-11-11T01:05:57.7225071Z",
+  "ok": false,
+  "error": {
+    "code": "INVALID_STATE",
+    "message": "Cannot resolve the placed component's 32-char device-library uuid (invalid native DEVICE source: DEVICE source or placed footprint association is incomplete; instance footprint uuid=\"a86a9de8a04e92b8\", libraryUuid=\"stdPublic\"; instance/library UUID domains require native META.source plus exact LCSC/model and official asset-library evidence) — aborting BEFORE any canvas change because rollback would be impossible. Note: the component's own device.uuid is a 16-char placed-symbol id and cannot re-create the part."
+  },
+  "seq": 541,
+  "seqAbandoned": 1,
+  "abandonedIds": [
+    "req_784"
+  ]
+}

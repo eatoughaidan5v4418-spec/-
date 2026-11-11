@@ -1,0 +1,171 @@
+{
+  "1": {
+    "nativeDRC": {
+      "passed": true,
+      "violations": []
+    },
+    "save": {
+      "saved": true
+    },
+    "standaloneNPTH": [
+      {
+        "hole": [
+          "ROUND",
+          125.9843
+        ],
+        "metallization": false,
+        "net": "",
+        "primitiveId": "0fe4a6ed06bbfe4a",
+        "shape": [
+          "ELLIPSE",
+          126,
+          126
+        ],
+        "x": 3809,
+        "y": 3790
+      },
+      {
+        "hole": [
+          "ROUND",
+          125.9843
+        ],
+        "metallization": false,
+        "net": "",
+        "primitiveId": "6a23de75b8ee5be5",
+        "shape": [
+          "ELLIPSE",
+          126,
+          126
+        ],
+        "x": 3809,
+        "y": 2000
+      },
+      {
+        "hole": [
+          "ROUND",
+          125.9843
+        ],
+        "metallization": false,
+        "net": "",
+        "primitiveId": "5cad59c6fd8ffdcc",
+        "shape": [
+          "ELLIPSE",
+          126,
+          126
+        ],
+        "x": 3809,
+        "y": 170
+      },
+      {
+        "hole": [
+          "ROUND",
+          125.9843
+        ],
+        "metallization": false,
+        "net": "",
+        "primitiveId": "ac5b0fc94a46b188",
+        "shape": [
+          "ELLIPSE",
+          126,
+          126
+        ],
+        "x": 170,
+        "y": 170
+      }
+    ],
+    "freeStringCount": 107,
+    "freeStringStyle": "default, 35mil high, 3mil stroke",
+    "freeStringPadViaHeadCollisionsAt6mil": [],
+    "keepoutDiameterMM": 7,
+    "keepoutsCount": 8,
+    "preserveSilos": false,
+    "manufactureNPTH3_2mmCount": 4,
+    "nativeRoundedOutlineArcCount": 4
+  },
+  "2": {
+    "nativeDRC": {
+      "passed": true,
+      "violations": []
+    },
+    "save": {
+      "saved": true
+    },
+    "standaloneNPTH": [
+      {
+        "hole": [
+          "ROUND",
+          125.9843
+        ],
+        "metallization": false,
+        "net": "",
+        "primitiveId": "e1d198513cca5ad4",
+        "shape": [
+          "ELLIPSE",
+          126,
+          126
+        ],
+        "x": 157,
+        "y": -157
+      },
+      {
+        "hole": [
+          "ROUND",
+          125.9843
+        ],
+        "metallization": false,
+        "net": "",
+        "primitiveId": "3c5c8374c6fece5d",
+        "shape": [
+          "ELLIPSE",
+          126,
+          126
+        ],
+        "x": 1600,
+        "y": -150
+      },
+      {
+        "hole": [
+          "ROUND",
+          125.9843
+        ],
+        "metallization": false,
+        "net": "",
+        "primitiveId": "1c7d6449f07a3264",
+        "shape": [
+          "ELLIPSE",
+          126,
+          126
+        ],
+        "x": 1600,
+        "y": -1025
+      },
+      {
+        "hole": [
+          "ROUND",
+          125.9843
+        ],
+        "metallization": false,
+        "net": "",
+        "primitiveId": "4d5bd1b83c4eff1c",
+        "shape": [
+          "ELLIPSE",
+          126,
+          126
+        ],
+        "x": 170,
+        "y": -1580
+      }
+    ],
+    "freeStringCount": 76,
+    "freeStringStyle": "default, 35mil high, 3mil stroke",
+    "freeStringPadViaHeadCollisionsAt6mil": [],
+    "keepoutDiameterMM": 7,
+    "keepoutsCount": 8,
+    "preserveSilos": false,
+    "manufactureNPTH3_2mmCount": 4,
+    "nativeRoundedOutlineArcCount": 4
+  },
+  "U1FullComponentAndPadsUnchanged": true,
+  "PMODPin7SpacingMil": 900,
+  "PMODPin7SpacingMM": 22.86
+}

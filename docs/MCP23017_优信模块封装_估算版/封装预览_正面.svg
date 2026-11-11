@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1050" viewBox="-23 -21 46 48">
+<rect x="-23" y="-21" width="46" height="48" fill="#10212e"/>
+<g font-family="Arial,Microsoft YaHei" fill="white" text-anchor="middle">
+<text x="0" y="-18" font-size="1.1">MCP23017 / YouXin / FRONT VIEW</text>
+<text x="0" y="-16.2" font-size=".85" fill="#ffcc66">PHOTO ESTIMATE - NOT MEASURED</text>
+<rect x="-10.5" y="-13" width="21" height="26" fill="#173c40" stroke="#97c6b0" stroke-width=".13"/>
+<rect x="8.625" y="-12.33" width="1.8" height="1.8" fill="#e9b65a"/>
+<circle cx="9.525" cy="-11.43" r=".5" fill="#10212e"/>
+<text x="15.6" y="-11.2" font-size=".72">1: A2</text>
+<circle cx="9.525" cy="-8.89" r=".9" fill="#e9b65a"/>
+<circle cx="9.525" cy="-8.89" r=".5" fill="#10212e"/>
+<text x="15.6" y="-8.66" font-size=".72">2: A1</text>
+<circle cx="9.525" cy="-6.35" r=".9" fill="#e9b65a"/>
+<circle cx="9.525" cy="-6.35" r=".5" fill="#10212e"/>
+<text x="15.6" y="-6.119999999999999" font-size=".72">3: A0</text>
+<circle cx="9.525" cy="-3.81" r=".9" fill="#e9b65a"/>
+<circle cx="9.525" cy="-3.81" r=".5" fill="#10212e"/>
+<text x="15.6" y="-3.58" font-size=".72">4: RESET</text>
+<circle cx="9.525" cy="-1.27" r=".9" fill="#e9b65a"/>
+<circle cx="9.525" cy="-1.27" r=".5" fill="#10212e"/>
+<text x="15.6" y="-1.04" font-size=".72">5: NC_SO</text>
+<circle cx="9.525" cy="1.27" r=".9" fill="#e9b65a"/>
+<circle cx="9.525" cy="1.27" r=".5" fill="#10212e"/>
+<text x="15.6" y="1.5" font-size=".72">6: NC_CS</text>
+<circle cx="9.525" cy="3.81" r=".9" fill="#e9b65a"/>
+<circle cx="9.525" cy="3.81" r=".5" fill="#10212e"/>
+<text x="15.6" y="4.04" font-size=".72">7: SDA</text>
+<circle cx="9.525" cy="6.35" r=".9" fill="#e9b65a"/>
+<circle cx="9.525" cy="6.35" r=".5" fill="#10212e"/>
+<text x="15.6" y="6.58" font-size=".72">8: SCL</text>
+<circle cx="9.525" cy="8.89" r=".9" fill="#e9b65a"/>
+<circle cx="9.525" cy="8.89" r=".5" fill="#10212e"/>
+<text x="15.6" y="9.120000000000001" font-size=".72">9: GND</text>
+<circle cx="9.525" cy="11.43" r=".9" fill="#e9b65a"/>
+<circle cx="9.525" cy="11.43" r=".5" fill="#10212e"/>
+<text x="15.6" y="11.66" font-size=".72">10: VCC</text>
+<rect x="-7.885000000000001" y="-12.33" width="1.8" height="1.8" fill="#e9b65a"/>
+<circle cx="-6.985" cy="-11.43" r=".5" fill="#10212e"/>
+<text x="-2.8" y="-11.2" font-size=".72">11: VCC</text>
+<circle cx="-6.985" cy="-8.89" r=".9" fill="#e9b65a"/>
+<circle cx="-6.985" cy="-8.89" r=".5" fill="#10212e"/>
+<text x="-2.8" y="-8.66" font-size=".72">12: INTB</text>
+<circle cx="-6.985" cy="-6.35" r=".9" fill="#e9b65a"/>
+<circle cx="-6.985" cy="-6.35" r=".5" fill="#10212e"/>
+<text x="-2.8" y="-6.119999999999999" font-size=".72">13: GPB0</text>
+<circle cx="-6.985" cy="-3.81" r=".9" fill="#e9b65a"/>
+<circle cx="-6.985" cy="-3.81" r=".5" fill="#10212e"/>
+<text x="-2.8" y="-3.58" font-size=".72">14: GPB1</text>
+<circle cx="-6.985" cy="-1.27" r=".9" fill="#e9b65a"/>
+<circle cx="-6.985" cy="-1.27" r=".5" fill="#10212e"/>
+<text x="-2.8" y="-1.04" font-size=".72">15: GPB2</text>
+<circle cx="-6.985" cy="1.27" r=".9" fill="#e9b65a"/>
+<circle cx="-6.985" cy="1.27" r=".5" fill="#10212e"/>
+<text x="-2.8" y="1.5" font-size=".72">16: GPB3</text>
+<circle cx="-6.985" cy="3.81" r=".9" fill="#e9b65a"/>
+<circle cx="-6.985" cy="3.81" r=".5" fill="#10212e"/>
+<text x="-2.8" y="4.04" font-size=".72">17: GPB4</text>
+<circle cx="-6.985" cy="6.35" r=".9" fill="#e9b65a"/>
+<circle cx="-6.985" cy="6.35" r=".5" fill="#10212e"/>
+<text x="-2.8" y="6.58" font-size=".72">18: GPB5</text>
+<circle cx="-6.985" cy="8.89" r=".9" fill="#e9b65a"/>
+<circle cx="-6.985" cy="8.89" r=".5" fill="#10212e"/>
+<text x="-2.8" y="9.120000000000001" font-size=".72">19: GPB6</text>
+<circle cx="-6.985" cy="11.43" r=".9" fill="#e9b65a"/>
+<circle cx="-6.985" cy="11.43" r=".5" fill="#10212e"/>
+<text x="-2.8" y="11.66" font-size=".72">20: GPB7</text>
+<rect x="-10.425" y="-12.33" width="1.8" height="1.8" fill="#e9b65a"/>
+<circle cx="-9.525" cy="-11.43" r=".5" fill="#10212e"/>
+<text x="-16" y="-11.2" font-size=".72">21: GND</text>
+<circle cx="-9.525" cy="-8.89" r=".9" fill="#e9b65a"/>
+<circle cx="-9.525" cy="-8.89" r=".5" fill="#10212e"/>
+<text x="-16" y="-8.66" font-size=".72">22: INTA</text>
+<circle cx="-9.525" cy="-6.35" r=".9" fill="#e9b65a"/>
+<circle cx="-9.525" cy="-6.35" r=".5" fill="#10212e"/>
+<text x="-16" y="-6.119999999999999" font-size=".72">23: GPA0</text>
+<circle cx="-9.525" cy="-3.81" r=".9" fill="#e9b65a"/>
+<circle cx="-9.525" cy="-3.81" r=".5" fill="#10212e"/>
+<text x="-16" y="-3.58" font-size=".72">24: GPA1</text>
+<circle cx="-9.525" cy="-1.27" r=".9" fill="#e9b65a"/>
+<circle cx="-9.525" cy="-1.27" r=".5" fill="#10212e"/>
+<text x="-16" y="-1.04" font-size=".72">25: GPA2</text>
+<circle cx="-9.525" cy="1.27" r=".9" fill="#e9b65a"/>
+<circle cx="-9.525" cy="1.27" r=".5" fill="#10212e"/>
+<text x="-16" y="1.5" font-size=".72">26: GPA3</text>
+<circle cx="-9.525" cy="3.81" r=".9" fill="#e9b65a"/>
+<circle cx="-9.525" cy="3.81" r=".5" fill="#10212e"/>
+<text x="-16" y="4.04" font-size=".72">27: GPA4</text>
+<circle cx="-9.525" cy="6.35" r=".9" fill="#e9b65a"/>
+<circle cx="-9.525" cy="6.35" r=".5" fill="#10212e"/>
+<text x="-16" y="6.58" font-size=".72">28: GPA5</text>
+<circle cx="-9.525" cy="8.89" r=".9" fill="#e9b65a"/>
+<circle cx="-9.525" cy="8.89" r=".5" fill="#10212e"/>
+<text x="-16" y="9.120000000000001" font-size=".72">29: GPA6</text>
+<circle cx="-9.525" cy="11.43" r=".9" fill="#e9b65a"/>
+<circle cx="-9.525" cy="11.43" r=".5" fill="#10212e"/>
+<text x="-16" y="11.66" font-size=".72">30: GPA7</text>
+<g fill="#ffcc66" font-size=".9">
+<text x="0" y="16">Outer span = 19.05 mm ? / pitch = 2.54 mm ?</text>
+<text x="0" y="17.7">Double row = 2.54 mm ? / remaining = 16.51 mm ?</text>
+<text x="0" y="19.4">Body = 21 x 26 mm (vendor nominal)</text>
+<text x="0" y="21.1">Pad 1.8 / plated drill 1.0 mm (design choice)</text>
+<text x="0" y="22.8">Square pads = first pin of each column</text>
+</g></g></svg>

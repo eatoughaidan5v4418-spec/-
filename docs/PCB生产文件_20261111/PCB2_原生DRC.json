@@ -1,0 +1,31 @@
+{
+  "id": "req_633",
+  "type": "response",
+  "version": "v1",
+  "windowId": "b4ddf90f-f231-4ada-9693-6477f0ed11ed",
+  "createdAt": "2026-11-11T00:29:00.2073486Z",
+  "ok": true,
+  "result": {
+    "passed": true,
+    "violations": []
+  },
+  "context": {
+    "projectUuid": "19d02698275446db823ff02b06eaf887",
+    "projectName": "立体车库 MCP 原理图重绘 20261107",
+    "documentUuid": "dfd09708ee8af656",
+    "documentType": "pcb",
+    "tabId": "dfd09708ee8af656@19d02698275446db823ff02b06eaf887",
+    "pageVisibility": "visible"
+  },
+  "mutationContext": {
+    "projectUuid": "19d02698275446db823ff02b06eaf887",
+    "projectName": "立体车库 MCP 原理图重绘 20261107",
+    "documentUuid": "dfd09708ee8af656",
+    "documentType": "pcb",
+    "tabId": "dfd09708ee8af656@19d02698275446db823ff02b06eaf887",
+    "pageVisibility": "visible"
+  },
+  "mutationContextAvailable": true,
+  "seq": 400,
+  "seqAbandoned": 0
+}

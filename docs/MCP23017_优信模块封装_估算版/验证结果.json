@@ -1,0 +1,11 @@
+{
+  "pads": 30,
+  "unique_numbers": true,
+  "minimum_center_spacing_mm": 2.54,
+  "minimum_copper_gap_mm": 0.74,
+  "annular_ring_mm": 0.4,
+  "outer_span_mm": 19.05,
+  "syntax": "balanced and parsed KiCad S-expression",
+  "native_EDA_import_verified": false,
+  "physical_dimensions_verified": false
+}
